@@ -28,5 +28,5 @@ class Chessboard{
             data[PositionY+moveY][PositionX+moveX]=chess;
             Put(PositionX+moveX,PositionY+moveY,moveX,moveY);
         }
-    }
+    }//blahblahblah
 }
