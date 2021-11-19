@@ -5,13 +5,13 @@ class Chessboard{
         if (PositionX+moveX>7||PositionX+moveX<0||PositionY+moveY>7||PositionY+moveY<0){
             return false;//detect the edge
         }
-        if(data[PositionY+moveY][PositionX+moveX]==0){
+        if(data[PositionX+moveX][PositionY+moveY]==0){
             return false;//detect empty spaces
         }
-        else if (data[PositionY+moveY][PositionX+moveX]==-chess){
+        else if (data[PositionX+moveX][PositionY+moveY]==-chess){
             return canPut(PositionX+moveX,PositionY+moveY,moveX,moveY,edible+1);
         }
-        else if(data[PositionY+moveY][PositionX+moveX]==chess&&edible!=0){
+        else if(data[PositionX+moveX][PositionY+moveY]==chess&&edible!=0){
             return true;
         }
         else {
@@ -23,9 +23,9 @@ class Chessboard{
                 PositionX+moveX<0&&
                 PositionY+moveY>7&&
                 PositionY+moveY<0)
-                &&data[PositionY+moveY][PositionX+moveX]==-chess)
+                &&data[PositionX+moveX][PositionY+moveY]==-chess)
         {
-            data[PositionY+moveY][PositionX+moveX]=chess;
+            data[PositionX+moveX][PositionY+moveY]=chess;
             Put(PositionX+moveX,PositionY+moveY,moveX,moveY);
         }
     }//blahblahblah
