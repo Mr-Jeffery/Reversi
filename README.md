@@ -1,9 +1,9 @@
-# Reversi
-A school project
-Universal namelist for variables 
-[y][x]
-棋盘名board
-棋子名chess
-当前位置PositionX，PositionY
-移动方向DirectionX，DirectionY
-可吃棋子edible
+# Reversi/n
+A school project;/n
+Universal namelist for variables ;/n
+[y][x];/n
+棋盘名board;/n
+棋子名chess;/n
+当前位置PositionX，PositionY;/n
+移动方向DirectionX，DirectionY;/n
+可吃棋子edible;/n
