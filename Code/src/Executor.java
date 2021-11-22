@@ -16,8 +16,9 @@ class Executor {
         }
         else {
             return false;
-        }//blahblahh
+        }//
     }
+    //jjjjjjjjjjjjjjcan you see it??????
     public void Put(int PositionX, int PositionY, int moveX, int moveY){
         if (!(PositionX+moveX>7&&//detect the edge
                 PositionX+moveX<0&&
