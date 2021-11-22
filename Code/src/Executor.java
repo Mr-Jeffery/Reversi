@@ -1,4 +1,4 @@
-class Chessboard{
+class Executor {
     public int[][] data= new int[8][8];
     public int chess;
     public boolean canPut(int PositionX, int PositionY, int moveX, int moveY,int edible){
@@ -16,17 +16,18 @@ class Chessboard{
         }
         else {
             return false;
-        }
+        }//blahblahh
     }
     public void Put(int PositionX, int PositionY, int moveX, int moveY){
         if (!(PositionX+moveX>7&&//detect the edge
                 PositionX+moveX<0&&
                 PositionY+moveY>7&&
-                PositionY+moveY<0)
-                &&data[PositionX+moveX][PositionY+moveY]==-chess)
+                PositionY+moveY<0)&&
+                data[PositionX+moveX][PositionY+moveY]==-chess)
         {
             data[PositionX+moveX][PositionY+moveY]=chess;
             Put(PositionX+moveX,PositionY+moveY,moveX,moveY);
         }
-    }//blahblahblah
+    }//If Mr.Rbt is reading this:
+    //Du, Verräter der Arbeiterklasse, Verpfeif dich!
 }
