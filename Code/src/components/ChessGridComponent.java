@@ -8,7 +8,7 @@ import java.awt.*;
 public class ChessGridComponent extends BasicComponent {
     public static int chessSize;
     public static int gridSize;
-    public static Color gridColor = new Color(255, 150, 50);
+    public static Color gridColor = new Color(224, 168, 113);
 
     private ChessPiece chessPiece;
     private int row;
