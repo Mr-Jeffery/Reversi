@@ -16,7 +16,7 @@ public class StartGame {
             //当点击的范围在  之间，则当前位置为该位置positionX，positionY；
             int PositionX=1;
             int PositionY=1;
-            if(canSet(PositionX,PositionY,now))
+            if(executor.canPut(now,PositionX,PositionY))
             {
                 for (int i = 0; i < 8; i++)
                     if (executor.canPut(now, PositionX, PositionY, directionX[i], directionY[i], 0))
@@ -41,19 +41,11 @@ public class StartGame {
     for(int i=0;i<8;i++)
         for(int j=0;j<8;j++)
         {
-            if(board[i][j]==0 && canSet(i,j,board[i][j]))ans=true;
+            if(board[i][j]==0 && executor.canPut(i,j,board[i][j]))ans=true;
         }
     return ans;
     }
 
-    public boolean canSet(int PositionX,int PositionY,int now)//这里可以下棋
-    {
-        boolean ans=false;
-        for(int i=0;i<8;i++)
-        {
-            if(executor.canPut(now, PositionX, PositionY, directionX[i], directionY[i], 0))ans=true;
-        }
-        return ans;
-    }
+
 
 }
