@@ -18,9 +18,7 @@ public class StartGame {
             int PositionY=1;
             if(executor.canPut(now,PositionX,PositionY))
             {
-                for (int i = 0; i < 8; i++)
-                    if (executor.canPut(now, PositionX, PositionY, directionX[i], directionY[i], 0))
-                        executor.Put(now, PositionX, PositionY, directionX[i], directionY[i]);
+                executor.Put(now, PositionX, PositionY);
             }
             else
                 //显示："这里不能下棋！！！"
@@ -38,10 +36,10 @@ public class StartGame {
     public boolean canContinue(int [][] board)//游戏可以继续
     {
     boolean ans=false;
-    for(int i=0;i<8;i++)
-        for(int j=0;j<8;j++)
+    for(int PositionX=0;PositionX<8;PositionX++)
+        for(int PositionY=0;PositionY<8;PositionY++)
         {
-            if(board[i][j]==0 && executor.canPut(i,j,board[i][j]))ans=true;
+            if(board[PositionX][PositionY]==0 && executor.canPut(PositionX,PositionY,board[PositionX][PositionY]))ans=true;
         }
     return ans;
     }

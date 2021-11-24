@@ -1,6 +1,6 @@
 class Executor
 {
-    public int[][] data= new int[8][8];
+    private int[][] data= new int[8][8];
     public boolean canPut(int chess,int PositionX, int PositionY, int moveX, int moveY,int edible)
     {
         if (PositionX+moveX>7||PositionX+moveX<0||PositionY+moveY>7||PositionY+moveY<0){
@@ -57,6 +57,15 @@ class Executor
                 Put(chess, PositionX, PositionY, directionX[i], directionY[i]);
             }
         }
+    }
+
+    public void setData(int[][]board)
+    {
+        this.data=board;
+    }
+    public int[][] getBoard()
+    {
+        return this.data;
     }
 
     //If Mr.Rbt is reading this:
