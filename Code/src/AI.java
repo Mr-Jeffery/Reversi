@@ -4,13 +4,13 @@ public class AI
 {
 
 
-    class Node
+    static class Node
     {
         protected int [][]board;
         int chess;
         private int plausible;
-        private long knotNum;
-        private boolean M;
+        final private long knotNum;
+        final private boolean M;
         ArrayList<int[]> subNodeCoordinate = new ArrayList<>();
         ArrayList<Node> subNode = new ArrayList<>();
         int value;
@@ -36,13 +36,10 @@ public class AI
             this.M = M;
             this.chess=chess;
             Executor executor = new Executor();
-            for (int PositionX = 0; PositionX < 8; PositionX++)
-            {
-                for (int PositionY = 0; PositionY < 8; PositionY++)
-                {
+            for (int PositionX = 0; PositionX < 8; PositionX++) {
+                for (int PositionY = 0; PositionY < 8; PositionY++) {
                     executor.setData(board);
-                    if (executor.canPut(chess, PositionX, PositionY))
-                    {
+                    if (executor.canPut(chess, PositionX, PositionY)) {
                         this.subNodeCoordinate.add(new int[]{PositionX, PositionY});
                         plausible++;
                     }
@@ -50,36 +47,27 @@ public class AI
             }
         }
 
-        public int Search()
-        {
-            if (plausible!=0)
-            {
-                for (int PositionX = 0; PositionX < 8; PositionX++)
-                {
-                    for (int PositionY = 0; PositionY < 8; PositionY++)
-                    {
+        public int Search() {
+            if (plausible!=0) {
+                for (int PositionX = 0; PositionX < 8; PositionX++) {
+                    for (int PositionY = 0; PositionY < 8; PositionY++) {
                         value+=WeightTable[PositionX][PositionY];
                     }
                 }
             }else {
-                for (Node N : subNode)
-                {
+                for (Node N : subNode) {
                     N.Search();
-                    if (M)//find max
-                    {
+                    if (M){//find max
                         value=-114514;
-                        if(N.value>this.value)
-                        {
+                        if(N.value>this.value) {
                             this.value=N.value;
-                        }else {continue;}
+                        }
                     }
-                    else//find min
-                    {
+                    else {//find min
                         value=114514;
-                        if(N.value<this.value)
-                        {
+                        if(N.value<this.value) {
                             this.value=N.value;
-                        }else {continue;}
+                        }
                     }
                 }
 

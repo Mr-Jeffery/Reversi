@@ -61,7 +61,13 @@ class Executor
 
     public void setData(int[][]board)
     {
-        this.data=board;
+        for (int PositionX = 0; PositionX < 8; PositionX++)
+        {
+            for (int PositionY = 0; PositionY < 8; PositionY++)
+            {
+                this.data[PositionY][PositionX] = board[PositionY][PositionX];
+            }
+        }
     }
     public int[][] getBoard()
     {
