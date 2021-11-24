@@ -14,6 +14,7 @@ class Game {
     private ArrayList<Step> stepList = new ArrayList <>();
     // The list of steps.
     private int[][] board;
+    private Player winner;
 
 
     public Game(String name, Player whitePlayer, Player blackPlayer){
@@ -103,6 +104,8 @@ class Game {
     // Instead of pass the reference of board, you should copy the value from the argument board into the board of Game.
 
 
+
+
     public String toString(Game game){
         return "Game: "+game.name+
                 ", gid: "+game.gid+
@@ -116,4 +119,9 @@ class Game {
     // 2. The board string should be in the format: "[[x, x, x, x, x, x, x, x], [x, x, x, x, x, x, x, x], ...]"
     // 3. Without quotes
 
+
+
+    public Player getWinner() {
+        return this.winner;
+    }
 }
