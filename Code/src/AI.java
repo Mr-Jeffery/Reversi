@@ -13,6 +13,16 @@ public class AI
         int value;
         int alpha,beta;
         Node surNode;
+        final int[][] WeightTable = {
+                {100, -5, 10, 5, 5, 10, -5,100},
+                { -5,-45,  1, 1, 1,  1,-45, -5},
+                { 10,  1,  3, 2, 2,  3,  1, 10},
+                {  5,  1,  2, 1, 1,  2,  1,  5},
+                {  5,  1,  2, 1, 1,  2,  1,  5},
+                { 10,  1,  3, 2, 2,  3,  1, 10},
+                { -5,-45,  1, 1, 1,  1,-45, -5},
+                {100, -5, 10, 5, 5, 10, -5,100}
+        };
 
         public Node(Node surNode,long knotNum,boolean M,int [][]board,int chess)
         {
