@@ -47,9 +47,12 @@ class Step {
 
     @Override
     public String toString(){
-        return "sid: "+this.sid +
-                ", rowIndex: "+this.rowIndex +
-                ", columnIndex: "+this.columnIndex+
-                ", color: "+this.color;
+
+        return this.color+" "+this.rowIndex+" "+this.columnIndex+"\n";
+        //"sid: "+this.sid +
+        //", rowIndex: "+this.rowIndex +
+        // ", columnIndex: "+this.columnIndex+
+        // ", color: "+this.color;
+
     }
 }

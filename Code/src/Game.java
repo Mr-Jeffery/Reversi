@@ -30,6 +30,12 @@ class Game {
         this.board[3][3]=1;this.board[4][4]=1;//put white
         this.board[3][4]=-1;this.board[4][3]=-1;//place black
     }
+
+    public Game(String name, Player whitePlayer, Player blackPlayer,int gid){
+        this.gid = gid;
+        this.whitePlayer = whitePlayer;
+        this.blackPlayer = blackPlayer;
+    }
 // Constructor, automatically generate game ID and Game object according to the name provided by the user.
 // Initialize white player, black player, stepList, and board.
 // For a list with no elements in it, its size should be 0 and its reference should not be null.
@@ -104,12 +110,12 @@ class Game {
 
 
     public String toString(Game game){
-        return "Game: "+game.name+
-                ", gid: "+game.gid+
-                ", whitePlayerId: "+game.whitePlayer.getPid()+"" +
-                ", blackPlayerId: "+game.blackPlayer.getPid()+
-                ", stepList: "+game.stepList.toString()+
-                ", board: "+game.board;
+        return game.name+"\n"+
+                game.gid+"\n"+
+                game.whitePlayer.getPid()+"\n"+
+                game.blackPlayer.getPid()+"\n"+
+                game.stepList.toString()+"\n"+
+                game.board+"\n";
     }
     // When print an object of this class, follow the format: "Game: %s, gid: %d, whitePlayerId: %d, blackPlayerId: %d, stepList: %s, board: %s"
     // 1. The stepList String should be in the format: "[sid: x, rowIndex: x, columnIndex: x, color: x, sid: x, rowIndex: x, columnIndex: x, color: x, ...]"
