@@ -8,6 +8,7 @@ public class AI
     {
         protected int [][]board;
         int chess;
+        Executor executor = new Executor();
         private int plausible;
         final private long knotNum;
         final private boolean M;
@@ -17,14 +18,14 @@ public class AI
         int alpha,beta;
         Node surNode;
         final int[][] WeightTable = {
-                { 50, -5, 10, 5, 5, 10, -5, 50},
-                { -5,-45,  1, 1, 1,  1,-45, -5},
+                { 15, -5, 10, 5, 5, 10, -5, 15},
+                { -5,-10,  1, 1, 1,  1,-10, -5},
                 { 10,  1,  3, 2, 2,  3,  1, 10},
                 {  5,  1,  2, 1, 1,  2,  1,  5},
                 {  5,  1,  2, 1, 1,  2,  1,  5},
                 { 10,  1,  3, 2, 2,  3,  1, 10},
-                { -5,-45,  1, 1, 1,  1,-45, -5},
-                { 50, -5, 10, 5, 5, 10, -5,50}
+                { -5,-10,  1, 1, 1,  1,-10, -5},
+                { 15, -5, 10, 5, 5, 10, -5, 15}
         };
 
 
@@ -35,10 +36,10 @@ public class AI
             this.board = board;
             this.M = M;
             this.chess=chess;
-            Executor executor = new Executor();
+
             for (int PositionX = 0; PositionX < 8; PositionX++) {
                 for (int PositionY = 0; PositionY < 8; PositionY++) {
-                    executor.setData(board);
+                    executor.setBoard(board);
                     if (executor.canPut(chess, PositionX, PositionY)) {
                         this.subNodeCoordinate.add(new int[]{PositionX, PositionY});
                         plausible++;
@@ -48,10 +49,12 @@ public class AI
         }
 
         public int Search() {
-            if (plausible!=0) {
-                for (int PositionX = 0; PositionX < 8; PositionX++) {
-                    for (int PositionY = 0; PositionY < 8; PositionY++) {
-                        value+=WeightTable[PositionX][PositionY];
+            if (plausible==0) {
+                if(executor.canContinue()){
+                    for (int PositionX = 0; PositionX < 8; PositionX++) {
+                        for (int PositionY = 0; PositionY < 8; PositionY++) {
+                            value += WeightTable[PositionX][PositionY];
+                        }
                     }
                 }
             }else {
@@ -61,14 +64,20 @@ public class AI
                         value=-114514;
                         if(N.value>this.value) {
                             this.value=N.value;
+                            this.alpha=N.value;
+                        }
+                        if(this.alpha<surNode.beta||this.beta>surNode.alpha){
+                            break;
                         }
                     }
                     else {//find min
                         value=114514;
                         if(N.value<this.value) {
                             this.value=N.value;
+                            this.beta=N.value;
                         }
                     }
+
                 }
 
             }
@@ -82,7 +91,7 @@ public class AI
                 Executor executor = new Executor();
                 for (int i=0;i<this.plausible;i++)
                 {
-                    executor.setData(board);
+                    executor.setBoard(board);
                     executor.Put(chess, subNodeCoordinate.get(i)[0], subNodeCoordinate.get(i)[1]);
                     Node subNode = new Node(this, knotNum/plausible, !M, executor.getBoard(),-chess);
                     this.subNode.add(subNode);

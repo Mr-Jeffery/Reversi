@@ -16,6 +16,7 @@ public class StartGame {
             //当点击的范围在  之间，则当前位置为该位置positionX，positionY；
             int PositionX=1;
             int PositionY=1;
+            executor.setBoard(board);
             if(executor.canPut(now,PositionX,PositionY))
             {
                 executor.Put(now, PositionX, PositionY);
@@ -23,7 +24,7 @@ public class StartGame {
             else
                 //显示："这里不能下棋！！！"
                 now=-now;
-            if(!canContinue(board))
+            if(!executor.canContinue())
             {
                 isstart=false;
                 //游戏结束
@@ -33,16 +34,7 @@ public class StartGame {
     }
 
 
-    public boolean canContinue(int [][] board)//游戏可以继续
-    {
-    boolean ans=false;
-    for(int PositionX=0;PositionX<8;PositionX++)
-        for(int PositionY=0;PositionY<8;PositionY++)
-        {
-            if(board[PositionX][PositionY]==0 && executor.canPut(PositionX,PositionY,board[PositionX][PositionY]))ans=true;
-        }
-    return ans;
-    }
+
 
 
 
