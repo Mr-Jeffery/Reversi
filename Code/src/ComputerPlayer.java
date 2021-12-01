@@ -1,6 +1,16 @@
 import java.util.ArrayList;
 
-public class ComputerPlayer {
+class ComputerPlayer {
+    protected int [][] board;
+    int chess;
+    long knotNum;
+    public void play(){
+        Node node = new Node();
+        Node metaNode = new Node(node,knotNum,true,board,chess);
+        metaNode.branch();
+        metaNode.search();
+    }
+
 
 
     static class Node
@@ -9,11 +19,11 @@ public class ComputerPlayer {
         int chess;
         Executor executor = new Executor();
         private int plausible;
-        final private long knotNum;
-        final private boolean M;
+        private long knotNum;
+        private boolean M;
         ArrayList<int[]> subNodeCoordinate = new ArrayList<>();
         ArrayList<Node> subNode = new ArrayList<>();
-        int value=0;
+        protected int value;
         int alpha=-114514,beta=114514;
         Node surNode;
         final static int[][] WeightTable = {
@@ -27,7 +37,7 @@ public class ComputerPlayer {
                 { 15, -5, 10,  5,  5, 10, -5, 15}
         };
 
-
+        public Node(){}
         public Node(Node surNode,long knotNum,boolean M,int [][]board,int chess)
         {
             this.surNode = surNode;
@@ -35,7 +45,7 @@ public class ComputerPlayer {
             this.board = board;
             this.M = M;
             this.chess=chess;
-
+            if (M){value=-114514;}else {value=114514;}
             for (int PositionX = 0; PositionX < 8; PositionX++) {
                 for (int PositionY = 0; PositionY < 8; PositionY++) {
                     executor.setBoard(board);
@@ -47,7 +57,7 @@ public class ComputerPlayer {
             }
         }
 
-        public int search() {
+        public void search() {
             if (plausible==0) {
                 if(executor.canContinue()){
                     for (int PositionX = 0; PositionX < 8; PositionX++) {
@@ -64,13 +74,11 @@ public class ComputerPlayer {
                 for (Node N : subNode) {
                     N.search();
                     if (M){//find max
-                        value=-114514;
                         if(N.value>this.value) {
                             this.value=N.value;
                             this.alpha=N.beta;
                         }
                     } else {//find min
-                        value=114514;
                         if(N.value<this.value) {
                             this.value=N.value;
                             this.beta=N.alpha;
@@ -82,7 +90,6 @@ public class ComputerPlayer {
                 }
 
             }
-            return value;
         }
 
 
