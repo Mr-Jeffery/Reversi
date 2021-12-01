@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
-public class AI
-{
+public class ComputerPlayer {
 
 
     static class Node
@@ -14,18 +13,18 @@ public class AI
         final private boolean M;
         ArrayList<int[]> subNodeCoordinate = new ArrayList<>();
         ArrayList<Node> subNode = new ArrayList<>();
-        int value;
-        int alpha,beta;
+        int value=0;
+        int alpha=-114514,beta=114514;
         Node surNode;
-        final int[][] WeightTable = {
-                { 15, -5, 10, 5, 5, 10, -5, 15},
-                { -5,-10,  1, 1, 1,  1,-10, -5},
-                { 10,  1,  3, 2, 2,  3,  1, 10},
-                {  5,  1,  2, 1, 1,  2,  1,  5},
-                {  5,  1,  2, 1, 1,  2,  1,  5},
-                { 10,  1,  3, 2, 2,  3,  1, 10},
-                { -5,-10,  1, 1, 1,  1,-10, -5},
-                { 15, -5, 10, 5, 5, 10, -5, 15}
+        final static int[][] WeightTable = {
+                { 15, -5, 10,  5,  5, 10, -5, 15},
+                { -5,-10,  1,  1,  1,  1,-10, -5},
+                { 10,  1,  3,  2,  2,  3,  1, 10},
+                {  5,  1,  2,  1,  1,  2,  1,  5},
+                {  5,  1,  2,  1,  1,  2,  1,  5},
+                { 10,  1,  3,  2,  2,  3,  1, 10},
+                { -5,-10,  1,  1,  1,  1,-10, -5},
+                { 15, -5, 10,  5,  5, 10, -5, 15}
         };
 
 
@@ -48,36 +47,38 @@ public class AI
             }
         }
 
-        public int Search() {
+        public int search() {
             if (plausible==0) {
                 if(executor.canContinue()){
                     for (int PositionX = 0; PositionX < 8; PositionX++) {
                         for (int PositionY = 0; PositionY < 8; PositionY++) {
-                            value += WeightTable[PositionX][PositionY];
+                            value += WeightTable[PositionY][PositionX]*board[PositionY][PositionX];
                         }
                     }
+                }else {
+                    value=executor.findWinner()*114514;
                 }
+                if(M){alpha=value;}
+                else {beta=value;}
             }else {
                 for (Node N : subNode) {
-                    N.Search();
+                    N.search();
                     if (M){//find max
                         value=-114514;
                         if(N.value>this.value) {
                             this.value=N.value;
-                            this.alpha=N.value;
+                            this.alpha=N.beta;
                         }
-                        if(this.alpha<surNode.beta||this.beta>surNode.alpha){
-                            break;
-                        }
-                    }
-                    else {//find min
+                    } else {//find min
                         value=114514;
                         if(N.value<this.value) {
                             this.value=N.value;
-                            this.beta=N.value;
+                            this.beta=N.alpha;
                         }
                     }
-
+                    if(this.alpha>surNode.beta||this.beta<surNode.alpha){
+                        break;
+                    }
                 }
 
             }
@@ -85,12 +86,10 @@ public class AI
         }
 
 
-        public void Branch()
-        {
+        public void branch() {
             if (plausible<knotNum){
                 Executor executor = new Executor();
-                for (int i=0;i<this.plausible;i++)
-                {
+                for (int i=0;i<this.plausible;i++) {
                     executor.setBoard(board);
                     executor.Put(chess, subNodeCoordinate.get(i)[0], subNodeCoordinate.get(i)[1]);
                     Node subNode = new Node(this, knotNum/plausible, !M, executor.getBoard(),-chess);
