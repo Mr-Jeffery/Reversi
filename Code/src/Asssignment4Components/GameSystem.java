@@ -1,4 +1,4 @@
-package asssignment4Components;
+package Asssignment4Components;
 
 import java.util.ArrayList;
 

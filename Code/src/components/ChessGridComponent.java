@@ -27,7 +27,7 @@ public class ChessGridComponent extends BasicComponent {
         System.out.printf("%s clicked (%d, %d)\n", GameFrame.controller.getCurrentPlayer(), row, col);
         //找到接口了哈哈哈哈哈哈哈哈
         System.out.println(GameFrame.controller.canClick(row, col));
-        if (GameFrame.controller.canClick(row, col)) {//如果该点为空，则可以下棋，重新绘制repaint；
+        if (GameFrame.controller.canClick(row, col)) {//如果该点为空，则可以下棋，重新绘制repaint
                 this.chessPiece = GameFrame.controller.getCurrentPlayer();
 
             int color=0;
