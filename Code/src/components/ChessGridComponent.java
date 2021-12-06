@@ -10,6 +10,7 @@ public class ChessGridComponent extends BasicComponent {
     public static int gridSize;
     public static Color gridColor = new Color(211, 170, 130);
 
+    private boolean isStart;
     private ChessPiece chessPiece;
     private int row;
     private int col;
@@ -23,6 +24,8 @@ public class ChessGridComponent extends BasicComponent {
 
     @Override
     public void onMouseClicked() {
+        //if(GameFrame.controller.getisStart()==false)
+            //GameFrame.controller.setisStart(true);
         System.out.printf("%s clicked (%d, %d)\n", GameFrame.controller.getCurrentPlayer(), row, col);
         //找到接口了哈哈哈哈哈哈哈哈
         System.out.println(GameFrame.controller.canClick(row, col));
@@ -36,6 +39,10 @@ public class ChessGridComponent extends BasicComponent {
 
                 GameFrame.controller.swapPlayer();
             repaint();
+        }
+        else
+        {
+
         }
     }
 

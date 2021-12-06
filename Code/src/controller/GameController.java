@@ -84,4 +84,17 @@ public class GameController {
     {
         gamePanel.Put(color,row,col);
     }
+
+    public boolean CanContinue()
+    {
+        return gamePanel.canContinue();
+    }
+   /* public boolean getisStart()
+    {
+        return gamePanel.getisStart();
+    }
+    public void setisStart(boolean isstart)
+    {
+        gamePanel.setisStart(isstart);
+    }*/
 }
