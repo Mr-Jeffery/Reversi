@@ -1,4 +1,6 @@
+import view.ChessBoardPanel;
 import view.GameFrame;
+import view.MainFrame;
 
 import javax.swing.*;
 import javax.swing.*;
@@ -7,10 +9,10 @@ public class Main {
 
         public static void main(String[] args) {
             SwingUtilities.invokeLater(() -> {
-                GameFrame mainFrame;
-                mainFrame = new GameFrame(900);
+                MainFrame mainFrame = new MainFrame();
                 mainFrame.setVisible(true);
             });
+
         }
     }
 

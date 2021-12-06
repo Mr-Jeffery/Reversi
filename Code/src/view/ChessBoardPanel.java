@@ -7,6 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.Random;
 
 public class ChessBoardPanel extends JPanel {
 
@@ -16,16 +20,7 @@ public class ChessBoardPanel extends JPanel {
     private final int CHESS_COUNT = 8;
     private ChessGridComponent[][] chessGrids;
 
-    public void setisStart(boolean isStart)
-    {
-        this.isStart=isStart;
-    }
-    public boolean getisStart()
-    {
-        return this.isStart;
-    }
     public ChessBoardPanel(int width, int height) {
-        if(isStart) {
             this.setVisible(true);
             this.setFocusable(true);
             this.setLayout(null);
@@ -41,7 +36,6 @@ public class ChessBoardPanel extends JPanel {
             initialGame();//add initial four chess
 
             repaint();
-        }
     }
 
 
@@ -50,8 +44,11 @@ public class ChessBoardPanel extends JPanel {
      */
     public void initialChessGrids() {
         chessGrids = new ChessGridComponent[CHESS_COUNT][CHESS_COUNT];
-
-        //draw all chess grids
+        for(int i=0;i<8;i++)
+            for(int j=0;j<8;j++)
+            {
+                data[i][j]=0;
+            }
         for (int i = 0; i < CHESS_COUNT; i++) {
             for (int j = 0; j < CHESS_COUNT; j++) {
                 ChessGridComponent gridComponent = new ChessGridComponent(i, j);
@@ -66,16 +63,6 @@ public class ChessBoardPanel extends JPanel {
      * initial origin four chess
      */
     public void initialGame() {
-        for(int i=0;i<8;i++)
-            for(int j=0;j<8;j++)
-            {
-                chessGrids[i][j].setChessPiece(null);
-            }
-        for(int i=0;i<8;i++)
-            for(int j=0;j<8;j++)
-            {
-                data[i][j]=0;
-            }
         chessGrids[3][3].setChessPiece(ChessPiece.BLACK);
         chessGrids[3][4].setChessPiece(ChessPiece.WHITE);
         chessGrids[4][3].setChessPiece(ChessPiece.WHITE);
@@ -86,19 +73,16 @@ public class ChessBoardPanel extends JPanel {
         data[3][4]=-1;
     }
 
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-        super.paintComponent(g);
-        if (isStart == false) {
             g.setColor(new Color(1, 1, 1));
             g.setFont(new Font("微软雅黑", Font.BOLD, 30));
             g.drawString("点击空格键开始游戏", 225, 225);
-        }//开始游戏
+
     }
 
     public void Put(int chess, int PositionX, int PositionY, int moveX, int moveY){
