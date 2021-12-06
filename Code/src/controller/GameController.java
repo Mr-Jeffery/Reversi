@@ -33,8 +33,7 @@ public class GameController {
     }
 
 
-    public void countScore() {
-        //todo: modify the countScore method
+    public void countScore() {//
         if (currentPlayer == ChessPiece.BLACK) {
             blackScore++;
         } else {
@@ -79,5 +78,10 @@ public class GameController {
 
     public boolean canClick(int row, int col) {
         return gamePanel.canClickGrid(row, col, currentPlayer);
+    }
+
+    public void Putting(int color,int row, int col)
+    {
+        gamePanel.Put(color,row,col);
     }
 }

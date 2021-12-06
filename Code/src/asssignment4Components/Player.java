@@ -1,3 +1,5 @@
+package asssignment4Components;
+
 class Player {
     private int pid;
     private static int playerCnt=1;

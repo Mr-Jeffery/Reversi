@@ -1,6 +1,7 @@
+package Our;
 
 public class StartGame {
-    public int[][] data= new int[8][8];
+  /*  public int[][] data= new int[8][8];
     boolean isstart = true;
     int[][] board= new int[8][8];
     int[] directionX = new int[]{0, 0, 1, 1, -1, -1, 1, -1};
@@ -31,7 +32,7 @@ public class StartGame {
                 //计算结果并且打印呈现在面板上面
             }
         }
-    }
+    } */
 
 
 

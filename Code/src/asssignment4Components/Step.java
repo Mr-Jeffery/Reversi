@@ -1,3 +1,5 @@
+package asssignment4Components;
+
 class Step {
     private int sid;
     private int rowIndex;

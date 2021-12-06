@@ -1,5 +1,6 @@
+package asssignment4Components;
+
 import java.util.ArrayList;
-import java.util.Collection;
 
 class GameSystem {
     private ArrayList<Player> playerList = new ArrayList <>();

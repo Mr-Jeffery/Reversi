@@ -1,3 +1,5 @@
+package asssignment4Components;
+
 import java.util.ArrayList;
 
 class Game {
@@ -31,7 +33,7 @@ class Game {
         this.board[3][4]=-1;this.board[4][3]=-1;//place black
     }
 
-    public Game(String name, Player whitePlayer, Player blackPlayer,int gid){
+    public Game(String name, Player whitePlayer, Player blackPlayer, int gid){
         this.gid = gid;
         this.whitePlayer = whitePlayer;
         this.blackPlayer = blackPlayer;

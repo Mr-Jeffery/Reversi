@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StatusPanel extends JPanel {
-    private JLabel playerLabel;//hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    private JLabel playerLabel;
     private JLabel scoreLabel;
 
     public StatusPanel(int width, int height) {
@@ -19,14 +19,14 @@ public class StatusPanel extends JPanel {
         this.playerLabel.setSize((int) (width * 0.4), height);
         this.playerLabel.setFont(new Font("Calibri", Font.BOLD, 30));
         this.setPlayerText(ChessPiece.BLACK.name());
-        add(playerLabel);
+        add(playerLabel);//将这些东东加进去
 
         this.scoreLabel = new JLabel();
         this.scoreLabel.setLocation((int) (width * 0.4), 10);
         this.scoreLabel.setSize((int) (width * 0.5), height);
         this.scoreLabel.setFont(new Font("Calibri", Font.ITALIC, 25));
         this.setScoreText(2,2);
-        add(scoreLabel);
+        add(scoreLabel);//加入进去
 
     }
 

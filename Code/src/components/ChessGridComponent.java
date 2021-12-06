@@ -8,7 +8,7 @@ import java.awt.*;
 public class ChessGridComponent extends BasicComponent {
     public static int chessSize;
     public static int gridSize;
-    public static Color gridColor = new Color(224, 168, 113);
+    public static Color gridColor = new Color(211, 170, 130);
 
     private ChessPiece chessPiece;
     private int row;
@@ -24,12 +24,17 @@ public class ChessGridComponent extends BasicComponent {
     @Override
     public void onMouseClicked() {
         System.out.printf("%s clicked (%d, %d)\n", GameFrame.controller.getCurrentPlayer(), row, col);
-        //todo: complete mouse click method
-        if (GameFrame.controller.canClick(row, col)) {
-            if (this.chessPiece == null) {
+        //找到接口了哈哈哈哈哈哈哈哈
+        System.out.println(GameFrame.controller.canClick(row, col));
+        if (GameFrame.controller.canClick(row, col)) {//如果该点为空，则可以下棋，重新绘制repaint；
                 this.chessPiece = GameFrame.controller.getCurrentPlayer();
+
+                int color=0;
+                if(this.chessPiece.getColor()==Color.BLACK)color=1;
+                else if(this.chessPiece.getColor()==Color.WHITE)color=-1;
+                GameFrame.controller.Putting(color,row,col);
+
                 GameFrame.controller.swapPlayer();
-            }
             repaint();
         }
     }
