@@ -5,31 +5,45 @@ import model.ChessPiece;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ChessBoardPanel extends JPanel {
 
     public int[][] data= new int[8][8];//内部存储棋盘
+    public boolean isStart=false;
 
     private final int CHESS_COUNT = 8;
     private ChessGridComponent[][] chessGrids;
 
-    public ChessBoardPanel(int width, int height) {
-        this.setVisible(true);
-        this.setFocusable(true);
-        this.setLayout(null);
-        this.setBackground(Color.BLACK);
-        int length = Math.min(width, height);
-        this.setSize(length, length);
-        ChessGridComponent.gridSize = length / CHESS_COUNT;
-        ChessGridComponent.chessSize = (int) (ChessGridComponent.gridSize * 0.8);
-        System.out.printf("width = %d height = %d gridSize = %d chessSize = %d\n",
-                width, height, ChessGridComponent.gridSize, ChessGridComponent.chessSize);
-
-        initialChessGrids();//return empty chessboard
-        initialGame();//add initial four chess
-
-        repaint();
+    public void setisStart(boolean isStart)
+    {
+        this.isStart=isStart;
     }
+    public boolean getisStart()
+    {
+        return this.isStart;
+    }
+    public ChessBoardPanel(int width, int height) {
+        if(isStart) {
+            this.setVisible(true);
+            this.setFocusable(true);
+            this.setLayout(null);
+            this.setBackground(Color.BLACK);
+            int length = Math.min(width, height);
+            this.setSize(length, length);
+            ChessGridComponent.gridSize = length / CHESS_COUNT;
+            ChessGridComponent.chessSize = (int) (ChessGridComponent.gridSize * 0.8);
+            System.out.printf("width = %d height = %d gridSize = %d chessSize = %d\n",
+                    width, height, ChessGridComponent.gridSize, ChessGridComponent.chessSize);
+
+            initialChessGrids();//return empty chessboard
+            initialGame();//add initial four chess
+
+            repaint();
+        }
+    }
+
 
     /**
      * set an empty chessboard
@@ -78,6 +92,13 @@ public class ChessBoardPanel extends JPanel {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        super.paintComponent(g);
+        if (isStart == false) {
+            g.setColor(new Color(1, 1, 1));
+            g.setFont(new Font("微软雅黑", Font.BOLD, 30));
+            g.drawString("点击空格键开始游戏", 225, 225);
+        }//开始游戏
     }
 
     public void Put(int chess, int PositionX, int PositionY, int moveX, int moveY){
@@ -143,7 +164,8 @@ public class ChessBoardPanel extends JPanel {
         boolean ans = false;
 
         for (int i = 0; i < 8; i++) {
-            if (canPut(chess, PositionX, PositionY, directionX[i], directionY[i], 0)) {
+            if (canPut(chess, PositionX, PositionY, directionX[i], directionY[i], 0))
+            {
                 ans=true;
             }
         }
@@ -164,7 +186,7 @@ public class ChessBoardPanel extends JPanel {
         for(int PositionX=0;PositionX<8;PositionX++)
             for(int PositionY=0;PositionY<8;PositionY++)
             {
-                if(canPut(PositionX,PositionY,data[PositionY][PositionX]))ans=true;
+                if(canPut(data[PositionX][PositionY],PositionX,PositionY))ans=true;
             }
         return ans;
     }

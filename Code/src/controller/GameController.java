@@ -84,4 +84,9 @@ public class GameController {
     {
         gamePanel.Put(color,row,col);
     }
+
+    public boolean CanContinue()
+    {
+        return gamePanel.canContinue();
+    }
 }

@@ -37,6 +37,10 @@ public class ChessGridComponent extends BasicComponent {
                 GameFrame.controller.swapPlayer();
             repaint();
         }
+        else
+        {
+
+        }
     }
 
 
