@@ -1,13 +1,13 @@
-package asssignment4Components;
+package Asssignment4Components;
 
-class Step {
+public class Step {
     private int sid;
     private int rowIndex;
     private int columnIndex;
     private int color;
     private static int stepCnt=1;
 
-    public Step(int rowIndex, int columnIndex, int color){
+    public Step(int color,int rowIndex, int columnIndex ){
         this.sid = stepCnt++;
         this.color = color;
         this.rowIndex = rowIndex;
@@ -50,7 +50,7 @@ class Step {
     @Override
     public String toString(){
 
-        return this.color+" "+this.rowIndex+" "+this.columnIndex+"\n";
+        return this.color+" "+this.rowIndex+" "+this.columnIndex;
         //"sid: "+this.sid +
         //", rowIndex: "+this.rowIndex +
         // ", columnIndex: "+this.columnIndex+

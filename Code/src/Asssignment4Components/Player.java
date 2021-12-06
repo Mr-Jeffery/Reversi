@@ -1,6 +1,6 @@
-package asssignment4Components;
+package Asssignment4Components;
 
-class Player {
+public class Player {
     private int pid;
     private static int playerCnt=1;
     private String name;

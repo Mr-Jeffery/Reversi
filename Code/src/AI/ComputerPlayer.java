@@ -1,4 +1,4 @@
-/*package Our;
+package AI;
 
 import java.util.ArrayList;
 
@@ -108,4 +108,4 @@ class ComputerPlayer {
 
         }
     }
-}*/
+}

@@ -1,11 +1,9 @@
-/*package Our;
-
-import model.ChessPiece;
+package AI;
 
 class Executor
 {
     private int[][] data= new int[8][8];
-    public void setChessBaord(int [][]data)
+    public void setChessBoard(int [][]data)
     {
         this.data=data;
     }
@@ -120,4 +118,4 @@ class Executor
     //If Mr.Rbt is reading this:
     //Du, Verräter der Arbeiterklasse, Verpfeif dich!
 }
-*/
+

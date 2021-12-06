@@ -36,7 +36,7 @@ public class ChessBoardPanel extends JPanel {
      */
     public void initialChessGrids() {
         chessGrids = new ChessGridComponent[CHESS_COUNT][CHESS_COUNT];
-
+        //todo: new Game
         //draw all chess grids
         for (int i = 0; i < CHESS_COUNT; i++) {
             for (int j = 0; j < CHESS_COUNT; j++) {
@@ -52,6 +52,7 @@ public class ChessBoardPanel extends JPanel {
      * initial origin four chess
      */
     public void initialGame() {
+        //new Game
         for(int i=0;i<8;i++)
             for(int j=0;j<8;j++)
             {
@@ -122,7 +123,7 @@ public class ChessBoardPanel extends JPanel {
         if (PositionX+moveX>7||PositionX+moveX<0||PositionY+moveY>7||PositionY+moveY<0){
             return false;//detect the edge
         }
-        if(data[PositionX+moveX][PositionY+moveY]==0){
+        else if(data[PositionX+moveX][PositionY+moveY]==0){
             return false;//detect empty spaces
         }
         else if (data[PositionX+moveX][PositionY+moveY] == -chess){
@@ -152,12 +153,16 @@ public class ChessBoardPanel extends JPanel {
     }
 
     public boolean canClickGrid(int row, int col, ChessPiece currentPlayer) {
-        int chesscolor=0;
-        if(currentPlayer.getColor()==Color.BLACK)chesscolor=1;
-        else if(currentPlayer.getColor()==Color.WHITE)chesscolor=-1;
-        if(canPut(chesscolor,row,col))return true;
+        int chessColor=0;
+        if(currentPlayer.getColor()==Color.BLACK)chessColor=1;
+        else if(currentPlayer.getColor()==Color.WHITE)chessColor=-1;
+        if(canPut(chessColor,row,col)){
+            //todo:添加step
+            return true;
+        }
         else return false;
     }
+
     public boolean canContinue()//游戏可以继续
     {
         boolean ans=false;
