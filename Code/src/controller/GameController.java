@@ -13,34 +13,35 @@ public class GameController {
 
     private ChessBoardPanel gamePanel;
     private StatusPanel statusPanel;
+    private endGameStatus endGameStatus;
     private ChessPiece currentPlayer;
-    private int blackScore;
-    private int whiteScore;
 
     public GameController(ChessBoardPanel gamePanel, StatusPanel statusPanel) {
         this.gamePanel = gamePanel;
         this.statusPanel = statusPanel;
         this.currentPlayer = ChessPiece.BLACK;
-        blackScore = 2;
-        whiteScore = 2;
     }
 
     public void swapPlayer() {
-        countScore();
-        currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
-        statusPanel.setPlayerText(currentPlayer.name());
-        statusPanel.setScoreText(blackScore, whiteScore);
-    }
-
-
-    public void countScore() {//
-        if (currentPlayer == ChessPiece.BLACK) {
-            blackScore++;
-        } else {
-            whiteScore++;
+        int next;
+        if(currentPlayer == ChessPiece.BLACK)next=-1;
+        else next=1;
+        if(gamePanel.canContinue(next))
+        {
+            currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
+            statusPanel.setPlayerText(currentPlayer.name());
         }
+            statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
     }
 
+    public String FindWinner()
+    {
+        String s;
+        if(gamePanel.getWhiteScore()<gamePanel.getBlackScore())s="Black";
+        else if(gamePanel.getWhiteScore()>gamePanel.getBlackScore())s="White";
+        else s="NO";
+        return s;
+    }
 
     public ChessPiece getCurrentPlayer() {
         return currentPlayer;
@@ -85,16 +86,17 @@ public class GameController {
         gamePanel.Put(color,row,col);
     }
 
-    public boolean CanContinue()
+    public void countScore()
+    {
+     gamePanel.countScore();
+    }
+
+    public boolean canContinue(int chess)
+    {
+        return gamePanel.canContinue(chess);
+    }
+    public boolean canContinue()
     {
         return gamePanel.canContinue();
     }
-   /* public boolean getisStart()
-    {
-        return gamePanel.getisStart();
-    }
-    public void setisStart(boolean isstart)
-    {
-        gamePanel.setisStart(isstart);
-    }*/
 }

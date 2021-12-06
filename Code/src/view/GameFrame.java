@@ -26,7 +26,7 @@ public class GameFrame extends JFrame {
             chessBoardPanel = new ChessBoardPanel((int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.7));
             chessBoardPanel.setLocation((this.getWidth() - chessBoardPanel.getWidth()) / 2, (this.getHeight() - chessBoardPanel.getHeight()) / 3);
 
-            statusPanel = new StatusPanel((int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.1));
+            statusPanel = new StatusPanel((int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.1));//创建了新的标记
             statusPanel.setLocation((this.getWidth() - chessBoardPanel.getWidth()) / 2, 0);
             controller = new GameController(chessBoardPanel, statusPanel);///？？？？？
             controller.setGamePanel(chessBoardPanel);//？？？？？

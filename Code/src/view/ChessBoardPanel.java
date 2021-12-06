@@ -15,11 +15,21 @@ import java.util.Random;
 public class ChessBoardPanel extends JPanel {
 
     public int[][] data= new int[8][8];//内部存储棋盘
-    public boolean isStart=false;
+    private int blackScore;
+    private int whiteScore;
 
     private final int CHESS_COUNT = 8;
     private ChessGridComponent[][] chessGrids;
 
+    public int getBlackScore()
+    {
+        return this.blackScore;
+    }
+
+    public int getWhiteScore()
+    {
+        return this.whiteScore;
+    }
     public ChessBoardPanel(int width, int height) {
             this.setVisible(true);
             this.setFocusable(true);
@@ -71,6 +81,8 @@ public class ChessBoardPanel extends JPanel {
         data[4][4]=1;
         data[4][3]=-1;
         data[3][4]=-1;
+        blackScore=2;
+        whiteScore=2;
     }
 
     @Override
@@ -79,9 +91,9 @@ public class ChessBoardPanel extends JPanel {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-            g.setColor(new Color(1, 1, 1));
-            g.setFont(new Font("微软雅黑", Font.BOLD, 30));
-            g.drawString("点击空格键开始游戏", 225, 225);
+            //g.setColor(new Color(1, 1, 1));
+            //g.setFont(new Font("微软雅黑", Font.BOLD, 30));
+            //g.drawString("点击空格键开始游戏", 225, 225);
 
     }
 
@@ -94,7 +106,7 @@ public class ChessBoardPanel extends JPanel {
         {
             data[PositionX+moveX][PositionY+moveY]=chess;
             if(chess==1)
-            chessGrids[PositionX+moveX][PositionY+moveY].setChessPiece(ChessPiece.BLACK);
+                chessGrids[PositionX+moveX][PositionY+moveY].setChessPiece(ChessPiece.BLACK);
             else if(chess==-1)
                 chessGrids[PositionX+moveX][PositionY+moveY].setChessPiece(ChessPiece.WHITE);
             repaint();
@@ -164,14 +176,36 @@ public class ChessBoardPanel extends JPanel {
         if(canPut(chesscolor,row,col))return true;
         else return false;
     }
-    public boolean canContinue()//游戏可以继续
+    public boolean canContinue(int chess)//游戏可以继续
     {
         boolean ans=false;
         for(int PositionX=0;PositionX<8;PositionX++)
             for(int PositionY=0;PositionY<8;PositionY++)
             {
-                if(canPut(data[PositionX][PositionY],PositionX,PositionY))ans=true;
+                if(canPut(chess,PositionX,PositionY))ans=true;
             }
         return ans;
+    }
+
+
+    public void countScore()
+    {
+        blackScore=0;
+        whiteScore=0;
+        for(int i=0;i<8;i++)
+            for(int j=0;j<8;j++)
+            {
+                if(data[i][j]==1)blackScore++;
+                else if(data[i][j]==-1)whiteScore++;
+            }
+        System.out.println("blackscore"+blackScore);
+        System.out.println("whitescore"+whiteScore);
+    }
+
+    public boolean canContinue()//游戏可以继续
+    {
+        if(blackScore+whiteScore==64)return false;
+        else
+        return canContinue(-1)||canContinue(1);
     }
 }
