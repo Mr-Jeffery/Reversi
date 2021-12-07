@@ -5,18 +5,16 @@ import model.ChessPiece;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.util.Random;
+import java.util.*;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 public class ChessBoardPanel extends JPanel {
 
     public int[][] data= new int[8][8];//内部存储棋盘
     private int blackScore;
     private int whiteScore;
+    public int[][] nextStep=new int[8][8];//下一步可以下的位置
 
     private final int CHESS_COUNT = 8;
     private ChessGridComponent[][] chessGrids;
@@ -97,32 +95,41 @@ public class ChessBoardPanel extends JPanel {
 
     }
 
-    public void Put(int chess, int PositionX, int PositionY, int moveX, int moveY){
+    public void Put(int chess, int PositionX, int PositionY, int moveX, int moveY) {
         if (!(PositionX+moveX>7&&//detect the edge
                 PositionX+moveX<0&&
                 PositionY+moveY>7&&
                 PositionY+moveY<0)&&
                 data[PositionX+moveX][PositionY+moveY]==-chess)
         {
-            data[PositionX+moveX][PositionY+moveY]=chess;
-            if(chess==1)
-                chessGrids[PositionX+moveX][PositionY+moveY].setChessPiece(ChessPiece.BLACK);
-            else if(chess==-1)
-                chessGrids[PositionX+moveX][PositionY+moveY].setChessPiece(ChessPiece.WHITE);
-            repaint();
+            data[PositionX + moveX][PositionY + moveY] = chess;
+            if (chess == 1)
+                chessGrids[PositionX + moveX][PositionY + moveY].setChessPiece(ChessPiece.BLACK);
+            else if (chess == -1)
+                chessGrids[PositionX + moveX][PositionY + moveY].setChessPiece(ChessPiece.WHITE);
+            Timer timer = new Timer();
+            TimerTask task=new TimerTask() {
+                @Override
+                public void run() {
+                    System.out.println("repaint delayed!");
+                    repaint();
+                }
+            };
+            timer.schedule(task,1000);
             Put(chess,PositionX+moveX,PositionY+moveY,moveX,moveY);
         }
     }
 
 
-    public void Put(int chess,int PositionX, int PositionY)
-    {
-        data[PositionX][PositionY]=chess;
-        if(chess==1)
-            chessGrids[PositionX][PositionY].setChessPiece(ChessPiece.BLACK);
-        else if(chess==-1)
-            chessGrids[PositionX][PositionY].setChessPiece(ChessPiece.WHITE);
-        repaint();
+
+
+    public void Put(int chess,int PositionX, int PositionY) {
+                data[PositionX][PositionY] = chess;
+                if (chess == 1)
+                    chessGrids[PositionX][PositionY].setChessPiece(ChessPiece.BLACK);
+                else if (chess == -1)
+                    chessGrids[PositionX][PositionY].setChessPiece(ChessPiece.WHITE);
+                repaint();
 
         int[] directionX = new int[]{0, 0, 1, 1, -1, -1, 1, -1};
         int[] directionY = new int[]{1, -1, 1, -1, -1, 1, 0, 0};
@@ -207,5 +214,30 @@ public class ChessBoardPanel extends JPanel {
         if(blackScore+whiteScore==64)return false;
         else
         return canContinue(-1)||canContinue(1);
+    }
+    public void checkNextStep(int chess)
+    {
+        for(int i=0;i<8;i++)
+            for(int j=0;j<8;j++)
+            {
+                if(data[i][j]==0 && canPut(chess,i,j))
+                {
+                    chessGrids[i][j].setChessPiece(ChessPiece.GRAY);
+                    repaint();
+                }
+            }
+    }
+    public void clearNextStep()
+    {
+        for(int i=0;i<8;i++)
+            for(int j=0;j<8;j++)
+            {
+                if(chessGrids[i][j].getChessPiece()==ChessPiece.GRAY)
+                {
+                    System.out.println("("+i+","+j+") is next");
+                    chessGrids[i][j].setChessPiece(null);
+                }
+            }
+        repaint();
     }
 }

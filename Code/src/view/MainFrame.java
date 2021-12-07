@@ -22,7 +22,7 @@ public class MainFrame extends JFrame{
         AIBtn.setLocation(225,200);
         add(AIBtn);
         AIBtn.addActionListener(e -> {
-            GameFrame gameFrame=new GameFrame(900);
+            GameFrame gameFrame=new GameFrame();
             this.setVisible(false);
             add(gameFrame);
             System.out.println("click start Btn");
@@ -33,7 +33,7 @@ public class MainFrame extends JFrame{
         NORMALBtn.setLocation(225,325);
         add(NORMALBtn);
         NORMALBtn.addActionListener(e -> {
-            GameFrame gameFrame=new GameFrame(900);
+            GameFrame gameFrame=new GameFrame();
             this.setVisible(false);
             add(gameFrame);
             System.out.println("click start Btn");
@@ -44,7 +44,7 @@ public class MainFrame extends JFrame{
         CHEATBtn.setLocation(225,450);
         add(CHEATBtn);
        CHEATBtn.addActionListener(e -> {
-            GameFrame gameFrame=new GameFrame(900);
+            GameFrame gameFrame=new GameFrame();
             this.setVisible(false);
             add(gameFrame);
             System.out.println("click start Btn");

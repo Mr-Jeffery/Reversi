@@ -78,8 +78,7 @@ public class GameController {
         return gamePanel.canClickGrid(row, col, currentPlayer);
     }
 
-    public void Putting(int color,int row, int col)
-    {
+    public void Putting(int color,int row, int col) {
         gamePanel.Put(color,row,col);
     }
 
@@ -92,8 +91,20 @@ public class GameController {
     {
         return gamePanel.canContinue(chess);
     }
+
     public boolean canContinue()
     {
         return gamePanel.canContinue();
     }
+
+    public void checkNextStep(int chess)
+    {
+        gamePanel.checkNextStep(chess);
+    }
+
+    public void clearNextStep()
+    {
+        gamePanel.clearNextStep();
+    }
+
 }

@@ -11,8 +11,11 @@ public class GameFrame extends JFrame {
     public static GameController controller;
     private ChessBoardPanel chessBoardPanel;
     private StatusPanel statusPanel;
+    Toolkit toolkit = Toolkit.getDefaultToolkit();
+    Dimension screensize=toolkit.getScreenSize();
 
-    public GameFrame(int frameSize) {
+    public GameFrame() {
+        int frameSize= (int)(screensize.getHeight()*0.8);
 
         this.setTitle("Let's play othello!");
         this.setLayout(null);//???
@@ -41,7 +44,7 @@ public class GameFrame extends JFrame {
             add(restartBtn);
             restartBtn.addActionListener(e -> {
                 System.out.println("click restart Btn");
-                GameFrame gameFrame =new GameFrame(900);
+                GameFrame gameFrame =new GameFrame();
                 this.setVisible(false);
                 add(gameFrame);
             });

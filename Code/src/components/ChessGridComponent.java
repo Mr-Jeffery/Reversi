@@ -6,6 +6,8 @@ import view.GameFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ChessGridComponent extends BasicComponent {
     public boolean isStart=true;
@@ -32,6 +34,7 @@ public class ChessGridComponent extends BasicComponent {
             //找到接口了哈哈哈哈哈哈哈哈
             System.out.println(GameFrame.controller.canClick(row, col));
             if (GameFrame.controller.canClick(row, col)) {//如果该点为空，则可以下棋，重新绘制repaint
+                GameFrame.controller.clearNextStep();
                 this.chessPiece = GameFrame.controller.getCurrentPlayer();
 
                 int color=0;
@@ -41,9 +44,15 @@ public class ChessGridComponent extends BasicComponent {
 
                 GameFrame.controller.countScore();
                 GameFrame.controller.swapPlayer();
-                repaint();
+                /*java.util.Timer timer=new Timer("2");
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        System.out.println("repaint delayed!");
+                        repaint();
+                    }
+                },1000);*/
 
-                //
                 if(!GameFrame.controller.canContinue())
                 {
                     isStart=false;
@@ -59,7 +68,12 @@ public class ChessGridComponent extends BasicComponent {
             }
             else
             {
-                JOptionPane.showMessageDialog(null,"This is an invalid move!!");
+                JOptionPane.showMessageDialog(null,"This is an invalid move!!Here shows the available steps:");
+                int color1=0;
+                ChessPiece c=GameFrame.controller.getCurrentPlayer();
+                if( c.getColor()==Color.BLACK)color1=1;
+                else if(c.getColor()==Color.WHITE)color1=-1;
+                GameFrame.controller.checkNextStep(color1);
             }
         }
     }
@@ -72,6 +86,7 @@ public class ChessGridComponent extends BasicComponent {
     public void setChessPiece(ChessPiece chessPiece) {
         this.chessPiece = chessPiece;
     }
+
 
     public int getRow() {
         return row;
