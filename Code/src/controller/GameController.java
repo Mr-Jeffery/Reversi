@@ -10,10 +10,8 @@ import java.util.List;
 
 public class GameController {
 
-
     private ChessBoardPanel gamePanel;
     private StatusPanel statusPanel;
-    private endGameStatus endGameStatus;
     private ChessPiece currentPlayer;
 
     public GameController(ChessBoardPanel gamePanel, StatusPanel statusPanel) {
@@ -34,12 +32,11 @@ public class GameController {
             statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
     }
 
-    public String FindWinner()
+    public int FindWinner()
     {
-        String s;
-        if(gamePanel.getWhiteScore()<gamePanel.getBlackScore())s="Black";
-        else if(gamePanel.getWhiteScore()>gamePanel.getBlackScore())s="White";
-        else s="NO";
+        int s=0;
+        if(gamePanel.getWhiteScore()<gamePanel.getBlackScore())s=1;
+        else if(gamePanel.getWhiteScore()>gamePanel.getBlackScore())s=-1;
         return s;
     }
 

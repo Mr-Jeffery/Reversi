@@ -31,7 +31,7 @@ public class GameFrame extends JFrame {
             controller = new GameController(chessBoardPanel, statusPanel);///？？？？？
             controller.setGamePanel(chessBoardPanel);//？？？？？
 
-            this.add(chessBoardPanel);
+            add(chessBoardPanel);
             this.add(statusPanel);
 
 
@@ -40,8 +40,10 @@ public class GameFrame extends JFrame {
             restartBtn.setLocation((this.getWidth() - chessBoardPanel.getWidth()) / 2, (this.getHeight() + chessBoardPanel.getHeight()) / 2);
             add(restartBtn);
             restartBtn.addActionListener(e -> {
-
                 System.out.println("click restart Btn");
+                GameFrame gameFrame =new GameFrame(900);
+                this.setVisible(false);
+                add(gameFrame);
             });
 
             JButton loadGameBtn = new JButton("Load");
