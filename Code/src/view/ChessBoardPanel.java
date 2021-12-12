@@ -3,6 +3,8 @@ package view;
 import components.ChessGridComponent;
 import model.ChessPiece;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -16,8 +18,13 @@ public class ChessBoardPanel extends JPanel {
     private int whiteScore;
     public int[][] nextStep=new int[8][8];//下一步可以下的位置
 
+
     private final int CHESS_COUNT = 8;
     private ChessGridComponent[][] chessGrids;
+    public ChessGridComponent getChessGrids(int i,int j)
+    {
+        return chessGrids[i][j];
+    }
 
     public int getBlackScore()
     {
@@ -107,16 +114,15 @@ public class ChessBoardPanel extends JPanel {
                 chessGrids[PositionX + moveX][PositionY + moveY].setChessPiece(ChessPiece.BLACK);
             else if (chess == -1)
                 chessGrids[PositionX + moveX][PositionY + moveY].setChessPiece(ChessPiece.WHITE);
-            Timer timer = new Timer();
-            TimerTask task=new TimerTask() {
-                @Override
-                public void run() {
                     System.out.println("repaint delayed!");
-                    repaint();
-                }
-            };
-            timer.schedule(task,1000);
-            Put(chess,PositionX+moveX,PositionY+moveY,moveX,moveY);
+            repaint();
+            //try {
+                //System.out.println("dalaying");
+                //TimeUnit.SECONDS.sleep(1);
+                Put(chess,PositionX+moveX,PositionY+moveY,moveX,moveY);
+            //} catch (InterruptedException e) {
+               // System.err.format("IOException: %s%n", e);
+            //}
         }
     }
 
@@ -129,6 +135,7 @@ public class ChessBoardPanel extends JPanel {
                     chessGrids[PositionX][PositionY].setChessPiece(ChessPiece.BLACK);
                 else if (chess == -1)
                     chessGrids[PositionX][PositionY].setChessPiece(ChessPiece.WHITE);
+                System.out.println("First putting!");
                 repaint();
 
         int[] directionX = new int[]{0, 0, 1, 1, -1, -1, 1, -1};
@@ -219,20 +226,16 @@ public class ChessBoardPanel extends JPanel {
     {
         for(int i=0;i<8;i++)
             for(int j=0;j<8;j++)
-            {
                 if(data[i][j]==0 && canPut(chess,i,j))
-                {
-                    chessGrids[i][j].setChessPiece(ChessPiece.GRAY);
-                    repaint();
-                }
-            }
+                    chessGrids[i][j].setChessPiece(ChessPiece.PINK);
+                repaint();
     }
     public void clearNextStep()
     {
         for(int i=0;i<8;i++)
             for(int j=0;j<8;j++)
             {
-                if(chessGrids[i][j].getChessPiece()==ChessPiece.GRAY)
+                if(chessGrids[i][j].getChessPiece()==ChessPiece.PINK)
                 {
                     System.out.println("("+i+","+j+") is next");
                     chessGrids[i][j].setChessPiece(null);

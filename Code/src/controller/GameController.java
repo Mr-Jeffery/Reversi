@@ -3,10 +3,10 @@ package controller;
 import model.ChessPiece;
 import view.*;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class GameController {
 
@@ -32,6 +32,37 @@ public class GameController {
             statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
     }
 
+    public void swapPlayer(int i) {//for the cheat mode
+        int next;
+        if(currentPlayer == ChessPiece.BLACK)next=-1;
+        else next=1;
+        if(next!=i)
+        {
+            JOptionPane.showMessageDialog(null,"YOU HAVE CLICKED THE SAME BUTTON!!");
+        }
+        else if(next==i && gamePanel.canContinue(next) && gamePanel.canContinue())
+        {
+            currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
+            statusPanel.setPlayerText(currentPlayer.name());
+        }
+        else if(next==i && !gamePanel.canContinue(next) && gamePanel.canContinue())
+        {
+            JOptionPane.showMessageDialog(null,"You cnnot change!He dont have a valid move!");
+        }
+        statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
+    }
+
+    public void check ()
+    {
+        int now;
+        if(currentPlayer == ChessPiece.BLACK)now=1;
+        else now=-1;
+        if(!gamePanel.canContinue(now))
+        {
+            swapPlayer();
+            JOptionPane.showMessageDialog(null,"You do not have a valid move now.We must change the color.");
+        }
+    }
     public int FindWinner()
     {
         int s=0;
@@ -85,6 +116,7 @@ public class GameController {
     public void countScore()
     {
      gamePanel.countScore();
+     statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
     }
 
     public boolean canContinue(int chess)
