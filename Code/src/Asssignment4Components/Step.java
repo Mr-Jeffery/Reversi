@@ -1,11 +1,27 @@
 package Asssignment4Components;
 
+import java.util.Arrays;
+
 public class Step {
     private int sid;
     private int rowIndex;
     private int columnIndex;
     private int color;
     private static int stepCnt=1;
+    private int[][] board;
+
+    public int[][] getBoard(){
+        return this.board;
+    }
+    public void setBoard(int[][] board){
+        this.board=board;
+    }
+    public String getBoardString(){
+        return Arrays.deepToString(this.getBoard())
+                .replace("]"," \n")
+                .replace("["," ")
+                .replace(","," ");
+    }
 
     public Step(int color,int rowIndex, int columnIndex ){
         this.sid = stepCnt++;
@@ -50,11 +66,10 @@ public class Step {
     @Override
     public String toString(){
 
-        return this.color+" "+this.rowIndex+" "+this.columnIndex;
-        //"sid: "+this.sid +
-        //", rowIndex: "+this.rowIndex +
-        // ", columnIndex: "+this.columnIndex+
-        // ", color: "+this.color;
-
+        return String.format("# %d %d %d\n%s",
+                this.color,
+                this.rowIndex,
+                this.columnIndex,
+                this.getBoardString());
     }
 }

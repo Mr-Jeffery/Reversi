@@ -1,6 +1,6 @@
 package components;
 
-import apple.laf.JRSUIConstants;
+//import apple.laf.JRSUIConstants;
 import controller.GameController;
 import model.*;
 import view.CheatFrame;

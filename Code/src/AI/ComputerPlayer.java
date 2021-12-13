@@ -5,10 +5,10 @@ import java.util.ArrayList;
 class ComputerPlayer {
     protected int [][] board;
     int chess;
-    long knotNum;
+    static int layerTotal=4;
     public void play(){
         Node node = new Node();
-        Node metaNode = new Node(node,knotNum,true,board,chess);
+        Node metaNode = new Node(node, 0,true,board,chess);
         metaNode.branch();
         metaNode.search();
     }
@@ -19,9 +19,9 @@ class ComputerPlayer {
     {
         protected int [][]board;
         int chess;
-        Executor executor = new Executor();
+        Runner runner = new Runner();
         private int plausible;
-        private long knotNum;
+        private long layer;
         private boolean M;
         ArrayList<int[]> subNodeCoordinate = new ArrayList<>();
         ArrayList<Node> subNode = new ArrayList<>();
@@ -40,18 +40,18 @@ class ComputerPlayer {
         };
 
         public Node(){}
-        public Node(Node surNode,long knotNum,boolean M,int [][]board,int chess)
+        public Node(Node surNode, long layer, boolean M, int [][]board, int chess)
         {
             this.surNode = surNode;
-            this.knotNum = knotNum;
+            this.layer = layer;
             this.board = board;
             this.M = M;
             this.chess=chess;
             if (M){value=-114514;}else {value=114514;}
             for (int PositionX = 0; PositionX < 8; PositionX++) {
                 for (int PositionY = 0; PositionY < 8; PositionY++) {
-                    executor.setBoard(board);
-                    if (executor.canPut(chess, PositionX, PositionY)) {
+                    runner.setBoard(board);
+                    if (runner.canPut(chess, PositionX, PositionY)) {
                         this.subNodeCoordinate.add(new int[]{PositionX, PositionY});
                         plausible++;
                     }
@@ -61,14 +61,14 @@ class ComputerPlayer {
 
         public void search() {
             if (plausible==0) {
-                if(executor.canContinue()){
+                if(runner.canContinue()){
                     for (int PositionX = 0; PositionX < 8; PositionX++) {
                         for (int PositionY = 0; PositionY < 8; PositionY++) {
                             value += WeightTable[PositionY][PositionX]*board[PositionY][PositionX];
                         }
                     }
                 }else {
-                    value=executor.findWinner()*114514;
+                    value= runner.findWinner()*114514;
                 }
                 if(M){alpha=value;}
                 else {beta=value;}
@@ -96,12 +96,12 @@ class ComputerPlayer {
 
 
         public void branch() {
-            if (plausible<knotNum){
-                Executor executor = new Executor();
+            if (layer<=layerTotal){
+                Runner runner = new Runner();
                 for (int i=0;i<this.plausible;i++) {
-                    executor.setBoard(board);
-                    executor.Put(chess, subNodeCoordinate.get(i)[0], subNodeCoordinate.get(i)[1]);
-                    Node subNode = new Node(this, knotNum/plausible, !M, executor.getBoard(),-chess);
+                    runner.setBoard(board);
+                    runner.put(chess, subNodeCoordinate.get(i)[0], subNodeCoordinate.get(i)[1]);
+                    Node subNode = new Node(this, layer + 1, !M, runner.getBoard(),-chess);
                     this.subNode.add(subNode);
                 }
             }

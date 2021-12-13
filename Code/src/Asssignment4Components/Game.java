@@ -117,19 +117,31 @@ public class Game {
 
 
     public String toString(){
-        return  String.format("%s\n%s\n%s\n%s\n%s\n%s\n",
-                this.getName(),
-                this.getGid(),
-                this.getWhitePlayer(),
-                this.getBlackPlayer(),
-                this.getStepList(),
-                Arrays.deepToString(this.getBoard())
-                        .replace("],","]\n"));
+        return  String.format("%s\n&%s\n",
+                this.name,
+                //this.getGid(),
+                //this.getWhitePlayer(),
+                //this.getBlackPlayer(),
+                this.getStepList())
+                .replace("]","")
+                .replace("[","")
+                .replace(",","");
     }
     // When print an object of this class, follow the format: "Game: %s, gid: %d, whitePlayerId: %d, blackPlayerId: %d, stepList: %s, board: %s"
     // 1. The stepList String should be in the format: "[sid: x, rowIndex: x, columnIndex: x, color: x, sid: x, rowIndex: x, columnIndex: x, color: x, ...]"
     // 2. The board string should be in the format: "[[x, x, x, x, x, x, x, x], [x, x, x, x, x, x, x, x], ...]"
     // 3. Without quotes
+    /**public String toString(){
+     return  String.format("%s\n%s\n%s\n%s\n&\n%s\n",
+     this.getName(),
+     this.getGid(),
+     this.getWhitePlayer(),
+     this.getBlackPlayer(),
+     this.getStepList())
+     .replace("]","")
+     .replace("[","")
+     .replace(",","");
+     }*/
 
 
 

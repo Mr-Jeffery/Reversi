@@ -1,12 +1,9 @@
 package AI;
 
-class Executor
+public class Runner
 {
     private int[][] data= new int[8][8];
-    public void setChessBoard(int [][]data)
-    {
-        this.data=data;
-    }
+
     public boolean canPut(int chess, int PositionX, int PositionY, int moveX, int moveY, int edible)
     {
         if (PositionX+moveX>7||PositionX+moveX<0||PositionY+moveY>7||PositionY+moveY<0){
@@ -40,7 +37,7 @@ class Executor
         return ans;
     }
 
-    public void Put(int chess, int PositionX, int PositionY, int moveX, int moveY){
+    public void put(int chess, int PositionX, int PositionY, int moveX, int moveY){
         if (!(PositionX+moveX>7&&//detect the edge
                 PositionX+moveX<0&&
                 PositionY+moveY>7&&
@@ -48,20 +45,21 @@ class Executor
                 data[PositionX+moveX][PositionY+moveY]==-chess)
         {
             data[PositionX+moveX][PositionY+moveY]=chess;
-            Put(chess,PositionX+moveX,PositionY+moveY,moveX,moveY);
+            put(chess,PositionX+moveX,PositionY+moveY,moveX,moveY);
         }
     }
 
 
-    public void Put(int chess,int PositionX, int PositionY)
+    public void put(int chess, int PositionX, int PositionY)
     {
+        data[PositionX][PositionY]=chess;
         int[] directionX = new int[]{0, 0, 1, 1, -1, -1, 1, -1};
         int[] directionY = new int[]{1, -1, 1, -1, -1, 1, 0, 0};
         for(int i=0;i<8;i++)
         {
             if(canPut(chess, PositionX, PositionY, directionX[i], directionY[i], 0))
             {
-                Put(chess, PositionX, PositionY, directionX[i], directionY[i]);
+                put(chess, PositionX, PositionY, directionX[i], directionY[i]);
             }
         }
     }
@@ -94,7 +92,7 @@ class Executor
 
     public int findWinner() {
         if (canContinue()) {
-            return 404;
+            return 0;
         }
         int blackCnt = 0, whiteCnt = 0;
         for (int PositionX = 0; PositionX < 8; PositionX++) {
