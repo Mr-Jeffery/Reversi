@@ -7,7 +7,7 @@ import controller.GameController;
 import javax.swing.*;
 import java.awt.*;
 
-public class GameFrame extends JFrame {
+public class CheatFrame extends JFrame {
     public static GameController controller;
     private ChessBoardPanel chessBoardPanel;
     private StatusPanel statusPanel;
@@ -18,7 +18,7 @@ public class GameFrame extends JFrame {
     {
         return controller;
     }
-    public GameFrame() {
+    public CheatFrame() {
         System.out.println("mode setted2");
         int frameSize= (int)(screensize.getHeight()*0.8);
 
@@ -49,9 +49,9 @@ public class GameFrame extends JFrame {
             add(restartBtn);
             restartBtn.addActionListener(e -> {
                 System.out.println("click restart Btn");
-                if(GameFrame.controller.canContinue())
+                if(CheatFrame.controller.canContinue())
                 JOptionPane.showMessageDialog(null,"Are you sure?There is no winner yet!");
-                GameFrame gameFrame =new GameFrame();
+                CheatFrame gameFrame =new CheatFrame();
                 this.setVisible(false);
                 add(gameFrame);
             });
@@ -77,7 +77,21 @@ public class GameFrame extends JFrame {
                 controller.writeDataToFile(filePath);
             });
 
+            JButton blackBtn = new JButton("<html>CHOOSE<br>BLACK</html>");
+            blackBtn.setSize(90, 100);
+            blackBtn.setLocation(saveGameBtn.getX()+loadGameBtn.getWidth()+90, restartBtn.getY()-500);
+            add(blackBtn);
+            blackBtn.addActionListener(e -> {
+                controller.swapPlayer(1);
 
+        });
+            JButton whiteBtn = new JButton("<html>CHOOSE<br>WHITE</html>");
+            whiteBtn.setSize(90, 100);
+            whiteBtn.setLocation(saveGameBtn.getX()+loadGameBtn.getWidth()+90, restartBtn.getY()-300);
+            add(whiteBtn);
+            whiteBtn.addActionListener(e -> {
+                controller.swapPlayer(-1);
+        });
 
             this.setVisible(true);
             this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

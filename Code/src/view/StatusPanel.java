@@ -28,6 +28,7 @@ public class StatusPanel extends JPanel {
         this.setScoreText(2,2);
         add(scoreLabel);//加入进去
 
+
     }
 
     public void setScoreText(int black, int white) {

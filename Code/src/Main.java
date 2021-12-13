@@ -1,5 +1,5 @@
 import view.ChessBoardPanel;
-import view.GameFrame;
+// import view.GameFrame;
 import view.MainFrame;
 
 import javax.swing.*;

@@ -3,44 +3,73 @@ package controller;
 import model.ChessPiece;
 import view.*;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class GameController {
-
 
     private ChessBoardPanel gamePanel;
     private StatusPanel statusPanel;
     private ChessPiece currentPlayer;
-    private int blackScore;
-    private int whiteScore;
 
     public GameController(ChessBoardPanel gamePanel, StatusPanel statusPanel) {
         this.gamePanel = gamePanel;
         this.statusPanel = statusPanel;
         this.currentPlayer = ChessPiece.BLACK;
-        blackScore = 2;
-        whiteScore = 2;
     }
 
     public void swapPlayer() {
-        countScore();
-        currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
-        statusPanel.setPlayerText(currentPlayer.name());
-        statusPanel.setScoreText(blackScore, whiteScore);
+        int next;
+        if(currentPlayer == ChessPiece.BLACK)next=-1;
+        else next=1;
+        if(gamePanel.canContinue(next))
+        {
+            currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
+            statusPanel.setPlayerText(currentPlayer.name());
+        }
+            statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
     }
 
+    public void swapPlayer(int i) {//for the cheat mode
+        int next;
+        if(currentPlayer == ChessPiece.BLACK)next=-1;
+        else next=1;
+        if(next!=i)
+        {
+            JOptionPane.showMessageDialog(null,"YOU HAVE CLICKED THE SAME BUTTON!!");
+        }
+        else if(next==i && gamePanel.canContinue(next) && gamePanel.canContinue())
+        {
+            currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
+            statusPanel.setPlayerText(currentPlayer.name());
+        }
+        else if(next==i && !gamePanel.canContinue(next) && gamePanel.canContinue())
+        {
+            JOptionPane.showMessageDialog(null,"You cnnot change!He dont have a valid move!");
+        }
+        statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
+    }
 
-    public void countScore() {//
-        if (currentPlayer == ChessPiece.BLACK) {
-            blackScore++;
-        } else {
-            whiteScore++;
+    public void check ()
+    {
+        int now;
+        if(currentPlayer == ChessPiece.BLACK)now=1;
+        else now=-1;
+        if(!gamePanel.canContinue(now))
+        {
+            swapPlayer();
+            JOptionPane.showMessageDialog(null,"You do not have a valid move now.We must change the color.");
         }
     }
-
+    public int FindWinner()
+    {
+        int s=0;
+        if(gamePanel.getWhiteScore()<gamePanel.getBlackScore())s=1;
+        else if(gamePanel.getWhiteScore()>gamePanel.getBlackScore())s=-1;
+        return s;
+    }
 
     public ChessPiece getCurrentPlayer() {
         return currentPlayer;
@@ -80,21 +109,34 @@ public class GameController {
         return gamePanel.canClickGrid(row, col, currentPlayer);
     }
 
-    public void Putting(int color,int row, int col)
-    {
+    public void Putting(int color,int row, int col) {
         gamePanel.Put(color,row,col);
     }
 
-    public boolean CanContinue()
+    public void countScore()
+    {
+     gamePanel.countScore();
+     statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
+    }
+
+    public boolean canContinue(int chess)
+    {
+        return gamePanel.canContinue(chess);
+    }
+
+    public boolean canContinue()
     {
         return gamePanel.canContinue();
     }
-   /* public boolean getisStart()
+
+    public void checkNextStep(int chess)
     {
-        return gamePanel.getisStart();
+        gamePanel.checkNextStep(chess);
     }
-    public void setisStart(boolean isstart)
+
+    public void clearNextStep()
     {
-        gamePanel.setisStart(isstart);
-    }*/
+        gamePanel.clearNextStep();
+    }
+
 }
