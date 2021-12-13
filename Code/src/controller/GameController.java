@@ -1,9 +1,11 @@
 package controller;
 
+import jdk.nashorn.internal.scripts.JO;
 import model.ChessPiece;
 import view.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ public class GameController {
         else next=1;
         if(next!=i)
         {
-            JOptionPane.showMessageDialog(null,"YOU HAVE CLICKED THE SAME BUTTON!!");
+            JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>YOU HAVE CLICKED THE SAME BUTTON</font><font color='#cc22ff'> !!!!!</font></h2></html>"), "使用HTML！", JOptionPane.YES_NO_OPTION);
         }
         else if(next==i && gamePanel.canContinue(next) && gamePanel.canContinue())
         {
@@ -47,7 +49,7 @@ public class GameController {
         }
         else if(next==i && !gamePanel.canContinue(next) && gamePanel.canContinue())
         {
-            JOptionPane.showMessageDialog(null,"You cnnot change!He dont have a valid move!");
+            JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>YOU CAN NOT CHANGE !</font><font color='#cc22ff'>HE DON'T HAVE A INVALID MOVE...</font></h2></html>"), "使用HTML！", JOptionPane.YES_NO_OPTION);
         }
         statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
     }
@@ -60,7 +62,7 @@ public class GameController {
         if(!gamePanel.canContinue(now))
         {
             swapPlayer();
-            JOptionPane.showMessageDialog(null,"You do not have a valid move now.We must change the color.");
+            JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>We don't have valid move now.</font><font color='#cc22ff'>we MUST change color.</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
         }
     }
     public int FindWinner()

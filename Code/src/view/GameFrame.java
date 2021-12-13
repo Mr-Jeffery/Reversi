@@ -49,11 +49,22 @@ public class GameFrame extends JFrame {
             add(restartBtn);
             restartBtn.addActionListener(e -> {
                 System.out.println("click restart Btn");
-                if(GameFrame.controller.canContinue())
-                JOptionPane.showMessageDialog(null,"Are you sure?There is no winner yet!");
-                GameFrame gameFrame =new GameFrame();
-                this.setVisible(false);
-                add(gameFrame);
+
+                if(GameFrame.controller.canContinue()) {
+                    int userOption = JOptionPane.showConfirmDialog(null, "Are you sure?There is no winner yet!", "WARNING", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if(userOption==JOptionPane.OK_OPTION)
+                    {
+                        GameFrame gameFrame =new GameFrame();
+                        this.setVisible(false);
+                        add(gameFrame);
+                    }
+                }
+                else
+                {
+                    GameFrame gameFrame =new GameFrame();
+                    this.setVisible(false);
+                    add(gameFrame);
+                }
             });
 
             JButton loadGameBtn = new JButton("Load");

@@ -53,18 +53,18 @@ public class ChessGridComponent extends BasicComponent {
                     if(!GameFrame.controller.canContinue())
                     {
                         isStart=false;
-                        if(GameFrame.controller.FindWinner()==1)
-                            JOptionPane.showMessageDialog(null,"Game ends!Congratulations to BLACK!");
-                        else if(GameFrame.controller.FindWinner()==-1)
-                            JOptionPane.showMessageDialog(null,"Game ends!Congratulations to WHITE!");
+                        if (CheatFrame.controller.FindWinner() == 1)
+                            JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                        else if (CheatFrame.controller.FindWinner() == -1)
+                            JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
                         else
-                            JOptionPane.showMessageDialog(null,"Game ends!BUT there is no winner");
+                            JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
                     }
 
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null,"This is an invalid move!!Here shows the available steps:");
+                    JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>this is an </font><font color='#cc22ff'>INVALID</font><font color='#cc22ff'>move.Here are the avalable steps.</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
                     int color1=0;
                     ChessPiece c=GameFrame.controller.getCurrentPlayer();
                     if( c.getColor()==Color.BLACK)color1=1;
@@ -93,14 +93,14 @@ public class ChessGridComponent extends BasicComponent {
                         if (!CheatFrame.controller.canContinue()) {
                             isStart = false;
                             if (CheatFrame.controller.FindWinner() == 1)
-                                JOptionPane.showMessageDialog(null, "Game ends!Congratulations to BLACK!");
+                                JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
                             else if (CheatFrame.controller.FindWinner() == -1)
-                                JOptionPane.showMessageDialog(null, "Game ends!Congratulations to WHITE!");
+                                JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
                             else
-                                JOptionPane.showMessageDialog(null, "Game ends!BUT there is no winner");
+                                JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "This is an invalid move!!Here shows the available steps:");
+                        JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>this is an </font><font color='#cc22ff'>INVALID</font><font color='#cc22ff'>move.Here are the avalable steps.</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
                         int color2 = 0;
                         ChessPiece c = CheatFrame.controller.getCurrentPlayer();
                         if (c.getColor() == Color.BLACK) color2 = 1;
