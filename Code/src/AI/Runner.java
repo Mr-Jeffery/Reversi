@@ -92,7 +92,7 @@ public class Runner
 
     public int findWinner() {
         if (canContinue()) {
-            return 404;
+            return 0;
         }
         int blackCnt = 0, whiteCnt = 0;
         for (int PositionX = 0; PositionX < 8; PositionX++) {

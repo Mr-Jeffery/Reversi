@@ -1,14 +1,11 @@
 import AI.Runner;
-import Asssignment4Components.Game;
-import Asssignment4Components.Player;
-import Asssignment4Components.Saver;
-import Asssignment4Components.Step;
+import Asssignment4Components.*;
 
 import java.util.Arrays;
 
 public class Save_Load {
     public static void main(String[] args){
-        Runner runner = new Runner();
+        /**Runner runner = new Runner();
         Player p1 = new Player("Alice");
         Player p2 = new Player("Bob");
         Game game = new Game("Test",p1,p2);
@@ -21,7 +18,8 @@ public class Save_Load {
         runner.put(1,2,4);
         step2.setBoard(runner.getBoard());
         game.addStep(step2);
-        Saver.save(game);
+        Saver.save(game);*/
+        Game game = Loader.load("Test");
         System.out.println(game);
     }
 }

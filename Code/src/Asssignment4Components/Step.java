@@ -66,8 +66,7 @@ public class Step {
     @Override
     public String toString(){
 
-        return String.format("#%d %d %d %d\n%s",
-                this.sid,
+        return String.format("# %d %d %d\n%s",
                 this.color,
                 this.rowIndex,
                 this.columnIndex,

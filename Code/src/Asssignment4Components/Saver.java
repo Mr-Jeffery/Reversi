@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Saver{
     private Saver(){}
     public static void save(Game game){
-        File file = new File(".\\"+game.getGid()+".txt");
+        File file = new File(".\\"+game.getName()+".txt");
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(".\\"+game.getName()+".txt"));
             out.write(String.valueOf(game.toString()));

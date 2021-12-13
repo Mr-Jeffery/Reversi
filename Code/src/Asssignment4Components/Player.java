@@ -1,5 +1,7 @@
 package Asssignment4Components;
 
+import java.util.List;
+
 public class Player {
     private int pid;
     private static int playerCnt=1;
@@ -33,7 +35,7 @@ public class Player {
 
     @Override
     public String toString(){
-        return "Player: "+this.name+", pid: "+String.valueOf(this.pid);
+        return this.name+String.valueOf(this.pid);
     }
 
 }

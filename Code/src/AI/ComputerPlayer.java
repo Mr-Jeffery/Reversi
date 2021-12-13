@@ -5,10 +5,10 @@ import java.util.ArrayList;
 class ComputerPlayer {
     protected int [][] board;
     int chess;
-    long knotNum;
+    static int layerTotal=4;
     public void play(){
         Node node = new Node();
-        Node metaNode = new Node(node,knotNum,true,board,chess);
+        Node metaNode = new Node(node, 0,true,board,chess);
         metaNode.branch();
         metaNode.search();
     }
@@ -21,7 +21,7 @@ class ComputerPlayer {
         int chess;
         Runner runner = new Runner();
         private int plausible;
-        private long knotNum;
+        private long layer;
         private boolean M;
         ArrayList<int[]> subNodeCoordinate = new ArrayList<>();
         ArrayList<Node> subNode = new ArrayList<>();
@@ -40,10 +40,10 @@ class ComputerPlayer {
         };
 
         public Node(){}
-        public Node(Node surNode,long knotNum,boolean M,int [][]board,int chess)
+        public Node(Node surNode, long layer, boolean M, int [][]board, int chess)
         {
             this.surNode = surNode;
-            this.knotNum = knotNum;
+            this.layer = layer;
             this.board = board;
             this.M = M;
             this.chess=chess;
@@ -96,12 +96,12 @@ class ComputerPlayer {
 
 
         public void branch() {
-            if (plausible<knotNum){
+            if (layer<=layerTotal){
                 Runner runner = new Runner();
                 for (int i=0;i<this.plausible;i++) {
                     runner.setBoard(board);
                     runner.put(chess, subNodeCoordinate.get(i)[0], subNodeCoordinate.get(i)[1]);
-                    Node subNode = new Node(this, knotNum/plausible, !M, runner.getBoard(),-chess);
+                    Node subNode = new Node(this, layer + 1, !M, runner.getBoard(),-chess);
                     this.subNode.add(subNode);
                 }
             }
