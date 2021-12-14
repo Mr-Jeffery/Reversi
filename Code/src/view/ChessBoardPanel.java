@@ -35,7 +35,7 @@ public class ChessBoardPanel extends JPanel {
     {
         return this.whiteScore;
     }
-    public ChessBoardPanel(int width, int height) {
+    public ChessBoardPanel(int width, int height,int [][]input,int mode) {
             this.setVisible(true);
             this.setFocusable(true);
             this.setLayout(null);
@@ -47,8 +47,8 @@ public class ChessBoardPanel extends JPanel {
             System.out.printf("width = %d height = %d gridSize = %d chessSize = %d\n",
                     width, height, ChessGridComponent.gridSize, ChessGridComponent.chessSize);
 
-            initialChessGrids();//return empty chessboard
-            initialGame();//add initial four chess
+            initialChessGrids(input);//return empty chessboard
+            initialGame(input);//add initial four chess
 
             repaint();
     }
@@ -57,12 +57,12 @@ public class ChessBoardPanel extends JPanel {
     /**
      * set an empty chessboard
      */
-    public void initialChessGrids() {
+    public void initialChessGrids(int [][]input) {
         chessGrids = new ChessGridComponent[CHESS_COUNT][CHESS_COUNT];
         for(int i=0;i<8;i++)
             for(int j=0;j<8;j++)
             {
-                data[i][j]=0;
+                data[i][j]=input[i][j];
             }
         for (int i = 0; i < CHESS_COUNT; i++) {
             for (int j = 0; j < CHESS_COUNT; j++) {
@@ -77,29 +77,33 @@ public class ChessBoardPanel extends JPanel {
     /**
      * initial origin four chess
      */
-    public void initialGame() {
-        chessGrids[3][3].setChessPiece(ChessPiece.BLACK);
-        chessGrids[3][4].setChessPiece(ChessPiece.WHITE);
-        chessGrids[4][3].setChessPiece(ChessPiece.WHITE);
-        chessGrids[4][4].setChessPiece(ChessPiece.BLACK);
-        data[3][3]=1;
-        data[4][4]=1;
-        data[4][3]=-1;
-        data[3][4]=-1;
-        blackScore=2;
-        whiteScore=2;
+    public void initialGame(int [][]input) {
+        blackScore=0;
+        whiteScore=0;
+        for(int i=0;i<8;i++)
+            for(int j=0;j<8;j++)
+            {
+                if(input[i][j]==1)
+                {
+                    chessGrids[i][j].setChessPiece(ChessPiece.BLACK);
+                    data[i][j]=1;
+                    blackScore++;
+                }
+                else if(input[i][j]==-1)
+                {
+                    chessGrids[i][j].setChessPiece(ChessPiece.WHITE);
+                    data[i][j]=-1;
+                    whiteScore++;
+                }
+            }
+        repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.BLACK);
+        g.setColor(Color.BLACK);//set white color!!!!!!!!!!!!!!!!!!!!!!!!!!!
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
-
-            //g.setColor(new Color(1, 1, 1));
-            //g.setFont(new Font("微软雅黑", Font.BOLD, 30));
-            //g.drawString("点击空格键开始游戏", 225, 225);
-
     }
 
     public void Put(int chess, int PositionX, int PositionY, int moveX, int moveY) {
@@ -130,6 +134,7 @@ public class ChessBoardPanel extends JPanel {
 
 
     public void Put(int chess,int PositionX, int PositionY) {
+        System.out.println("happened");
                 data[PositionX][PositionY] = chess;
                 if (chess == 1)
                     chessGrids[PositionX][PositionY].setChessPiece(ChessPiece.BLACK);
@@ -242,5 +247,9 @@ public class ChessBoardPanel extends JPanel {
                 }
             }
         repaint();
+    }
+    public int [][]getBoard()
+    {
+        return data;
     }
 }
