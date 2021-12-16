@@ -18,8 +18,8 @@ public class GameFrame extends JFrame {
     {
         return controller;
     }
-    public GameFrame() {
-        System.out.println("mode setted2");
+    public GameFrame(int[][]last,int bscore,int wscore,int cPlayer) {
+        MainFrame.mode++;
         int frameSize= (int)(screensize.getHeight()*0.8);
 
         this.setTitle("Let's play othello!");
@@ -31,13 +31,15 @@ public class GameFrame extends JFrame {
 
         this.setLocationRelativeTo(null);
 
-            chessBoardPanel = new ChessBoardPanel((int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.7));
+            chessBoardPanel = new ChessBoardPanel((int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.7),last,1);
             chessBoardPanel.setLocation((this.getWidth() - chessBoardPanel.getWidth()) / 2, (this.getHeight() - chessBoardPanel.getHeight()) / 3);
 
-            statusPanel = new StatusPanel((int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.1));//创建了新的标记
+            statusPanel = new StatusPanel((int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.1),bscore,wscore);//创建了新的标记
             statusPanel.setLocation((this.getWidth() - chessBoardPanel.getWidth()) / 2, 0);
             controller = new GameController(chessBoardPanel, statusPanel);///？？？？？
             controller.setGamePanel(chessBoardPanel);//？？？？？
+            controller.setCurrentPlayer(cPlayer);
+            System.out.println("normal curretn player"+cPlayer);
 
             add(chessBoardPanel);
             this.add(statusPanel);
@@ -49,11 +51,44 @@ public class GameFrame extends JFrame {
             add(restartBtn);
             restartBtn.addActionListener(e -> {
                 System.out.println("click restart Btn");
-                if(GameFrame.controller.canContinue())
-                JOptionPane.showMessageDialog(null,"Are you sure?There is no winner yet!");
-                GameFrame gameFrame =new GameFrame();
-                this.setVisible(false);
-                add(gameFrame);
+
+                if(GameFrame.controller.canContinue()) {
+                    int userOption = JOptionPane.showConfirmDialog(null, "Are you sure?There is no winner yet!", "WARNING", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if(userOption==JOptionPane.OK_OPTION)
+                    {
+                        MainFrame.mode++;
+                        int[][]first=new int[8][8];
+                        for(int i=0;i<8;i++)
+                            for(int j=0;j<8;j++)
+                            {
+                                first[i][j]=0;
+                            }
+                        first[3][3]=1;
+                        first[4][4]=1;
+                        first[4][3]=-1;
+                        first[3][4]=-1;
+                        GameFrame gameFrame = new GameFrame(first,2,2,1);
+                        this.setVisible(false);
+                        add(gameFrame);
+                    }
+                }
+                else
+                {
+                    MainFrame.mode++;
+                    int[][]first=new int[8][8];
+                    for(int i=0;i<8;i++)
+                        for(int j=0;j<8;j++)
+                        {
+                            first[i][j]=0;
+                        }
+                    first[3][3]=1;
+                    first[4][4]=1;
+                    first[4][3]=-1;
+                    first[3][4]=-1;
+                    GameFrame gameFrame = new GameFrame(first,2,2,1);
+                    this.setVisible(false);
+                    add(gameFrame);
+                }
             });
 
             JButton loadGameBtn = new JButton("Load");
@@ -77,6 +112,15 @@ public class GameFrame extends JFrame {
                 controller.writeDataToFile(filePath);
             });
 
+            JButton CheatBtn = new JButton("<html>I want to<br>CHEAT</html>");
+            CheatBtn.setSize(90, 100);
+            CheatBtn.setLocation(saveGameBtn.getX()+loadGameBtn.getWidth()+100, restartBtn.getY()-400);
+            add(CheatBtn);
+            CheatBtn.addActionListener(e -> {
+                CheatFrame gameFrame= new CheatFrame(chessBoardPanel.getBoard(),chessBoardPanel.getBlackScore(),chessBoardPanel.getWhiteScore(),controller.getCurrentPlayer());
+                this.setVisible(false);
+                add(gameFrame);
+            });
 
 
             this.setVisible(true);

@@ -62,15 +62,22 @@ public class AI {
             }//Max,Min
 
             if (layer <= layerTotal) {//search plausible next step
-                for (int PositionX = 0; PositionX < 8; PositionX++) {
-                    for (int PositionY = 0; PositionY < 8; PositionY++) {
-                        runner.setBoard(board);
-                        if (runner.canPut(chess, PositionX, PositionY)) {
-                            runner.put(this.chess,PositionX,PositionY);
-                            Node sNode = new Node();
-                            sNode.search(this, layer + 1, !M, runner.getBoard(), new int[]{PositionX, PositionY}, -chess);
-                            this.subNode.add(sNode);
+                if (runner.canContinue()){
+                    for (int PositionX = 0; PositionX < 8; PositionX++) {
+                        for (int PositionY = 0; PositionY < 8; PositionY++) {
+                            runner.setBoard(board);
+                            if (runner.canPut(chess, PositionX, PositionY)) {
+                                runner.put(this.chess,PositionX,PositionY);
+                                Node sNode = new Node();
+                                sNode.search(this, layer + 1, !M, runner.getBoard(), new int[]{PositionX, PositionY}, -chess);
+                                this.subNode.add(sNode);
+                            }
                         }
+                    }
+                    if (this.subNode.isEmpty()){//has nowhere to place chess
+                        Node sNode = new Node();
+                        sNode.search(this, layer + 1, !M, this.board, new int[]{ }, -chess);
+                        this.subNode.add(sNode);
                     }
                 }
                 subNode.toArray();
