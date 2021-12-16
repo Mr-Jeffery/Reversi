@@ -1,10 +1,7 @@
-package view;
+/**package view;
 
 import AI.*;
 import Asssignment4Components.*;
-
-import javax.xml.soap.Node;
-import java.util.Arrays;
 
 public class testAiPlayer {
     public static void main(String[] args){
@@ -29,4 +26,4 @@ public class testAiPlayer {
             System.out.println(r);
         }
     }
-}
+}*/
