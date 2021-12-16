@@ -9,7 +9,7 @@ public class StatusPanel extends JPanel {
     private JLabel playerLabel;
     private JLabel scoreLabel;
 
-    public StatusPanel(int width, int height) {
+    public StatusPanel(int width, int height,int bscore,int wscore) {
         this.setSize(width, height);
         this.setLayout(null);
         this.setVisible(true);
@@ -25,7 +25,7 @@ public class StatusPanel extends JPanel {
         this.scoreLabel.setLocation((int) (width * 0.4), 10);
         this.scoreLabel.setSize((int) (width * 0.5), height);
         this.scoreLabel.setFont(new Font("Calibri", Font.ITALIC, 25));
-        this.setScoreText(2,2);
+        this.setScoreText(bscore,wscore);
         add(scoreLabel);//加入进去
 
 

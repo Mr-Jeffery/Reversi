@@ -1,9 +1,11 @@
 package controller;
 
+import jdk.nashorn.internal.scripts.JO;
 import model.ChessPiece;
 import view.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,43 +15,36 @@ public class GameController {
     private ChessBoardPanel gamePanel;
     private StatusPanel statusPanel;
     private ChessPiece currentPlayer;
+    public int getCurrentPlayer()
+    {
+        if(currentPlayer==ChessPiece.BLACK)return 1;
+        else return -1;
+    }
 
     public GameController(ChessBoardPanel gamePanel, StatusPanel statusPanel) {
         this.gamePanel = gamePanel;
         this.statusPanel = statusPanel;
-        this.currentPlayer = ChessPiece.BLACK;
+    }
+
+    public void setCurrentPlayer(int i) {
+        if(i==1)this.currentPlayer = ChessPiece.BLACK;
+        else this.currentPlayer = ChessPiece.WHITE;
+        statusPanel.setPlayerText(currentPlayer.name());
     }
 
     public void swapPlayer() {
         int next;
         if(currentPlayer == ChessPiece.BLACK)next=-1;
         else next=1;
-        if(gamePanel.canContinue(next))
-        {
-            currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
-            statusPanel.setPlayerText(currentPlayer.name());
+        if(gamePanel.canContinue()) {
+            if (gamePanel.canContinue(next)) {
+                currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
+                statusPanel.setPlayerText(currentPlayer.name());
+            } else {
+                JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>WE CAN NOT CHANGE !</font><font color='#cc22ff'>HE DON'T HAVE A INVALID MOVE...</font></h2></html>");
+            }
         }
             statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
-    }
-
-    public void swapPlayer(int i) {//for the cheat mode
-        int next;
-        if(currentPlayer == ChessPiece.BLACK)next=-1;
-        else next=1;
-        if(next!=i)
-        {
-            JOptionPane.showMessageDialog(null,"YOU HAVE CLICKED THE SAME BUTTON!!");
-        }
-        else if(next==i && gamePanel.canContinue(next) && gamePanel.canContinue())
-        {
-            currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
-            statusPanel.setPlayerText(currentPlayer.name());
-        }
-        else if(next==i && !gamePanel.canContinue(next) && gamePanel.canContinue())
-        {
-            JOptionPane.showMessageDialog(null,"You cnnot change!He dont have a valid move!");
-        }
-        statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
     }
 
     public void check ()
@@ -60,7 +55,7 @@ public class GameController {
         if(!gamePanel.canContinue(now))
         {
             swapPlayer();
-            JOptionPane.showMessageDialog(null,"You do not have a valid move now.We must change the color.");
+            JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>We don't have valid move now.</font><font color='#cc22ff'>we MUST change color.</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
         }
     }
     public int FindWinner()
@@ -69,10 +64,6 @@ public class GameController {
         if(gamePanel.getWhiteScore()<gamePanel.getBlackScore())s=1;
         else if(gamePanel.getWhiteScore()>gamePanel.getBlackScore())s=-1;
         return s;
-    }
-
-    public ChessPiece getCurrentPlayer() {
-        return currentPlayer;
     }
 
     public ChessBoardPanel getGamePanel() {
