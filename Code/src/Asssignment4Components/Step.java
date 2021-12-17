@@ -8,14 +8,9 @@ public class Step {
     private int columnIndex;
     private int color;
     private static int stepCnt=1;
-    private int[][] board;
+    private int[][] board;/**
+     */
 
-    public int[][] getBoard(){
-        return this.board;
-    }
-    public void setBoard(int[][] board){
-        this.board=board;
-    }
     public String getBoardString(){
         return Arrays.deepToString(this.getBoard())
                 .replace("]"," \n")
@@ -23,11 +18,12 @@ public class Step {
                 .replace(","," ");
     }
 
-    public Step(int color,int rowIndex, int columnIndex ){
+    public Step(int color,int rowIndex, int columnIndex ,int[][]board){
         this.sid = stepCnt++;
         this.color = color;
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
+        this.board=board;
     }
 
     public int getSid(){
@@ -71,5 +67,8 @@ public class Step {
                 this.rowIndex,
                 this.columnIndex,
                 this.getBoardString());
+    }
+    public int[][] getBoard(){
+        return this.board;
     }
 }

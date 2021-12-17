@@ -1,5 +1,6 @@
 package view;
 
+import Asssignment4Components.Step;
 import components.ChessGridComponent;
 import model.ChessPiece;
 
@@ -13,10 +14,11 @@ import java.util.concurrent.TimeUnit;
 
 public class ChessBoardPanel extends JPanel {
 
-    public int[][] data= new int[8][8];//内部存储棋盘
-    private int blackScore;
-    private int whiteScore;
+    public static int[][] data= new int[8][8];//内部存储棋盘
+    public int blackScore;
+    public int whiteScore;
     public int[][] nextStep=new int[8][8];//下一步可以下的位置
+    public int[][]step=new int[8][8];
 
 
     private final int CHESS_COUNT = 8;
@@ -35,7 +37,7 @@ public class ChessBoardPanel extends JPanel {
     {
         return this.whiteScore;
     }
-    public ChessBoardPanel(int width, int height,int [][]input,int mode) {
+    public ChessBoardPanel(int width, int height,int [][]input) {
             this.setVisible(true);
             this.setFocusable(true);
             this.setLayout(null);
@@ -49,6 +51,8 @@ public class ChessBoardPanel extends JPanel {
 
             initialChessGrids(input);//return empty chessboard
             initialGame(input);//add initial four chess
+        if(MainFrame.gid==2)
+        GameFrame.g.addStep(new Step(2,-1,-1,input));
 
             repaint();
     }
@@ -72,6 +76,7 @@ public class ChessBoardPanel extends JPanel {
                 this.add(chessGrids[i][j]);
             }
         }
+        repaint();
     }
 
     /**
@@ -248,7 +253,7 @@ public class ChessBoardPanel extends JPanel {
             }
         repaint();
     }
-    public int [][]getBoard()
+    public static int[][] getData()
     {
         return data;
     }

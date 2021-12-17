@@ -129,5 +129,42 @@ public class GameController {
     {
         gamePanel.clearNextStep();
     }
+    public void UNDO(int[][]input,int cplayer)
+    {
+        int [][] board_copy = new int[8][8];
+        gamePanel.blackScore=0;
+        gamePanel.whiteScore=0;
+        for(int i=0;i<8;i++)
+            for(int j=0;j<8;j++)
+            {
+                board_copy[i][j]=input[i][j];
+            }
+        for(int i=0;i<8;i++)
+            for(int j=0;j<8;j++)
+            {
+                if(board_copy[i][j]==1)
+                {
+                    gamePanel.getChessGrids(i,j).setChessPiece(ChessPiece.BLACK);
+                    gamePanel.data[i][j]=1;
+                    gamePanel.blackScore++;
+                }
+                else if(board_copy[i][j]==-1)
+                {
+                    gamePanel.getChessGrids(i,j).setChessPiece(ChessPiece.WHITE);
+                    gamePanel.data[i][j]=-1;
+                    gamePanel.whiteScore++;
+                }
+                else
+                {
+                    gamePanel.getChessGrids(i,j).setChessPiece(null);
+                }
+            }
+        if(cplayer==1)currentPlayer=ChessPiece.BLACK;
+        else currentPlayer=ChessPiece.WHITE;
+        statusPanel.setPlayerText(currentPlayer.name());
+        statusPanel.setScoreText(gamePanel.blackScore,gamePanel.whiteScore) ;
+        gamePanel.repaint();
+        statusPanel.repaint();
+    }
 
 }

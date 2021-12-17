@@ -1,9 +1,11 @@
 package components;
 
 //import apple.laf.JRSUIConstants;
+import Asssignment4Components.Step;
 import controller.GameController;
 import model.*;
 import view.CheatFrame;
+import view.ChessBoardPanel;
 import view.GameFrame;
 import view.MainFrame;
 
@@ -41,10 +43,28 @@ public class ChessGridComponent extends BasicComponent {
                     GameFrame.controller.clearNextStep();
                     int color=GameFrame.controller.getCurrentPlayer();
                     GameFrame.controller.Putting(color,row,col);
-
                     GameFrame.controller.countScore();
-                    GameFrame.controller.swapPlayer();
-
+                    /**save one step*/
+                    int [][] board_copy = new int[8][8];
+                    for (int i= 0;i<8;i++){
+                        for(int j=0;j<8;j++){
+                            board_copy[i][j] = ChessBoardPanel.getData()[i][j];
+                        }
+                    }
+                    Step a=new Step(color,row,col,board_copy);
+                    GameFrame.g.addStep(a);
+                    for(int k=0;k<GameFrame.g.getStepList().size();k++)
+                    {
+                        for(int i=0;i<8;i++) {
+                            for (int j = 0; j < 8; j++) {
+                                System.out.printf("%d ",GameFrame.g.getStepList().get(k).getBoard()[i][j]);
+                            }
+                            System.out.println();
+                        }
+                        System.out.println();
+                    }
+                    System.out.println("habusdkgahgdvbkfucywgcdhjskgf");
+                    GameFrame.controller.swapPlayer();System.out.println("tried to swap!!!!!!!!!!!!!!!!!");
                 }
                 else
                 {
@@ -67,13 +87,24 @@ public class ChessGridComponent extends BasicComponent {
                 if (isStart) {
                     //找到接口了哈哈哈哈哈哈哈哈
                     System.out.println(CheatFrame.controller.canClick(row, col));
-                    if (CheatFrame.controller.canClick(row, col)) {//如果该点为空，则可以下棋，重新绘制repaint
+                    if (CheatFrame.controller.canClick(row, col)) {
+                        //如果该点为空，则可以下棋，重新绘制repaint
                         CheatFrame.controller.clearNextStep();
                         int color= CheatFrame.controller.getCurrentPlayer();
                         CheatFrame.controller.Putting(color, row, col);
-
                         CheatFrame.controller.countScore();
+                        /**save one step*/
+                        int [][] board_copy = new int[8][8];
+                        for (int i= 0;i<8;i++){
+                            for(int j=0;j<8;j++){
+                                board_copy[i][j] = ChessBoardPanel.getData()[i][j];
+                            }
+                        }
+                        Step a=new Step(color,row,col,board_copy);
+                        GameFrame.g.addStep(a);
+
                         CheatFrame.controller.swapPlayer();
+                        repaint();
 
                         if (!CheatFrame.controller.canContinue()) {
                             isStart = false;

@@ -9,6 +9,8 @@ import java.awt.event.*;
 
 public class MainFrame extends JFrame {
     public static int mode=0;
+    public static int gid=1;
+    public static int step=0;
     public static int getMode() {
         return mode;
     }
@@ -23,7 +25,7 @@ public class MainFrame extends JFrame {
 
         this.setLocationRelativeTo(null);
 
-        JButton AIBtn = new JButton("EASY AI");
+        JButton AIBtn = new JButton("EASY AI MODE");
         AIBtn.setSize(200, 100);
         AIBtn.setLocation(100, 100);
         add(AIBtn);
@@ -34,7 +36,7 @@ public class MainFrame extends JFrame {
             System.out.println("click AI Btn");*/
         });
 
-        JButton difAIBtn = new JButton("DIFFICULT AI");
+        JButton difAIBtn = new JButton("DIFFICULT AI MODE");
         difAIBtn.setSize(200, 100);
         difAIBtn.setLocation(100, 225);
         add(difAIBtn);
@@ -46,7 +48,7 @@ public class MainFrame extends JFrame {
             System.out.println("click cheatAI Btn");*/
         });
 
-        JButton NORMALBtn = new JButton("START GAME");
+        JButton NORMALBtn = new JButton("NORMAL START");
         NORMALBtn.setSize(200, 100);
         NORMALBtn.setLocation(100, 350);
         add(NORMALBtn);

@@ -32,8 +32,8 @@ public class Game {
                 this.board[ix][iy] = 0;
             }
         }
-        this.board[3][3]=1;this.board[4][4]=1;//put white
-        this.board[3][4]=-1;this.board[4][3]=-1;//place black
+        this.board[3][3]=1;this.board[4][4]=1;//put black
+        this.board[3][4]=-1;this.board[4][3]=-1;//place white
     }
 
     public Game(String name, Player whitePlayer, Player blackPlayer, int gid){
@@ -75,7 +75,8 @@ public class Game {
     }
 
 
-    public ArrayList<Step> getStepList(){
+    public ArrayList<Step> getStepList(){/**
+     */
         return stepList;
     }
     public boolean checkStep(int sid){
@@ -88,13 +89,15 @@ public class Game {
     }
     // If a step is not in the step list, return false.
 // Otherwise, return true.
-    public boolean addStep(Step step){
-        if(checkStep(step.getSid())){
-            return false;
-        }else {
+    public void addStep(Step step){
+        /**
+         */
+//        if(checkStep(step.getSid())){
+//            return false;
+//        }else {
             stepList.add(step);
-            return true;
-        }
+//            return true;
+//        }
     }
     // If a step is in the step list (i.e. The sid is in the step list), return false.
     // Otherwise, add the step into the step list and return true.
@@ -149,9 +152,9 @@ public class Game {
         int black=0,white=0;
         for (int ix=0;ix<8;ix++){
             for (int iy=0;iy<8;iy++){
-                if (board[ix][iy]==-1){
+                if (board[ix][iy]==1){
                     black++;
-                }else if(this.board[ix][iy]==1){
+                }else if(this.board[ix][iy]==-1){
                     white++;
                 }
             }
