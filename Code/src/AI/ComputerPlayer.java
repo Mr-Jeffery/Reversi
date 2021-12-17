@@ -1,8 +1,9 @@
 package AI;
 
 import java.util.ArrayList;
+import java.util.List;
 
-class ComputerPlayer {
+public class ComputerPlayer {
     protected int [][] board;
     int chess;
     static int layerTotal=4;
@@ -14,14 +15,13 @@ class ComputerPlayer {
     }
 
 
-
-    static class Node
-    {
+    static class Node {
+        List<Node> moves = new ArrayList<>();
         protected int [][]board;
         int chess;
         Runner runner = new Runner();
         private int plausible;
-        private long layer;
+        private int layer;
         private boolean M;
         ArrayList<int[]> subNodeCoordinate = new ArrayList<>();
         ArrayList<Node> subNode = new ArrayList<>();
@@ -40,7 +40,7 @@ class ComputerPlayer {
         };
 
         public Node(){}
-        public Node(Node surNode, long layer, boolean M, int [][]board, int chess)
+        public Node(Node surNode, int layer, boolean M, int [][]board, int chess)
         {
             this.surNode = surNode;
             this.layer = layer;
@@ -57,6 +57,7 @@ class ComputerPlayer {
                     }
                 }
             }
+            subNodeCoordinate.toArray();
         }
 
         public void search() {
@@ -95,13 +96,14 @@ class ComputerPlayer {
         }
 
 
+
         public void branch() {
             if (layer<=layerTotal){
                 Runner runner = new Runner();
                 for (int i=0;i<this.plausible;i++) {
                     runner.setBoard(board);
                     runner.put(chess, subNodeCoordinate.get(i)[0], subNodeCoordinate.get(i)[1]);
-                    Node subNode = new Node(this, layer + 1, !M, runner.getBoard(),-chess);
+                    Node subNode = new Node(this, layer+1, !M, runner.getBoard(),-chess);
                     this.subNode.add(subNode);
                 }
             }
