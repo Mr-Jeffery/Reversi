@@ -10,14 +10,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Loader{
     private Loader(){}
     public static Game load(String gamePath){
         try {
-//            File file = new File("./Test.txt");
-//            System.out.println(file.exists());
             BufferedReader in = new BufferedReader(new FileReader(gamePath));
             //读取参数
             int temp;
@@ -58,6 +57,9 @@ public class Loader{
             return game;
         }catch (IOException e) {
             System.out.println("The Game can't be loaded!");
+            return null;
+        }catch (NoSuchElementException e){
+            System.out.println("The Game file has been modified, can't be loaded!");
             return null;
         }
     }
