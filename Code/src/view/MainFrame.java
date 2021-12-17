@@ -21,14 +21,17 @@ public class MainFrame extends JFrame {
         this.setLayout(null);//???
 
         Insets inset = this.getInsets();
-        this.setSize(900 + inset.left + inset.right, 900 + inset.top + inset.bottom);
+        this.setSize(1000 + inset.left + inset.right, 750 + inset.top + inset.bottom);
 
         this.setLocationRelativeTo(null);
 
         JButton AIBtn = new JButton("EASY AI MODE");
+        Font font1= new Font("微软雅黑",Font.BOLD,16);
+        AIBtn.setFont(font1);
         AIBtn.setSize(200, 100);
-        AIBtn.setLocation(100, 100);
+        AIBtn.setLocation(75, 225);
         add(AIBtn);
+        AIBtn.setBorderPainted(false);
         AIBtn.addActionListener(e -> {
             /*GameFrame gameFrame=new GameFrame();
             this.setVisible(false);
@@ -37,9 +40,11 @@ public class MainFrame extends JFrame {
         });
 
         JButton difAIBtn = new JButton("DIFFICULT AI MODE");
-        difAIBtn.setSize(200, 100);
-        difAIBtn.setLocation(100, 225);
+        difAIBtn.setFont(font1);
+        difAIBtn.setSize(400, 100);
+        difAIBtn.setLocation(0, 385);
         add(difAIBtn);
+        difAIBtn.setBorderPainted(false);
         difAIBtn.addActionListener(e -> {
            /*
             GameFrame gameFrame=new GameFrame();
@@ -49,9 +54,11 @@ public class MainFrame extends JFrame {
         });
 
         JButton NORMALBtn = new JButton("NORMAL START");
+        NORMALBtn.setFont(font1);
         NORMALBtn.setSize(200, 100);
-        NORMALBtn.setLocation(100, 350);
+        NORMALBtn.setLocation(75, 570);
         add(NORMALBtn);
+        NORMALBtn.setBorderPainted(false);
         NORMALBtn.addActionListener(e -> {
             int[][]first=new int[8][8];
             for(int i=0;i<8;i++)
@@ -69,25 +76,6 @@ public class MainFrame extends JFrame {
             add(gameFrame);
 
         });
-
-//        JButton CHEATBtn = new JButton("START GAME");
-//        CHEATBtn.setSize(200, 100);
-//        CHEATBtn.setLocation(100, 475);
-//        add(CHEATBtn);
-//        CHEATBtn.addActionListener(e -> {
-//            this.gameMode = 2;
-//            CheatFrame gameFrame = new CheatFrame();
-//            this.setVisible(false);
-//            add(gameFrame);
-//            System.out.println("click CHEAT Btn");
-//        });
-
-        /*Label img2 =new JLabel(new ImageIcon("othello.png"));
-        add(img2);
-        img2.setBounds(0, 0, 1000, 580);
-        img2.setVisible(true);*/
-
-
 
     }
 

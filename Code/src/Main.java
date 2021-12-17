@@ -11,7 +11,7 @@ public class Main {
             SwingUtilities.invokeLater(() -> {
                 RegisterFrame registerFrame = new RegisterFrame();
                 JPanel panel=new JPanel();
-                JLabel img2 =new JLabel(new ImageIcon("InOthelloCover.jpg"));
+                JLabel img2 =new JLabel(new ImageIcon("Othello22.jpg"));
                 panel.add(img2);
                 img2.setBounds(0, 0, 1000, 800);
                 img2.setVisible(true);
