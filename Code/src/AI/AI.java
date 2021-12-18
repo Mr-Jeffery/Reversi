@@ -16,7 +16,7 @@ public class AI {
         oNode = new Node();
         oNode.moves=new ArrayList<>();
         oNode.moves.add(oNode);
-        Node.layerTotal=8;
+        Node.layerTotal=7;
         metaNode = new Node();
         metaNode.search(oNode,0,M,board,new int[]{},chess);
         return metaNode.getMove();
@@ -61,7 +61,7 @@ public class AI {
             }//Max,Min
             runner.setBoard(board);
             if (layer < layerTotal&&runner.canContinue()) {//search plausible next step
-                for (int PositionX = 0; PositionX < 8; PositionX++) {
+                outer:for (int PositionX = 0; PositionX < 8; PositionX++) {
                     for (int PositionY = 0; PositionY < 8; PositionY++) {
                         runner.setBoard(board);
                         if(runner.getBoard()[PositionY][PositionX]!=0){
@@ -86,7 +86,7 @@ public class AI {
                                     ||(!M&&this.value<=surNode.value))
                             {
                                 System.out.println("break");
-                                break;
+                                break outer;
                             }
                         }
                     }
