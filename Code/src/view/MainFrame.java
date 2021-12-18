@@ -4,8 +4,13 @@ import controller.GameController;
 import javafx.scene.canvas.GraphicsContext;
 
 import javax.swing.*;
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainFrame extends JFrame {
     public static int mode=0;
@@ -14,6 +19,9 @@ public class MainFrame extends JFrame {
     public static int getMode() {
         return mode;
     }
+
+    private URL url2;
+    private AudioClip ac2;
 
     public MainFrame() {
 
@@ -25,6 +33,15 @@ public class MainFrame extends JFrame {
 
         this.setLocationRelativeTo(null);
 
+        File f4 = new File("Put.wav");
+        try {
+            url2= f4.toURL();
+        } catch (
+                MalformedURLException e) {
+            e.printStackTrace();
+        }
+        ac2= Applet.newAudioClip(url2);
+
         JButton AIBtn = new JButton("EASY AI MODE");
         Font font1= new Font("微软雅黑",Font.BOLD,16);
         AIBtn.setFont(font1);
@@ -33,10 +50,8 @@ public class MainFrame extends JFrame {
         add(AIBtn);
         AIBtn.setBorderPainted(false);
         AIBtn.addActionListener(e -> {
-            /*GameFrame gameFrame=new GameFrame();
-            this.setVisible(false);
-            add(gameFrame);
-            System.out.println("click AI Btn");*/
+
+            ac2.play();
         });
 
         JButton difAIBtn = new JButton("DIFFICULT AI MODE");
@@ -46,11 +61,8 @@ public class MainFrame extends JFrame {
         add(difAIBtn);
         difAIBtn.setBorderPainted(false);
         difAIBtn.addActionListener(e -> {
-           /*
-            GameFrame gameFrame=new GameFrame();
-            this.setVisible(false);
-            add(gameFrame);
-            System.out.println("click cheatAI Btn");*/
+
+        ac2.play();
         });
 
         JButton NORMALBtn = new JButton("NORMAL START");
@@ -60,6 +72,8 @@ public class MainFrame extends JFrame {
         add(NORMALBtn);
         NORMALBtn.setBorderPainted(false);
         NORMALBtn.addActionListener(e -> {
+            ac2.play();
+
             int[][]first=new int[8][8];
             for(int i=0;i<8;i++)
                 for(int j=0;j<8;j++)
@@ -72,6 +86,16 @@ public class MainFrame extends JFrame {
             first[3][4]=-1;
             System.out.println("Btn reacted!!!!");
             GameFrame gameFrame = new GameFrame(first,2,2,1);
+
+            JPanel panel=new JPanel();
+            JLabel img2 =new JLabel(new ImageIcon("othello.jpg"));
+            panel.add(img2);
+            img2.setBounds(0, 0, 1000, 800);
+            img2.setVisible(true);
+            panel.setBounds(0, 0, 1000, 800);
+            gameFrame.add(panel);
+
+            gameFrame.setVisible(true);
             this.setVisible(false);
             add(gameFrame);
 

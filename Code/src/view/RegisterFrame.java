@@ -4,15 +4,36 @@ import controller.GameController;
 import javafx.scene.canvas.GraphicsContext;
 
 import javax.swing.*;
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class RegisterFrame extends JFrame {
+
+    private URL url1;
+    private AudioClip ac1;
 
     public RegisterFrame() {
 
         this.setTitle("Let's play othello!");
         this.setLayout(null);//???
+
+        File f1 = new File("StartSound.wav");
+        try {
+            url1= f1.toURL();
+        } catch (
+                MalformedURLException e) {
+// TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        ac1= Applet.newAudioClip(url1);
+        ac1.play();
+      //  ac.wait();
+        System.out.println("tried to have music");
 
         Insets inset = this.getInsets();
         this.setSize(900 + inset.left + inset.right+100, 580 + inset.top + inset.bottom);
@@ -47,6 +68,7 @@ public class RegisterFrame extends JFrame {
         add(logIn);
         logIn.setBorderPainted(false);
         logIn.addActionListener(e -> {
+
             MainFrame mainFrame = new MainFrame();
             JPanel panel=new JPanel();
             JLabel img2 =new JLabel(new ImageIcon("CHoose.jpg"));

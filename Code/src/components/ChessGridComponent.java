@@ -4,15 +4,22 @@ package components;
 import Asssignment4Components.Step;
 import controller.GameController;
 import model.*;
-import view.CheatFrame;
-import view.ChessBoardPanel;
-import view.GameFrame;
-import view.MainFrame;
+import view.*;
 
 import javax.swing.*;
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import static java.awt.Toolkit.getDefaultToolkit;
 
 public class ChessGridComponent extends BasicComponent {
     public boolean isStart = true;
@@ -24,11 +31,19 @@ public class ChessGridComponent extends BasicComponent {
     private int row;
     private int col;
 
+    private URL url3;
+    private AudioClip ac3;
+    private boolean setDelay=false;
+
     public ChessGridComponent(int row, int col) {
         this.setSize(gridSize, gridSize);
 
         this.row = row;
         this.col = col;
+    }
+    public void setDelay(boolean i)
+    {
+        this.setDelay=i;
     }
 
     @Override
@@ -39,6 +54,17 @@ public class ChessGridComponent extends BasicComponent {
                 System.out.println("isstart");
                 //找到接口了哈哈哈哈哈哈哈哈
                 if (GameFrame.controller.canClick(row, col)) {
+
+                    File f4 = new File("Put.wav");
+                    try {
+                        url3= f4.toURL();
+                    } catch (
+                            MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                    ac3= Applet.newAudioClip(url3);
+                    ac3.play();
+
                     System.out.println("canclick happened");//如果该点为空，则可以下棋，重新绘制repaint
                     GameFrame.controller.clearNextStep();
                     int color=GameFrame.controller.getCurrentPlayer();
@@ -68,6 +94,15 @@ public class ChessGridComponent extends BasicComponent {
                 }
                 else
                 {
+                    File f4 = new File("error.wav");
+                    try {
+                        url3= f4.toURL();
+                    } catch (
+                            MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                    ac3= Applet.newAudioClip(url3);
+                    ac3.play();
                     JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>this is an </font><font color='#cc22ff'>INVALID</font><font color='#cc22ff'>move.Here are the avalable steps.</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
                     int color1=GameFrame.controller.getCurrentPlayer();
                     GameFrame.controller.checkNextStep(color1);
@@ -88,6 +123,15 @@ public class ChessGridComponent extends BasicComponent {
                     //找到接口了哈哈哈哈哈哈哈哈
                     System.out.println(CheatFrame.controller.canClick(row, col));
                     if (CheatFrame.controller.canClick(row, col)) {
+                        File f4 = new File("Put.wav");
+                        try {
+                            url3= f4.toURL();
+                        } catch (
+                                MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                        ac3= Applet.newAudioClip(url3);
+                        ac3.play();
                         //如果该点为空，则可以下棋，重新绘制repaint
                         CheatFrame.controller.clearNextStep();
                         int color= CheatFrame.controller.getCurrentPlayer();
@@ -116,6 +160,16 @@ public class ChessGridComponent extends BasicComponent {
                                 JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
                         }
                     } else {
+                        File f4 = new File("error.wav");
+                        try {
+                            url3= f4.toURL();
+                        } catch (
+                                MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                        ac3= Applet.newAudioClip(url3);
+                        ac3.play();
+
                         JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>this is an </font><font color='#cc22ff'>INVALID</font><font color='#cc22ff'>move.Here are the avalable steps.</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
                         int color2 = CheatFrame.controller.getCurrentPlayer();
                         CheatFrame.controller.checkNextStep(color2);
@@ -144,12 +198,28 @@ public class ChessGridComponent extends BasicComponent {
 
     public void drawPiece (Graphics g){
         g.setColor(gridColor);
+
         g.fillRect(1, 1, this.getWidth() - 2, this.getHeight() - 2);
+//        if (this.chessPiece != null && !setDelay) {
+//            g.setColor(chessPiece.getColor());
+//            g.fillOval((gridSize - chessSize) / 2, (gridSize - chessSize) / 2, chessSize, chessSize);
+//        }
+//        else if(this.chessPiece != null && setDelay)
+//        {
+//            g.setColor(chessPiece.getColor());
+//            try {
+//                TimeUnit.SECONDS.sleep(1);
+//            } catch (InterruptedException ie) {
+//                Thread.currentThread().interrupt();
+//            }
+//            g.fillOval((gridSize - chessSize) / 2, (gridSize - chessSize) / 2, chessSize, chessSize);
+//        }
         if (this.chessPiece != null) {
             g.setColor(chessPiece.getColor());
             g.fillOval((gridSize - chessSize) / 2, (gridSize - chessSize) / 2, chessSize, chessSize);
         }
     }
+
 
 
     @Override

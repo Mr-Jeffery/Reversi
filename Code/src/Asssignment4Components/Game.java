@@ -13,7 +13,7 @@ public class Game {
     // The white player object corresponding to this game.
     final private Player blackPlayer;
     // The black player object corresponding to this game.
-    private ArrayList<Step> stepList = new ArrayList <>();
+    private ArrayList<Step> stepList = new ArrayList <Step>();
     // The list of steps.
     private int[][] board;
 
@@ -31,6 +31,7 @@ public class Game {
         }
         this.board[3][3]=1;this.board[4][4]=1;//put black
         this.board[3][4]=-1;this.board[4][3]=-1;//place white
+        this.stepList.clear();
     }
 
     public Game(String name, Player whitePlayer, Player blackPlayer, int gid){
@@ -74,7 +75,7 @@ public class Game {
 
     public ArrayList<Step> getStepList(){/**
      */
-        return stepList;
+        return this.stepList;
     }
     public boolean checkStep(int sid){
         for (Step s : stepList ){

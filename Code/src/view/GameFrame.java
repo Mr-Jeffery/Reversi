@@ -45,10 +45,12 @@ public class GameFrame extends JFrame {
         Insets inset = this.getInsets();
         this.setSize(frameSize + inset.left + inset.right, frameSize + inset.top + inset.bottom);
 
+        System.out.println("gameframesize is:"+frameSize + inset.left + inset.right+"and"+frameSize + inset.top + inset.bottom);
         this.setLocationRelativeTo(null);
 
         chessBoardPanel = new ChessBoardPanel((int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.7), last);
         chessBoardPanel.setLocation((this.getWidth() - chessBoardPanel.getWidth()) / 2, (this.getHeight() - chessBoardPanel.getHeight()) / 3);
+
 
         statusPanel = new StatusPanel((int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.1), bscore, wscore);//创建了新的标记
         statusPanel.setLocation((this.getWidth() - chessBoardPanel.getWidth()) / 2, 0);

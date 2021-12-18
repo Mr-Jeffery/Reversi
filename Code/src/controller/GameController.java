@@ -157,6 +157,7 @@ public class GameController {
                 else
                 {
                     gamePanel.getChessGrids(i,j).setChessPiece(null);
+                    gamePanel.data[i][j]=0;
                 }
             }
         if(cplayer==1)currentPlayer=ChessPiece.BLACK;
