@@ -1,5 +1,5 @@
 package view;
-//String str1= JOptionPane.showInputDialog("enter this intenger");   输入衔接
+//String str1= JOptionPane.showInputDialog("enter this integer");   输入衔接
 //int num1=Integer.parseInt(str1);
 
 import Asssignment4Components.Game;
@@ -32,7 +32,7 @@ public class GameFrame extends JFrame {
     public GameFrame(int[][] last, int bscore, int wscore, int cPlayer) {
         MainFrame.mode++;
         if (MainFrame.gid == 1) {
-            Game g = new Game("othello" + MainFrame.gid, new Player("a"), new Player("b"));
+            Game g = new Game("othello" + MainFrame.gid, new Player("Alice","123"), new Player("Bob","123"));
             MainFrame.gid++;
             setGame(g);
         }
@@ -86,7 +86,7 @@ public class GameFrame extends JFrame {
                     first[3][4] = -1;
                     GameFrame gameFrame = new GameFrame(first, 2, 2, 1);
 
-                    Game g = new Game("othello" + MainFrame.gid, new Player("a"), new Player("b"));
+                    Game g = new Game("othello" + MainFrame.gid, new Player("Alice","123"), new Player("Bob","123"));
                     MainFrame.gid++;
                     gameFrame.setGame(g);
 
@@ -106,7 +106,7 @@ public class GameFrame extends JFrame {
                 first[3][4] = -1;
                 GameFrame gameFrame = new GameFrame(first, 2, 2, 1);
 
-                Game g = new Game("othello" + MainFrame.gid, new Player("a"), new Player("b"));
+                Game g = new Game("othello" + MainFrame.gid, new Player("Alice","123"), new Player("Bob","123"));
                 MainFrame.gid++;
                 gameFrame.setGame(g);
 
@@ -145,9 +145,9 @@ public class GameFrame extends JFrame {
         add(saveGameBtn);
         saveGameBtn.addActionListener(e -> {
             JFileChooser chooser = new JFileChooser(".//Code//src//Saved_games");
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "jpg", "gif");
+           // FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "jpg", "gif");
 //设置文件类型
-            chooser.setFileFilter(filter);
+            //chooser.setFileFilter(filter);
 //打开选择器面板
             int returnVal = chooser.showSaveDialog(new JPanel());
 //保存文件从这里入手，输出的是文件名

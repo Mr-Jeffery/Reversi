@@ -2,7 +2,7 @@ package AI;
 
 public class Runner
 {
-    private int[][] data= new int[8][8];
+    private final int[][] data= new int[8][8];
 
     public boolean canPut(int chess, int positionX, int positionY, int moveX, int moveY, int edible) {
         if (positionX+moveX>7||positionX+moveX<0||positionY+moveY>7||positionY+moveY<0){
@@ -14,12 +14,7 @@ public class Runner
         else if (data[positionX+moveX][positionY+moveY] == -chess){
             return canPut(chess,positionX+moveX,positionY+moveY,moveX,moveY,edible+1);
         }
-        else if(data[positionX+moveX][positionY+moveY] == chess && edible!=0){
-            return true;
-        }
-        else {
-            return false;
-        }
+        else return data[positionX + moveX][positionY + moveY] == chess && edible != 0;
     }
     public boolean canPut(int chess,int positionX, int positionY){//这里可以下棋,多态
         int[] directionX = new int[]{0, 0, 1, 1, -1, -1, 1, -1};

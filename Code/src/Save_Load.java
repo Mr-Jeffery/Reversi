@@ -1,9 +1,6 @@
-import AI.Runner;
 import Asssignment4Components.*;
 
 import javax.swing.*;
-import java.util.Arrays;
-
 public class Save_Load {
     public static void main(String[] args) {
 
@@ -34,9 +31,6 @@ public class Save_Load {
             Game game = Loader.load(filePath);
         }
 
-
-//           Game game = Loader.load("Test");
-//           System.out.println(game);
     }
 }
 

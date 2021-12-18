@@ -1,42 +1,27 @@
 package Asssignment4Components;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Player implements Serializable {
-    private int pid;
-    private static int playerCnt=1;
     private String name;
+    private String password;
 
-    public Player(String name){
-        this.pid=playerCnt++;
+    public Player(String name,String password){
         this.name=name;
-        //static++的原理也太神必了罢
-        //写成下面这样就摁报错
-        // playerCnt++;
-        //this.pid=playerCnt;
-        //this.name=name;
+        this.password=password;
     }
 
-    public int getPid(){
-        return this.pid;
+    public boolean logIn(String password){
+        return password==this.password;
     }
 
     public String getName(){
         return this.name;
     }
 
-    public static int getPlayerCnt(){
-        return playerCnt;
-    }
-
-    public void setName(String newName){
-        this.name=newName;
-    }
-
     @Override
     public String toString(){
-        return this.name+String.valueOf(this.pid);
+        return this.name;
     }
 
 }

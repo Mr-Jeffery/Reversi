@@ -26,8 +26,8 @@ public class Loader{
             }
             String [] s =input.split("&");
             //load player
-            Player p1 = new Player("Alice");
-            Player p2 = new Player("Bob");
+            Player p1 = new Player("Alice","123");
+            Player p2 = new Player("Bob","123");
             //load game
             Game game = new Game(s[0],p1,p2);
             String [] stepListInput = s[1].split("#");
