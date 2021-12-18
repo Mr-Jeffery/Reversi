@@ -1,3 +1,4 @@
+import AI.AI;
 import Asssignment4Components.*;
 
 import javax.swing.*;
@@ -29,6 +30,11 @@ public class Save_Load {
             String filePath = fileChooser.getSelectedFile().getAbsolutePath();
 //              System.out.println(filePath);
             Game game = Loader.load(filePath);
+            AI ai = new AI();
+            int[] result = ai.play(game.getBoard(),-1);
+            for(int r : result) {
+                System.out.println(r);
+            }
         }
 
     }
