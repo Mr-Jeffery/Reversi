@@ -145,9 +145,9 @@ public class GameFrame extends JFrame {
         add(saveGameBtn);
         saveGameBtn.addActionListener(e -> {
             JFileChooser chooser = new JFileChooser(".//Code//src//Saved_games");
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "jpg", "gif");
+           // FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "jpg", "gif");
 //设置文件类型
-            chooser.setFileFilter(filter);
+            //chooser.setFileFilter(filter);
 //打开选择器面板
             int returnVal = chooser.showSaveDialog(new JPanel());
 //保存文件从这里入手，输出的是文件名

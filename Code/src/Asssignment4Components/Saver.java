@@ -31,10 +31,8 @@ import java.io.FileOutputStream;
 
 public class Saver {
     public static void fileChooser() {
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("csv", "jpg", "gif");
-//设置文件类型
-        chooser.setFileFilter(filter);
+        JFileChooser chooser = new JFileChooser(".//Code//src//Saved_games");
+
 //打开选择器面板
         int returnVal = chooser.showSaveDialog(new JPanel());
 //保存文件从这里入手，输出的是文件名
@@ -43,12 +41,12 @@ public class Saver {
                     chooser.getSelectedFile().getPath());
             String path = chooser.getSelectedFile().getPath();
             try {
-                File f = new File(path + ".csv");
+                File f = new File(path+".txt");
                 System.out.println(f.getAbsolutePath());
                 f.createNewFile();
                 FileOutputStream out = new FileOutputStream(f);
 
-                out.write("aaaaaaaaaaaaaaaaa".getBytes());
+                out.write("".getBytes());
                 out.close();
             } catch (Exception e) {
 // TODO Auto-generated catch block

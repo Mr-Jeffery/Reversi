@@ -12,7 +12,7 @@ public class AI {
 
     public int[] play(int[][] board,int chess){
         boolean M;
-        M= chess != -1;
+        if (chess==-1){M=false;}else {M=true;}
         oNode = new Node();
         oNode.moves=new ArrayList<>();
         oNode.moves.add(oNode);
@@ -62,22 +62,15 @@ public class AI {
             }//Max,Min
 
             if (layer <= layerTotal) {//search plausible next step
-                if (runner.canContinue()){
-                    for (int PositionX = 0; PositionX < 8; PositionX++) {
-                        for (int PositionY = 0; PositionY < 8; PositionY++) {
-                            runner.setBoard(board);
-                            if (runner.canPut(chess, PositionX, PositionY)) {
-                                runner.put(this.chess,PositionX,PositionY);
-                                Node sNode = new Node();
-                                sNode.search(this, layer + 1, !M, runner.getBoard(), new int[]{PositionX, PositionY}, -chess);
-                                this.subNode.add(sNode);
-                            }
+                for (int PositionX = 0; PositionX < 8; PositionX++) {
+                    for (int PositionY = 0; PositionY < 8; PositionY++) {
+                        runner.setBoard(board);
+                        if (runner.canPut(chess, PositionX, PositionY)) {
+                            runner.put(this.chess,PositionX,PositionY);
+                            Node sNode = new Node();
+                            sNode.search(this, layer + 1, !M, runner.getBoard(), new int[]{PositionX, PositionY}, -chess);
+                            this.subNode.add(sNode);
                         }
-                    }
-                    if (this.subNode.isEmpty()){//has nowhere to place chess
-                        Node sNode = new Node();
-                        sNode.search(this, layer + 1, !M, this.board, new int[]{ }, -chess);
-                        this.subNode.add(sNode);
                     }
                 }
                 subNode.toArray();

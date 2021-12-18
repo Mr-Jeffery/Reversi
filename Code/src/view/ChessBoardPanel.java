@@ -101,7 +101,7 @@ public class ChessBoardPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.BLACK);//set white color!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        g.setColor(Color.BLACK);//set black color
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
     }
 
