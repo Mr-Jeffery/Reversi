@@ -1,8 +1,9 @@
 package Asssignment4Components;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable {
     private int pid;
     private static int playerCnt=1;
     private String name;

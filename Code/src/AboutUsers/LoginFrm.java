@@ -47,36 +47,33 @@ public class LoginFrm extends JFrame {
         pnl.add(btn2);
         this.getContentPane().add(pnl);
 
-        btn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(IDList.size()==0)
-                {
-                    System.out.println("Please register first!!");
-                }
-                if (txt.getText().equals(new String(pwd.getPassword()))){
-                    pnl.removeAll();
-                    MainFrame mainFrame = new MainFrame();
-                    JPanel panel=new JPanel();
-                    JLabel img2 =new JLabel(new ImageIcon("othello.jpg"));
-                    panel.add(img2);
-                    img2.setBounds(0, 0, 1000, 800);
-                    img2.setVisible(true);
-                    panel.setBounds(0, 0, 1000, 800);
-                    mainFrame.add(panel);
-                    mainFrame.setVisible(true);
+        btn1.addActionListener(e -> {
+            if(IDList.size()==0)
+            {
+                System.out.println("Please register first!!");
+            }
+            if (txt.getText().equals(new String(pwd.getPassword()))){
+                pnl.removeAll();
+                MainFrame mainFrame = new MainFrame();
+                JPanel panel=new JPanel();
+                JLabel img2 =new JLabel(new ImageIcon("othello.jpg"));
+                panel.add(img2);
+                img2.setBounds(0, 0, 1000, 800);
+                img2.setVisible(true);
+                panel.setBounds(0, 0, 1000, 800);
+                mainFrame.add(panel);
+                mainFrame.setVisible(true);
+            }
+            else{
+                if(error < 3){
+                    JOptionPane.showMessageDialog(null,"密码输入错误，请再试一次");
+                    error++;
                 }
                 else{
-                    if(error < 3){
-                        JOptionPane.showMessageDialog(null,"密码输入错误，请再试一次");
-                        error++;
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null,"对不起，您不是合法用户");
-                        txt.setEnabled(false);
-                        pwd.setEnabled(false);
-                        btn1.setEnabled(false);
-                    }
+                    JOptionPane.showMessageDialog(null,"对不起，您不是合法用户");
+                    txt.setEnabled(false);
+                    pwd.setEnabled(false);
+                    btn1.setEnabled(false);
                 }
             }
         });
