@@ -13,7 +13,7 @@ public class PlayerSaver {
         playerList.add(player2);
         for (Player p :playerList){
             try {
-                FileOutputStream fileOut = new FileOutputStream(String.format(".//%s.txt",p.getPid()));
+                FileOutputStream fileOut = new FileOutputStream(String.format(".//%s.plr",p.getPid()));
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
                 out.writeObject(p);
                 out.close();
