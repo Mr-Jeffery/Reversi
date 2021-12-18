@@ -12,7 +12,7 @@ public class AI {
 
     public int[] play(int[][] board,int chess){
         boolean M;
-        if (chess==-1){M=false;}else {M=true;}
+        M= chess != -1;
         oNode = new Node();
         oNode.moves=new ArrayList<>();
         oNode.moves.add(oNode);

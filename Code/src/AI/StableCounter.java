@@ -27,8 +27,8 @@ public class StableCounter {
     }
 
     public boolean isStable(int chess, int positionX, int positionY){
-        int[] directionX = new int[]{-1,0,1,-1,1,-1,0,1};
-        int[] directionY = new int[]{-1,0,1,-1,1,-1,0,1};
+        int[] directionX = new int[]{0, 0, 1, 1, -1, -1, 1, -1};
+        int[] directionY = new int[]{1, -1, 1, -1, -1, 1, 0, 0};
         boolean answer = true;
         if (count[positionX][positionY]==2*chess){
             return true;
@@ -37,14 +37,14 @@ public class StableCounter {
                 answer=isStable(chess, positionX, positionY, directionX[i], directionY[i])&&answer;
         }
         if (answer){
-            count[positionX][positionY] *= 2;
+            count[positionX][positionY] = 2*count[positionX][positionY];
         }
         return answer;
     }
     private boolean isStable(int chess, int positionX, int positionY, int moveX, int moveY) {
-        return !(hasSpace(chess,positionX,positionY,moveX,moveY)&&//has space on one side
+        return !(hasSpace(positionX,positionY,moveX,moveY)&&//has space on one side
                 (hasEnemy(chess,positionX,positionY,-moveX,-moveY)||//has space or enemy on the other side
-                        hasSpace(chess,positionX,positionY,-moveX,-moveY)));
+                        hasSpace(positionX,positionY,-moveX,-moveY)));
     }
 
     private boolean hasEnemy(int chess, int positionX, int positionY, int moveX, int moveY) {
@@ -59,13 +59,13 @@ public class StableCounter {
         }
     }
 
-    private boolean hasSpace(int chess, int positionX, int positionY, int moveX, int moveY) {
+    private boolean hasSpace(int positionX, int positionY, int moveX, int moveY) {
         if (positionX+moveX>7||positionX+moveX<0||positionY+moveY>7||positionY+moveY<0){
             return false;//detect the edge
         }else if(data[positionX+moveX][positionY+moveY]==0){
             return true;//detect empty spaces
         }else{
-            return hasSpace(chess,positionX+moveX,positionY+moveY,moveX,moveY);
+            return hasSpace(positionX+moveX,positionY+moveY,moveX,moveY);
         }
     }
 }

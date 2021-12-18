@@ -81,7 +81,7 @@ public class CheatFrame extends JFrame {
                         first[3][4]=-1;
                         GameFrame gameFrame = new GameFrame(first,2,2,1);
 
-                        Game g=new Game("othello"+MainFrame.gid,new Player("a"),new Player("b"));
+                        Game g=new Game("othello"+MainFrame.gid,new Player("Alice","123"),new Player("Bob","123"));
                         MainFrame.gid++;
                         gameFrame.setGame(g);
 
@@ -103,7 +103,7 @@ public class CheatFrame extends JFrame {
                     first[3][4]=-1;
                     GameFrame gameFrame = new GameFrame(first,2,2,1);
 
-                    Game g=new Game("othello"+MainFrame.gid,new Player("a"),new Player("b"));
+                    Game g=new Game("othello"+MainFrame.gid,new Player("Alice","123"),new Player("Bob","123"));
                     MainFrame.gid++;
                     gameFrame.setGame(g);
 
