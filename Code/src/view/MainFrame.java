@@ -25,7 +25,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
 
-        this.setTitle("Let's play othello!");
+        this.setTitle("Let's Play Othello!");
         this.setLayout(null);//???
 
         Insets inset = this.getInsets();

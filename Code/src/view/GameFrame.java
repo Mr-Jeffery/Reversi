@@ -120,7 +120,7 @@ public class GameFrame extends JFrame {
         loadGameBtn.setLocation(restartBtn.getX() + restartBtn.getWidth() + 30, restartBtn.getY());
         add(loadGameBtn);
         loadGameBtn.addActionListener(e -> {
-            JFileChooser fileChooser = new JFileChooser();
+            JFileChooser fileChooser = new JFileChooser(".//Code//src//Saved_games");
 
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -144,7 +144,7 @@ public class GameFrame extends JFrame {
         saveGameBtn.setLocation(loadGameBtn.getX() + restartBtn.getWidth() + 30, restartBtn.getY());
         add(saveGameBtn);
         saveGameBtn.addActionListener(e -> {
-            JFileChooser chooser = new JFileChooser();
+            JFileChooser chooser = new JFileChooser(".//Code//src//Saved_games");
             FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "jpg", "gif");
 //设置文件类型
             chooser.setFileFilter(filter);

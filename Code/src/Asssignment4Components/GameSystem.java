@@ -1,11 +1,14 @@
 package Asssignment4Components;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 class GameSystem {
-    private ArrayList<Player> playerList = new ArrayList <>();
+
+    private static ArrayList<Player> playerList = new ArrayList <>();
     // The list of players
-    private ArrayList<Game> gameList= new ArrayList <>();
+    private static ArrayList<Game> gameList= new ArrayList <>();
     // The list of games
 
     public GameSystem(){
@@ -13,6 +16,21 @@ class GameSystem {
         ArrayList<Game> gameList = new ArrayList<>();
     }
     // Constructor. Initialize playerList and gameList. For a list with no elements in it, its size should be 0 and its reference should not be null.
+
+    public static void savePlayerList() throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        try (ObjectOutputStream output = new ObjectOutputStream(buffer)) {
+            for (Player player:playerList){
+                output.writeObject(player);
+            }
+        }
+    }
+
+    public static void  loadPlayerList() throws IOException, ClassNotFoundException {
+        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(".src"))) {
+            Player p = (Player) input.readObject();
+        }
+    }
 
     public ArrayList<Game> getGameList(){
         return this.gameList;

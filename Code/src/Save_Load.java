@@ -21,7 +21,8 @@ public class Save_Load {
          step2.setBoard(runner.getBoard());
          game.addStep(step2);
          Saver.save(game);*/
-        JFileChooser fileChooser = new JFileChooser();
+
+        JFileChooser fileChooser = new JFileChooser(".//Code//src//Saved_games");
 
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
