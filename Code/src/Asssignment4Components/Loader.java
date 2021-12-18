@@ -49,8 +49,6 @@ public class Loader{
                     Step step = new Step(chess,X,Y,board);
                     GameFrame gameFrame=new GameFrame(board,bScore,wScore,-chess);
                     gameFrame.setGame(game);
-                    if(MainFrame.mode%2==0)
-                        MainFrame.mode++;
                     game.addStep(step);
 
             in.close();

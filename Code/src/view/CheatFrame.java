@@ -32,7 +32,8 @@ public class CheatFrame extends JFrame {
         this.g=game;
     }
     public CheatFrame(int[][]input,int bscore,int wscore,int cPlayer) {
-        MainFrame.mode++;
+        MainFrame.NORAMLmode=0;
+        MainFrame.CHEATmode=1;
         System.out.println("mode setted2");
         int frameSize= (int)(screensize.getHeight()*0.8);
 
@@ -79,9 +80,11 @@ public class CheatFrame extends JFrame {
                         first[4][4]=1;
                         first[4][3]=-1;
                         first[3][4]=-1;
+                        MainFrame.NORAMLmode=1;
+                        MainFrame.CHEATmode=0;
                         GameFrame gameFrame = new GameFrame(first,2,2,1);
 
-                        Game g=new Game("othello"+MainFrame.gid,new Player("Alice","123"),new Player("Bob","123"));
+                        Game g=new Game("othello"+MainFrame.gid,new Player("a","password"),new Player("b","password"));
                         MainFrame.gid++;
                         gameFrame.setGame(g);
 
@@ -101,9 +104,11 @@ public class CheatFrame extends JFrame {
                     first[4][4]=1;
                     first[4][3]=-1;
                     first[3][4]=-1;
+                    MainFrame.NORAMLmode=1;
+                    MainFrame.CHEATmode=0;
                     GameFrame gameFrame = new GameFrame(first,2,2,1);
 
-                    Game g=new Game("othello"+MainFrame.gid,new Player("Alice","123"),new Player("Bob","123"));
+                    Game g=new Game("othello"+MainFrame.gid,new Player("a","password"),new Player("b","password"));
                     MainFrame.gid++;
                     gameFrame.setGame(g);
 
