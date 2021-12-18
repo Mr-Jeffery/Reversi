@@ -59,8 +59,8 @@ public class AI {
             } else {
                 value = 114514;
             }//Max,Min
-
-            if (layer <= layerTotal) {//search plausible next step
+            runner.setBoard(board);
+            if (layer < layerTotal&&runner.canContinue()) {//search plausible next step
                 for (int PositionX = 0; PositionX < 8; PositionX++) {
                     for (int PositionY = 0; PositionY < 8; PositionY++) {
                         runner.setBoard(board);
@@ -71,14 +71,27 @@ public class AI {
                             runner.put(this.chess,PositionX,PositionY);
                             Node sNode = new Node();
                             sNode.search(this, layer + 1, !M, runner.getBoard(), new int[]{PositionX, PositionY}, -chess);
-                            this.subNode.add(sNode);
+                            if (M){//find max
+                                if(sNode.value>this.value) {
+                                    this.moves=sNode.moves;
+                                    this.value=sNode.value;
+                                }
+                            } else {//find min
+                                if(sNode.value<this.value) {
+                                    this.moves=sNode.moves;
+                                    this.value=sNode.value;
+                                }
+                            }
+                            if((M&&this.value>=surNode.value)
+                                    ||(!M&&this.value<=surNode.value))
+                            {
+                                System.out.println("break");
+                                break;
+                            }
                         }
                     }
                 }
-                subNode.toArray();
-            }//Tree created
-            //starting to evaluate;
-            if (this.layer == layerTotal||subNode.isEmpty()) {//has no next step
+            }else if (this.layer == layerTotal||subNode.isEmpty()) {//has no next step
                 if(runner.canContinue()){//game has not ended yet
                     value=0;
                     for (int PositionX = 0; PositionX < 8; PositionX++) {
@@ -96,28 +109,6 @@ public class AI {
                     value= runner.findWinner()*114514;//game ended
                 }
             }
-            else {
-                for (Node N : subNode) {
-                    if (M){//find max
-                        if(N.value>this.value) {
-                            this.moves=N.moves;
-                            this.value=N.value;
-                        }
-                    } else {//find min
-                        if(N.value<this.value) {
-                            this.moves=N.moves;
-                            this.value=N.value;
-                        }
-                    }
-                    if((M&&this.value>=surNode.value)
-                            ||(!M&&this.value<=surNode.value))
-                    {
-                        System.out.println("break");
-                        break;
-                    }
-                }
-            }
-
         }
 
         public int[] getMove(){
