@@ -49,6 +49,7 @@ public class RegisterFrame extends JFrame {
         ruleBtn.setBorderPainted(false);
         ruleBtn.addActionListener(e -> {
 
+
         });
 
         JButton aboutUs = new JButton("ABOUT US");
@@ -58,6 +59,7 @@ public class RegisterFrame extends JFrame {
         add(aboutUs);
         aboutUs.setBorderPainted(false);
         aboutUs.addActionListener(e -> {
+
 
         });
 

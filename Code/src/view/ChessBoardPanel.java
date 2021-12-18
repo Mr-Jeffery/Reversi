@@ -1,8 +1,14 @@
 package view;
 
+import Asssignment4Components.Game;
 import Asssignment4Components.Step;
+import apple.laf.JRSUIUtils;
 import components.ChessGridComponent;
 import model.ChessPiece;
+
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -39,6 +45,8 @@ public class ChessBoardPanel extends JPanel {
             this.setFocusable(true);
             this.setLayout(null);
             this.setBackground(Color.BLACK);
+
+
             int length = Math.min(width, height);
             this.setSize(length, length);
             ChessGridComponent.gridSize = length / CHESS_COUNT;
@@ -48,9 +56,12 @@ public class ChessBoardPanel extends JPanel {
 
             initialChessGrids(input);//return empty chessboard
             initialGame(input);//add initial four chess
-        if(MainFrame.gid==2)
-        GameFrame.g.addStep(new Step(2,-1,-1,input));
 
+
+        if(MainFrame.NORAMLmode==1 && GameFrame.g.getStepList().size()==0)
+        GameFrame.g.addStep(new Step(2,-1,-1,input));
+        if(MainFrame.AImode==1 && EasyAIFrame.g.getStepList().size()==0)
+        EasyAIFrame.g.addStep(new Step(2,-1,-1,input));
             repaint();
     }
 
@@ -61,7 +72,10 @@ public class ChessBoardPanel extends JPanel {
     public void initialChessGrids(int [][]input) {
         chessGrids = new ChessGridComponent[CHESS_COUNT][CHESS_COUNT];
         for(int i=0;i<8;i++)
-            System.arraycopy(input[i], 0, data[i], 0, 8);
+            for(int j=0;j<8;j++)
+            {
+                data[i][j]=input[i][j];
+            }
         for (int i = 0; i < CHESS_COUNT; i++) {
             for (int j = 0; j < CHESS_COUNT; j++) {
                 ChessGridComponent gridComponent = new ChessGridComponent(i, j);
@@ -101,7 +115,7 @@ public class ChessBoardPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.BLACK);//set black color
+        g.setColor(Color.BLACK);//set white color!!!!!!!!!!!!!!!!!!!!!!!!!!!
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
     }
 
@@ -117,15 +131,14 @@ public class ChessBoardPanel extends JPanel {
                 chessGrids[PositionX + moveX][PositionY + moveY].setChessPiece(ChessPiece.BLACK);
             else if (chess == -1)
                 chessGrids[PositionX + moveX][PositionY + moveY].setChessPiece(ChessPiece.WHITE);
-                    System.out.println("repaint delayed!");
+
+//            try {
+//                TimeUnit.SECONDS.sleep(5);
+//            } catch (InterruptedException ie) {
+//                Thread.currentThread().interrupt();
+//            }
             repaint();
-            //try {
-                //System.out.println("delaying");
-                //TimeUnit.SECONDS.sleep(1);
                 Put(chess,PositionX+moveX,PositionY+moveY,moveX,moveY);
-            //} catch (InterruptedException e) {
-               // System.err.format("IOException: %s%n", e);
-            //}
         }
     }
 
@@ -163,7 +176,12 @@ public class ChessBoardPanel extends JPanel {
         else if (data[PositionX+moveX][PositionY+moveY] == -chess){
             return canPut(chess,PositionX+moveX,PositionY+moveY,moveX,moveY,edible+1);
         }
-        else return data[PositionX + moveX][PositionY + moveY] == chess && edible != 0;
+        else if(data[PositionX+moveX][PositionY+moveY] == chess && edible!=0){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public boolean canPut(int chess,int PositionX, int PositionY)//这里可以下棋,多态
@@ -183,11 +201,26 @@ public class ChessBoardPanel extends JPanel {
     }
 
     public boolean canClickGrid(int row, int col, ChessPiece currentPlayer) {
-        int chessColor=0;
-        if(currentPlayer.getColor()==Color.BLACK)chessColor=1;
-        else if(currentPlayer.getColor()==Color.WHITE)chessColor=-1;
-        return canPut(chessColor, row, col);
+        int chesscolor=0;
+        if(currentPlayer.getColor()==Color.BLACK)chesscolor=1;
+        else if(currentPlayer.getColor()==Color.WHITE)chesscolor=-1;
+        if(canPut(chesscolor,row,col))return true;
+        else return false;
     }
+
+    public boolean canClickGrid2(int row, int col, ChessPiece currentPlayer) {
+        int chesscolor=0;
+        if(currentPlayer.getColor()==Color.BLACK)chesscolor=-1;
+        else if(currentPlayer.getColor()==Color.WHITE)chesscolor=1;
+        if(canPut(chesscolor,row,col))return true;
+        else return false;
+    }
+
+    public boolean canClickGrid(int row, int col) {
+        if(data[row][col]==0)return true;
+        else return false;
+    }
+
     public boolean canContinue(int chess)//游戏可以继续
     {
         boolean ans=false;
@@ -210,8 +243,8 @@ public class ChessBoardPanel extends JPanel {
                 if(data[i][j]==1)blackScore++;
                 else if(data[i][j]==-1)whiteScore++;
             }
-        System.out.println("blackScore"+blackScore);
-        System.out.println("whiteScore"+whiteScore);
+        System.out.println("blackscore"+blackScore);
+        System.out.println("whitescore"+whiteScore);
     }
 
     public boolean canContinue()//游戏可以继续
@@ -220,6 +253,8 @@ public class ChessBoardPanel extends JPanel {
         else
         return canContinue(-1)||canContinue(1);
     }
+
+
     public void checkNextStep(int chess)
     {
         for(int i=0;i<8;i++)

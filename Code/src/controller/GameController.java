@@ -100,6 +100,13 @@ public class GameController {
         return gamePanel.canClickGrid(row, col, currentPlayer);
     }
 
+    public boolean canClick2(int row, int col) {
+        return gamePanel.canClickGrid2(row, col, currentPlayer);
+    }
+    public boolean canClick(int row, int col,int i) {
+        return gamePanel.canClickGrid(row, col);
+    }
+
     public void Putting(int color,int row, int col) {
         gamePanel.Put(color,row,col);
     }
@@ -119,6 +126,8 @@ public class GameController {
     {
         return gamePanel.canContinue();
     }
+
+
 
     public void checkNextStep(int chess)
     {

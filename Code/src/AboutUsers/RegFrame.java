@@ -17,18 +17,18 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class LoginFrm extends JFrame {
+public class RegFrame extends JFrame {
     ArrayList<String> IDList= new ArrayList<String>();
     ArrayList<String> PWList= new ArrayList<String>();
     JLabel lbl1 = new JLabel("用户名:");
     JLabel lbl2 = new JLabel("密     码:");
     JTextField txt = new JTextField(40);
     JPasswordField pwd = new JPasswordField(40);
-    JButton btn1 = new JButton("LOG IN");
+    JButton btn2 = new JButton("Register");
     JPanel pnl = new JPanel();
     private int error = 0;
 
-    public LoginFrm(String title) throws HeadlessException {
+    public RegFrame(String title) throws HeadlessException {
         super(title);
         init();
     }
@@ -42,36 +42,35 @@ public class LoginFrm extends JFrame {
         pnl.add(txt);
         pnl.add(lbl2);
         pnl.add(pwd);
-        pnl.add(btn1);
+        pnl.add(btn2);
         this.getContentPane().add(pnl);
 
-        btn1.addActionListener(e -> {
-            if(IDList.size()==0)
-            {
-                System.out.println("Please register first!!");
-            }
-            if (txt.getText().equals(new String(pwd.getPassword()))){
-                pnl.removeAll();
-                MainFrame mainFrame = new MainFrame();
-                JPanel panel=new JPanel();
-                JLabel img2 =new JLabel(new ImageIcon("othello.jpg"));
-                panel.add(img2);
-                img2.setBounds(0, 0, 1000, 800);
-                img2.setVisible(true);
-                panel.setBounds(0, 0, 1000, 800);
-                mainFrame.add(panel);
-                mainFrame.setVisible(true);
-            }
-            else{
-                if(error < 3){
-                    JOptionPane.showMessageDialog(null,"密码输入错误，请再试一次");
-                    error++;
+        btn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (txt.getText().equals(new String(pwd.getPassword()))){
+                    pnl.removeAll();
+                    MainFrame mainFrame = new MainFrame();
+                    JPanel panel=new JPanel();
+                    JLabel img2 =new JLabel(new ImageIcon("othello.jpg"));
+                    panel.add(img2);
+                    img2.setBounds(0, 0, 1000, 800);
+                    img2.setVisible(true);
+                    panel.setBounds(0, 0, 1000, 800);
+                    mainFrame.add(panel);
+                    mainFrame.setVisible(true);
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"对不起，您不是合法用户");
-                    txt.setEnabled(false);
-                    pwd.setEnabled(false);
-                    btn1.setEnabled(false);
+                    if(error < 3){
+                        JOptionPane.showMessageDialog(null,"密码输入错误，请再试一次");
+                        error++;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"对不起，您不是合法用户");
+                        txt.setEnabled(false);
+                        pwd.setEnabled(false);
+                        btn2.setEnabled(false);
+                    }
                 }
             }
         });

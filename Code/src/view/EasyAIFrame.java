@@ -2,6 +2,7 @@ package view;
 //String str1= JOptionPane.showInputDialog("enter this intenger");   输入衔接
 //int num1=Integer.parseInt(str1);
 
+import AI.AI;
 import Asssignment4Components.Game;
 import Asssignment4Components.Loader;
 import Asssignment4Components.Player;
@@ -13,7 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.*;
 
-public class GameFrame extends JFrame {
+public class EasyAIFrame extends JFrame {
     public static GameController controller;
     public static Game g;
     private ChessBoardPanel chessBoardPanel;
@@ -29,12 +30,11 @@ public class GameFrame extends JFrame {
         this.g = game;
     }
 
-    public GameFrame(int[][] last, int bscore, int wscore, int cPlayer) {
-        if (MainFrame.gid == 1) {
-            Game g = new Game("othello" + MainFrame.gid, new Player("a","password"), new Player("b","password"));
-            MainFrame.gid++;
-            setGame(g);
-        }
+    public EasyAIFrame(int[][] last, int bscore, int wscore, int cPlayer,int me) {
+
+        this.g = new Game("othello" + MainFrame.gid, new Player("a","password"), new Player("b","password"));
+        MainFrame.gid++;
+
         int frameSize = (int) (screensize.getHeight() * 0.8);
 
         this.setTitle("Let's play othello!");
@@ -61,6 +61,24 @@ public class GameFrame extends JFrame {
         add(chessBoardPanel);
         this.add(statusPanel);
 
+        if(me==-1)
+        {
+            AI ai= new AI();
+            ai.setLayerTotal(2);
+            int [][]copy=new int[8][8];
+            for(int i=0;i<8;i++)
+                for(int j=0;j<8;j++)
+                {
+                    copy[j][i]=-last[i][j];
+                }
+            int setX=ai.play(copy,-1)[0];//
+            int setY=ai.play(copy,-1)[1];//
+            controller.swapPlayer();
+            controller.setCurrentPlayer(-1);
+            EasyAIFrame.controller.Putting(1,setY,setX);
+            EasyAIFrame.controller.countScore();
+            repaint();
+        }
 
         JButton restartBtn = new JButton("Restart");
         restartBtn.setSize(120, 50);
@@ -69,12 +87,9 @@ public class GameFrame extends JFrame {
         restartBtn.addActionListener(e -> {
             System.out.println("click restart Btn");
 
-            if (GameFrame.controller.canContinue()) {
+            if (EasyAIFrame.controller.canContinue()) {
                 int userOption = JOptionPane.showConfirmDialog(null, "Are you sure?There is no winner yet!", "WARNING", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (userOption == JOptionPane.OK_OPTION) {
-
-                    MainFrame.NORAMLmode=1;
-                    MainFrame.CHEATmode=0;
                     int[][] first = new int[8][8];
                     for (int i = 0; i < 8; i++)
                         for (int j = 0; j < 8; j++) {
@@ -84,18 +99,11 @@ public class GameFrame extends JFrame {
                     first[4][4] = 1;
                     first[4][3] = -1;
                     first[3][4] = -1;
-                    GameFrame gameFrame = new GameFrame(first, 2, 2, 1);
-
-                    Game g = new Game("othello" + MainFrame.gid, new Player("a","password"), new Player("b","password"));
-                    MainFrame.gid++;
-                    gameFrame.setGame(g);
-
+                    EasyAIFrame gameFrame = new EasyAIFrame(first, 2, 2, 1,me);
                     this.setVisible(false);
                     add(gameFrame);
                 }
             } else {
-                MainFrame.NORAMLmode=1;
-                MainFrame.CHEATmode=0;
                 int[][] first = new int[8][8];
                 for (int i = 0; i < 8; i++)
                     for (int j = 0; j < 8; j++) {
@@ -105,12 +113,7 @@ public class GameFrame extends JFrame {
                 first[4][4] = 1;
                 first[4][3] = -1;
                 first[3][4] = -1;
-                GameFrame gameFrame = new GameFrame(first, 2, 2, 1);
-
-                Game g = new Game("othello" + MainFrame.gid, new Player("a","password"), new Player("b","password"));
-                MainFrame.gid++;
-                gameFrame.setGame(g);
-
+                EasyAIFrame gameFrame = new EasyAIFrame(first, 2, 2, 1,me);
                 this.setVisible(false);
                 add(gameFrame);
             }
@@ -131,13 +134,8 @@ public class GameFrame extends JFrame {
 //              System.out.println(filePath);
                 Game game = Loader.load(filePath);
                 controller.readFileData(filePath);
-
-
             }
-
             System.out.println("clicked Load Btn");
-//                String filePath = JOptionPane.showInputDialog(this, "input the path here");
-//                controller.readFileData(filePath);
         });
 
         JButton saveGameBtn = new JButton("Save");
@@ -165,31 +163,12 @@ public class GameFrame extends JFrame {
                     out.write(String.valueOf(this.g.toString()));
                     out.close();
                 } catch (Exception e1) {
-// TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
             }
-
-//                System.out.println("clicked Save Btn");
-//                String filePath = JOptionPane.showInputDialog(this, "input the path here");
-//                controller.writeDataToFile(filePath);
         });
 
-        JButton CheatBtn = new JButton("<html>I want to<br>CHEAT</html>");
-        CheatBtn.setSize(90, 100);
-        CheatBtn.setLocation(saveGameBtn.getX() + loadGameBtn.getWidth() + 100, restartBtn.getY() - 400);
-        add(CheatBtn);
-        CheatBtn.addActionListener(e -> {
-            MainFrame.NORAMLmode=0;
-            MainFrame.CHEATmode=1;
-            CheatFrame gameFrame = new CheatFrame(chessBoardPanel.getData(), chessBoardPanel.getBlackScore(), chessBoardPanel.getWhiteScore(), controller.getCurrentPlayer());
-            gameFrame.setGame(this.g);
-            this.setVisible(false);
-            add(gameFrame);
-        });
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
     }
-
 }

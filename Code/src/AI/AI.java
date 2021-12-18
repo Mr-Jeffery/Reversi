@@ -16,7 +16,6 @@ public class AI {
         oNode = new Node();
         oNode.moves=new ArrayList<>();
         oNode.moves.add(oNode);
-        Node.layerTotal=4;
         metaNode = new Node();
         metaNode.search(oNode,0,M,board,new int[]{},chess);
         return metaNode.getMove();
@@ -101,13 +100,13 @@ public class AI {
                         if(N.value>this.value) {
                             this.moves=N.moves;
                             this.value=N.value;
-                            this.alpha=N.beta;
+                            this.alpha=-N.beta;
                         }
                     } else {//find min
                         if(N.value<this.value) {
                             this.moves=N.moves;
                             this.value=N.value;
-                            this.beta=N.alpha;
+                            this.beta=-N.alpha;
                         }
                     }
                     if(this.alpha>surNode.beta||this.beta<surNode.alpha){
