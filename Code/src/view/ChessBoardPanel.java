@@ -1,9 +1,12 @@
 package view;
 
+import Asssignment4Components.Game;
 import Asssignment4Components.Step;
+import apple.laf.JRSUIUtils;
 import components.ChessGridComponent;
 import model.ChessPiece;
 
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
@@ -38,10 +41,24 @@ public class ChessBoardPanel extends JPanel {
         return this.whiteScore;
     }
     public ChessBoardPanel(int width, int height,int [][]input) {
+
+
+//            ImageIcon im= new ImageIcon("bboard.jpg");
+//            im.setImage(im.getImage().getScaledInstance(576,602,Image.SCALE_DEFAULT));
+////            this.setBounds(300,400,73,106);
+//            JLabel img2 =new JLabel(new ImageIcon("bboard.jpg"));
+//            add(img2);
+//            img2.setBounds(-30, -30, 576, 503);
+//            System.out.println(" width:"+img2.getWidth()+"height;"+img2.getHeight());//576 503
+//            img2.setVisible(true);
+
+
             this.setVisible(true);
             this.setFocusable(true);
             this.setLayout(null);
             this.setBackground(Color.BLACK);
+
+
             int length = Math.min(width, height);
             this.setSize(length, length);
             ChessGridComponent.gridSize = length / CHESS_COUNT;
@@ -51,11 +68,12 @@ public class ChessBoardPanel extends JPanel {
 
             initialChessGrids(input);//return empty chessboard
             initialGame(input);//add initial four chess
-        if(MainFrame.gid==2)
+        if(GameFrame.g.getStepList().size()==0)
         GameFrame.g.addStep(new Step(2,-1,-1,input));
 
             repaint();
     }
+
 
 
     /**
@@ -123,15 +141,14 @@ public class ChessBoardPanel extends JPanel {
                 chessGrids[PositionX + moveX][PositionY + moveY].setChessPiece(ChessPiece.BLACK);
             else if (chess == -1)
                 chessGrids[PositionX + moveX][PositionY + moveY].setChessPiece(ChessPiece.WHITE);
-                    System.out.println("repaint delayed!");
+
+//            try {
+//                TimeUnit.SECONDS.sleep(5);
+//            } catch (InterruptedException ie) {
+//                Thread.currentThread().interrupt();
+//            }
             repaint();
-            //try {
-                //System.out.println("dalaying");
-                //TimeUnit.SECONDS.sleep(1);
                 Put(chess,PositionX+moveX,PositionY+moveY,moveX,moveY);
-            //} catch (InterruptedException e) {
-               // System.err.format("IOException: %s%n", e);
-            //}
         }
     }
 

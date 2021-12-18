@@ -191,12 +191,12 @@ public class CheatFrame extends JFrame {
             for(int i=0;i<8;i++)
             {
                 for(int j=0;j<8;j++)
-                    System.out.printf(" %d",this.g.getStepList().get(this.g.getStepList().size()-2).getBoard()[i][j]);
+                    System.out.printf(" %d",this.g.getStepList().get(length-2).getBoard()[i][j]);
                 System.out.println();
             }
             System.out.println("over");
             this.g.getStepList().remove(length-1);
-
+            repaint();
         });
 
         JButton CHEATBtn = new JButton("CHEAT");
@@ -204,6 +204,7 @@ public class CheatFrame extends JFrame {
         CHEATBtn.setLocation(saveGameBtn.getX()+loadGameBtn.getWidth()+90, restartBtn.getY()-300);
         add(CHEATBtn);
         CHEATBtn.addActionListener(e -> {
+            controller.clearNextStep();
             controller.swapPlayer();
             System.out.println("CHEAT CHEAT      iiiiiiiî111ss1s1s1s1s");
         });
