@@ -16,6 +16,7 @@ public class AI {
         oNode = new Node();
         oNode.moves=new ArrayList<>();
         oNode.moves.add(oNode);
+        Node.layerTotal=7;
         metaNode = new Node();
         metaNode.search(oNode,0,M,board,new int[]{},chess);
         return metaNode.getMove();
@@ -32,7 +33,6 @@ public class AI {
         private boolean M;
         ArrayList<Node> subNode=new ArrayList<>();
         protected int value;
-        int alpha = -114514, beta = 114514;
         Node surNode;
         final static int[][] WeightTable = {
                 {15, -5, 10, 5, 5, 10, -5, 15},
@@ -59,24 +59,41 @@ public class AI {
             } else {
                 value = 114514;
             }//Max,Min
-
-            if (layer <= layerTotal) {//search plausible next step
-                for (int PositionX = 0; PositionX < 8; PositionX++) {
+            runner.setBoard(board);
+            if (layer < layerTotal&&runner.canContinue()) {//search plausible next step
+                outer:for (int PositionX = 0; PositionX < 8; PositionX++) {
                     for (int PositionY = 0; PositionY < 8; PositionY++) {
                         runner.setBoard(board);
-                        if (runner.canPut(chess, PositionX, PositionY)) {
+                        if(runner.getBoard()[PositionY][PositionX]!=0){
+                            continue;
+                        }
+                        if (runner.canPut(this.chess, PositionX, PositionY)) {
                             runner.put(this.chess,PositionX,PositionY);
                             Node sNode = new Node();
                             sNode.search(this, layer + 1, !M, runner.getBoard(), new int[]{PositionX, PositionY}, -chess);
-                            this.subNode.add(sNode);
+                            if (M){//find max
+                                if(sNode.value>this.value) {
+                                    this.moves=sNode.moves;
+                                    this.value=sNode.value;
+                                }
+                            } else {//find min
+                                if(sNode.value<this.value) {
+                                    this.moves=sNode.moves;
+                                    this.value=sNode.value;
+                                }
+                            }
+                            if((M&&this.value>=surNode.value)
+                                    ||(!M&&this.value<=surNode.value))
+                            {
+                                System.out.println("break");
+                                break outer;
+                            }
                         }
                     }
                 }
-                subNode.toArray();
-            }//Tree created
-            //starting to evaluate;
-            if (subNode.isEmpty()) {//has no next step
+            }else if (this.layer == layerTotal||subNode.isEmpty()) {//has no next step
                 if(runner.canContinue()){//game has not ended yet
+                    value=0;
                     for (int PositionX = 0; PositionX < 8; PositionX++) {
                         for (int PositionY = 0; PositionY < 8; PositionY++) {
                             value += WeightTable[PositionY][PositionX]*board[PositionY][PositionX];//权值表计算
@@ -91,30 +108,7 @@ public class AI {
                 }else {
                     value= runner.findWinner()*114514;//game ended
                 }
-                if(M){alpha=value;}//set alpha & beta
-                else {beta=value;}
             }
-            else {
-                for (Node N : subNode) {
-                    if (M){//find max
-                        if(N.value>this.value) {
-                            this.moves=N.moves;
-                            this.value=N.value;
-                            this.alpha=-N.beta;
-                        }
-                    } else {//find min
-                        if(N.value<this.value) {
-                            this.moves=N.moves;
-                            this.value=N.value;
-                            this.beta=-N.alpha;
-                        }
-                    }
-                    if(this.alpha>surNode.beta||this.beta<surNode.alpha){
-                        break;
-                    }
-                }
-            }
-
         }
 
         public int[] getMove(){
