@@ -10,13 +10,15 @@ public class AI {
         Node.setLayerTotal(layerTotal);
     }
 
-    public int[] play(int[][] board,int chess){
+    public int[] play(int[][] board,int chess,int layerTotal){
+        Node.setLayerTotal(layerTotal);
+        System.out.println("play");
         boolean M;
         if (chess==-1){M=false;}else {M=true;}
         oNode = new Node();
         oNode.moves=new ArrayList<>();
         oNode.moves.add(oNode);
-        Node.layerTotal=5;
+        Node.layerTotal=4;
         metaNode = new Node();
         metaNode.search(oNode,0,M,board,new int[]{},chess);
         return metaNode.getMove();
@@ -35,14 +37,14 @@ public class AI {
         protected int value;
         Node surNode;
         final static int[][] WeightTable = {
-                {200, -30, 10, 5, 5, 10, -30, 200},
-                {-30, -30, 1, 1, 1, 1, -30, -30},
+                {500, -50, 10, 5, 5, 10, -50, 500},
+                {-50, -100, 1, 1, 1, 1, -100, -50},
                 {10, 1, 3, 2, 2, 3, 1, 10},
                 {5, 1, 2, 1, 1, 2, 1, 5},
                 {5, 1, 2, 1, 1, 2, 1, 5},
                 {10, 1, 3, 2, 2, 3, 1, 10},
-                {-5, -10, 1, 1, 1, 1, -30, -30},
-                {200, -30, 10, 5, 5, 10, -30, 200}
+                {-50, -10, 1, 1, 1, 1, -100, -50},
+                {500, -50, 10, 5, 5, 10, -50, 500}
         };
 
         public void search(Node surNode, int layer, boolean M, int[][] board, int[] coordinates, int chess) {
@@ -60,7 +62,7 @@ public class AI {
                 value = 114514;
             }//Max,Min
 
-            if (layer <= layerTotal) {//search plausible next step
+            if (this.layer < layerTotal) {//search plausible next step
                 for (int PositionX = 0; PositionX < 8; PositionX++) {
                     for (int PositionY = 0; PositionY < 8; PositionY++) {
                         runner.setBoard(board);
@@ -73,33 +75,28 @@ public class AI {
                         }
                     }
                 }
-                /**if (subNode.isEmpty()){
-                    Node sNode = new Node();
-                    sNode.search(this, layer + 1, !M, this.board, new int[]{-1,-1}, -chess);
-                    this.subNode.add(sNode);
-                }*/
+
                 subNode.toArray();
             }//Tree created
             //starting to evaluate;
-            if (this.layer == layerTotal||subNode.isEmpty()) {//has no next step
-                if(runner.canContinue()){//game has not ended yet
+            if (this.layer >= layerTotal||subNode.isEmpty()) {//has no next step
+                if(true){//game has not ended yet
                     value=0;
                     for (int PositionX = 0; PositionX < 8; PositionX++) {
                         for (int PositionY = 0; PositionY < 8; PositionY++) {
                             value += WeightTable[PositionY][PositionX]*board[PositionY][PositionX];//权值表计算
                         }
                     }
-                    StableCounter stableCounter = new StableCounter();//稳定子计算
+                    /**StableCounter stableCounter = new StableCounter();//稳定子计算
                     stableCounter.setData(this.board);
                     value = value
-                            + stableCounter.stableCnt(-1)*5
-                            + stableCounter.stableCnt(1)*5;
+                            - stableCounter.stableCnt(-1)*5
+                            - stableCounter.stableCnt(1)*5;*/
 
                 }else {
                     value= runner.findWinner()*114514;//game ended
                 }
-            }
-            else {
+            } else {
                 for (Node N : subNode) {
                     if (M){//find max
                         if(N.value>this.value) {
@@ -115,8 +112,7 @@ public class AI {
                     if((!M&&this.value>surNode.value)
                             ||(M&&this.value<surNode.value))
                     {
-                        System.out.println("break");
-                        break;
+                        //break;
                     }
                 }
             }
