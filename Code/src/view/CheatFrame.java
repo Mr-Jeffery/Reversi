@@ -98,7 +98,12 @@ public class CheatFrame extends JFrame {
                         gameFrame.setGame(g);
 
                         this.setVisible(false);
+                        try{
                         add(gameFrame);
+                    }catch(Exception e1)
+                    {
+
+                    }
                     }
                 }
                 else
@@ -130,7 +135,12 @@ public class CheatFrame extends JFrame {
                     gameFrame.setGame(g);
 
                     this.setVisible(false);
-                    add(gameFrame);
+                    try{
+                        add(gameFrame);
+                    }catch(Exception e1)
+                    {
+
+                    }
                 }
             });
 
@@ -140,8 +150,7 @@ public class CheatFrame extends JFrame {
             add(loadGameBtn);
             loadGameBtn.setBorderPainted(false);
             loadGameBtn.addActionListener(e -> {
-
-                JFileChooser fileChooser = new JFileChooser();
+                JFileChooser fileChooser = new JFileChooser(".//Code//src//Saved_games");
 
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -152,8 +161,9 @@ public class CheatFrame extends JFrame {
                     Game game = Loader.load(filePath);
                     controller.readFileData(filePath);
                 }
-                System.out.println("clicked Load Btn");
                 this.setVisible(false);
+                System.out.println("clicked Load Btn");
+
             });
 
         JButton saveGameBtn = new JButton("Save");
@@ -206,7 +216,12 @@ public class CheatFrame extends JFrame {
             gameFrame.add(panel);
             gameFrame.setGame(this.g);
             this.setVisible(false);
-            add(gameFrame);
+            try{
+                add(gameFrame);
+            }catch(Exception e1)
+            {
+
+            }
         });
 
         JButton UndoBtn = new JButton("UNDO");

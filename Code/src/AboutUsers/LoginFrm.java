@@ -20,6 +20,7 @@ public class LoginFrm extends JFrame {
     public LoginFrm(String title) throws HeadlessException {
         super(title);
         init();
+
     }
 
     private void init() {

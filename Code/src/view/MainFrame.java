@@ -130,8 +130,6 @@ public class MainFrame extends JFrame {
         add(NORMALBtn);
         NORMALBtn.setBorderPainted(false);
         NORMALBtn.addActionListener(e -> {
-
-
             NORAMLmode=1;
             CHEATmode=0;
             AImode=0;
@@ -148,7 +146,6 @@ public class MainFrame extends JFrame {
             first[3][4]=-1;
             System.out.println("Btn reacted!!!!");
             GameFrame gameFrame = new GameFrame(first,2,2,1);
-//            GameFrame gameFrame = new GameFrame();
             JPanel panel=new JPanel();
             JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
             panel.add(img2);
@@ -156,9 +153,8 @@ public class MainFrame extends JFrame {
             img2.setVisible(true);
             panel.setBounds(0, 0, 720, 720);
             gameFrame.add(panel);
-
-            gameFrame.setVisible(true);
             this.setVisible(false);
+            gameFrame.setVisible(true);
             try {
                 add(gameFrame);
             }catch (IllegalArgumentException e1){

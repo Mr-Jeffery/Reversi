@@ -30,6 +30,9 @@ public class GameFrame extends JFrame {
     }
 
     public GameFrame(int[][] last, int bscore, int wscore, int cPlayer) {
+        MainFrame.NORAMLmode=1;
+        MainFrame.CHEATmode=0;
+        MainFrame.AImode=0;
         if (MainFrame.gid == 1) {
             Game g = new Game("othello" + MainFrame.gid, new Player("a","password"), new Player("b","password"));
             MainFrame.gid++;
@@ -100,7 +103,12 @@ public class GameFrame extends JFrame {
                     gameFrame.setGame(g);
 
                     this.setVisible(false);
-                    add(gameFrame);
+                    try{
+                        add(gameFrame);
+                    }catch(Exception e1)
+                    {
+
+                    }
                 }
             } else {
                 MainFrame.NORAMLmode=1;
@@ -128,7 +136,12 @@ public class GameFrame extends JFrame {
                 gameFrame.setGame(g);
 
                 this.setVisible(false);
-                add(gameFrame);
+                try{
+                    add(gameFrame);
+                }catch(Exception e1)
+                {
+
+                }
             }
         });
 
@@ -201,7 +214,12 @@ public class GameFrame extends JFrame {
             gameFrame.add(panel);
             gameFrame.setGame(this.g);
             this.setVisible(false);
-            add(gameFrame);
+            try{
+                add(gameFrame);
+            }catch(Exception e1)
+            {
+
+            }
         });
 
 

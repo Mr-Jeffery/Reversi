@@ -51,7 +51,7 @@ public class RegisterFrame extends JFrame {
         ruleBtn.addActionListener(e -> {
             RuleFrame ruleFrame = new RuleFrame();
             JPanel panel=new JPanel();
-            JLabel img2 =new JLabel(new ImageIcon("rules.png"));
+            JLabel img2 =new JLabel(new ImageIcon("rule_s.png"));
             panel.add(img2);
             img2.setBounds(0, 0, 1000, 800);
             img2.setVisible(true);

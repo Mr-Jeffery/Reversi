@@ -60,7 +60,7 @@ public class GameController {
             statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
     }
 
-    public void check ()
+    public void check()
     {
         int now;
         if(currentPlayer == ChessPiece.BLACK)now=1;
@@ -90,7 +90,6 @@ public class GameController {
 
 
     public void readFileData(String fileName) {
-        //todo: read date from file
         List<String> fileData = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(fileName);
@@ -106,7 +105,6 @@ public class GameController {
     }
 
     public void writeDataToFile(String fileName) {
-        //todo: write data into file
     }
 
     public boolean canClick(int row, int col) {
@@ -128,6 +126,7 @@ public class GameController {
     {
      gamePanel.countScore();
      statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
+     statusPanel.repaint();
     }
 
     public boolean canContinue(int chess)

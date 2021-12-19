@@ -113,7 +113,12 @@ public class DifAIFrame extends JFrame {
                     panel.setBounds(0, 0, 720, 720);
                     gameFrame.add(panel);
                     this.setVisible(false);
-                    add(gameFrame);
+                    try{
+                        add(gameFrame);
+                    }catch(Exception e1)
+                    {
+
+                    }
                 }
             } else {
                 int[][] first = new int[8][8];
@@ -134,7 +139,12 @@ public class DifAIFrame extends JFrame {
                 panel.setBounds(0, 0, 720, 720);
                 gameFrame.add(panel);
                 this.setVisible(false);
-                add(gameFrame);
+                try{
+                    add(gameFrame);
+                }catch(Exception e1)
+                {
+
+                }
             }
         });
 

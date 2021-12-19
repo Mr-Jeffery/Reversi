@@ -1,10 +1,12 @@
 package components;
 
 //import apple.laf.JRSUIConstants;
+
 import AI.AI;
 import Asssignment4Components.Step;
 import controller.GameController;
 import model.*;
+import sun.jvm.hotspot.runtime.JavaThread;
 import view.*;
 
 import javax.swing.*;
@@ -16,6 +18,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -67,6 +70,7 @@ public class ChessGridComponent extends BasicComponent {
                     int color = GameFrame.controller.getCurrentPlayer();
                     GameFrame.controller.Putting(color, row, col);
                     GameFrame.controller.countScore();
+
                     /**save one step*/
                     int[][] board_copy = new int[8][8];
                     for (int i = 0; i < 8; i++) {
@@ -76,18 +80,7 @@ public class ChessGridComponent extends BasicComponent {
                     }
                     Step a = new Step(color, row, col, board_copy);
                     GameFrame.g.addStep(a);
-                    for (int k = 0; k < GameFrame.g.getStepList().size(); k++) {
-                        for (int i = 0; i < 8; i++) {
-                            for (int j = 0; j < 8; j++) {
-                                System.out.printf("%d ", GameFrame.g.getStepList().get(k).getBoard()[i][j]);
-                            }
-                            System.out.println();
-                        }
-                        System.out.println();
-                    }
-                    System.out.println("habusdkgahgdvbkfucywgcdhjskgf");
                     GameFrame.controller.swapPlayer();
-                    System.out.println("tried to swap!!!!!!!!!!!!!!!!!");
                 } else {
                     File f4 = new File("error.wav");
                     try {
@@ -191,7 +184,7 @@ public class ChessGridComponent extends BasicComponent {
                     }//change color
                     AI ai = new AI();
                     ai.setLayerTotal(2);
-                    int [] coordinates = ai.play(board_copy2, color);
+                    int[] coordinates = ai.play(board_copy2, color);
                     int setX = coordinates[0];//
                     int setY = coordinates[1];//
                     System.out.println("aiX:" + setY + " aiY:" + setX);
@@ -303,6 +296,7 @@ public class ChessGridComponent extends BasicComponent {
                     DifAIFrame.controller.checkNextStep(color1);
                 } else if (!DifAIFrame.controller.canContinue(DifAIFrame.controller.getCurrentPlayer()) && DifAIFrame.controller.canContinue()) {
                     while (!DifAIFrame.controller.canContinue(DifAIFrame.controller.getCurrentPlayer()) && DifAIFrame.controller.canContinue()) {
+                        JOptionPane.showConfirmDialog(null, new JLabel("You dont have any VALID move.It's AI's turn."), "ending~~~", JOptionPane.YES_NO_OPTION);
                         int[][] board_copy2 = new int[8][8];
                         for (int i = 0; i < 8; i++) {
                             for (int j = 0; j < 8; j++) {
@@ -311,14 +305,15 @@ public class ChessGridComponent extends BasicComponent {
                         }//change color
                         AI ai = new AI();
                         ai.setLayerTotal(6);
-                        int setX = ai.play(board_copy2, DifAIFrame.controller.getCurrentPlayer())[0];//
-                        int setY = ai.play(board_copy2, DifAIFrame.controller.getCurrentPlayer())[1];//
+                        int[] answer = ai.play(board_copy2, DifAIFrame.controller.getCurrentPlayer());
+                        int setX = answer[0];//
+                        int setY = answer[1];//
                         System.out.println("aiX:" + setX + " aiY:" + setY);
                         DifAIFrame.controller.Putting(-DifAIFrame.controller.getCurrentPlayer(), setY, setX);
                         DifAIFrame.controller.countScore();
-                        repaint();
+                        DifAIFrame.controller.Putting(-DifAIFrame.controller.getCurrentPlayer(), setY, setX);
+                        DifAIFrame.controller.countScore();
                     }
-
                 }
                 if (!DifAIFrame.controller.canContinue()) {
                     isStart = false;
@@ -334,52 +329,50 @@ public class ChessGridComponent extends BasicComponent {
     }
 
 
-        public ChessPiece getChessPiece() {
-            return chessPiece;
-        }
+    public ChessPiece getChessPiece() {
+        return chessPiece;
+    }
 
-        public void setChessPiece (ChessPiece chessPiece){
-            this.chessPiece = chessPiece;
-        }
+    public void setChessPiece(ChessPiece chessPiece) {
+        this.chessPiece = chessPiece;
+    }
 
 
-        public int getRow () {
-            return row;
-        }
+    public int getRow() {
+        return row;
+    }
 
-        public int getCol () {
-            return col;
-        }
+    public int getCol() {
+        return col;
+    }
 
-        public void drawPiece (Graphics g){
-            g.setColor(gridColor);
 
-            g.fillRect(1, 1, this.getWidth() - 2, this.getHeight() - 2);
-//        if (this.chessPiece != null && !setDelay) {
-//            g.setColor(chessPiece.getColor());
-//            g.fillOval((gridSize - chessSize) / 2, (gridSize - chessSize) / 2, chessSize, chessSize);
-//        }
-//        else if(this.chessPiece != null && setDelay)
-//        {
-//            g.setColor(chessPiece.getColor());
-//            try {
-//                TimeUnit.SECONDS.sleep(1);
-//            } catch (InterruptedException ie) {
-//                Thread.currentThread().interrupt();
-//            }
-//            g.fillOval((gridSize - chessSize) / 2, (gridSize - chessSize) / 2, chessSize, chessSize);
-//        }
-            if (this.chessPiece != null) {
+    @Override
+    public void paintComponent(Graphics g) {
+        super.printComponents(g);
+        g.setColor(gridColor);
+
+        g.fillRect(5, 5, this.getWidth() - 2, this.getHeight() - 2);
+
+        if (chessPiece != null) {
+//            System.out.println(chessPiece.getColor());
+            if (chessPiece.getColor() == Color.BLACK) {
+                ImageIcon icon = new ImageIcon("黑.JPG");
+                Image img = icon.getImage();
+                g.drawImage(img, 5, 5, icon.getIconWidth()/10-14,
+                        icon.getIconHeight()/10-12 , icon.getImageObserver());
+            } else if (chessPiece.getColor() == Color.WHITE) {
+                ImageIcon icon = new ImageIcon("白.JPG");
+                Image img = icon.getImage();
+                g.drawImage(img, 5, 5, icon.getIconWidth()/10-14 ,
+                        icon.getIconHeight()/10-12 , icon.getImageObserver());
+
+            }else if(chessPiece == ChessPiece.PINK){
                 g.setColor(chessPiece.getColor());
                 g.fillOval((gridSize - chessSize) / 2, (gridSize - chessSize) / 2, chessSize, chessSize);
             }
         }
-
-
-        @Override
-        public void paintComponent (Graphics g){
-            super.printComponents(g);
-            drawPiece(g);
-        }
-
+        repaint();
     }
+
+}
