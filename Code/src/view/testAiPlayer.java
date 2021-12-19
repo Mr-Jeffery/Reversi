@@ -19,7 +19,7 @@ public class testAiPlayer {
         AI ai = new AI();
         ai.setLayerTotal(5);
         int [][] board = step2.getBoard();
-        int[] result = ai.play(board,1);
+        int[] result = ai.play(board,1,4);
         for(int r : result){
             System.out.println(r);
         }
