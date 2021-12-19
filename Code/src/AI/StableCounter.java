@@ -32,7 +32,7 @@ public class StableCounter {
         if (count[positionX][positionY]==2*chess){
             return true;
         }
-        if (depth>5){
+        if (depth>3){
             return false;
 
         } else{

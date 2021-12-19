@@ -17,7 +17,7 @@ public class testAiPlayer {
         runner.put(1,2,4);
         game.addStep(step2);
         AI ai = new AI();
-        ai.setLayerTotal(1);
+        ai.setLayerTotal(5);
         int [][] board = step2.getBoard();
         int[] result = ai.play(board,1);
         for(int r : result){

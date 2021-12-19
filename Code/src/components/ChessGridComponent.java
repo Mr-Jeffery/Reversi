@@ -191,8 +191,9 @@ public class ChessGridComponent extends BasicComponent {
                     }//change color
                     AI ai = new AI();
                     ai.setLayerTotal(2);
-                    int setX = ai.play(board_copy2, color)[0];//
-                    int setY = ai.play(board_copy2, color)[1];//
+                    int [] coordinates = ai.play(board_copy2, color);
+                    int setX = coordinates[0];//
+                    int setY = coordinates[1];//
                     System.out.println("aiX:" + setY + " aiY:" + setX);
                     if (EasyAIFrame.controller.canClick2(setY, setX)) {
                         EasyAIFrame.controller.Putting(-color, setY, setX);
