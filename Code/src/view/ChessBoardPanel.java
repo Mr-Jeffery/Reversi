@@ -62,6 +62,8 @@ public class ChessBoardPanel extends JPanel {
         GameFrame.g.addStep(new Step(2,-1,-1,input));
         if(MainFrame.AImode==1 && EasyAIFrame.g.getStepList().size()==0)
         EasyAIFrame.g.addStep(new Step(2,-1,-1,input));
+        if(MainFrame.AImode==2 && DifAIFrame.g.getStepList().size()==0)
+            DifAIFrame.g.addStep(new Step(2,-1,-1,input));
             repaint();
     }
 

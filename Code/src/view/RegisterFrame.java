@@ -49,8 +49,17 @@ public class RegisterFrame extends JFrame {
         add(ruleBtn);
         ruleBtn.setBorderPainted(false);
         ruleBtn.addActionListener(e -> {
-
-
+            RuleFrame ruleFrame = new RuleFrame();
+            JPanel panel=new JPanel();
+            JLabel img2 =new JLabel(new ImageIcon("rules.png"));
+            panel.add(img2);
+            img2.setBounds(0, 0, 1000, 800);
+            img2.setVisible(true);
+            panel.setBounds(0, 0, 1000, 800);
+            ruleFrame.add(panel);
+            ruleFrame.setVisible(true);
+            this.setVisible(false);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         });
 
         JButton aboutUs = new JButton("ABOUT US");
@@ -61,6 +70,17 @@ public class RegisterFrame extends JFrame {
         aboutUs.setBorderPainted(false);
         aboutUs.addActionListener(e -> {
 
+            AboutUs about_Us = new AboutUs();
+            JPanel panel=new JPanel();
+            JLabel img2 =new JLabel(new ImageIcon("about_us.png"));
+            panel.add(img2);
+            img2.setBounds(0, 0, 1000, 800);
+            img2.setVisible(true);
+            panel.setBounds(0, 0, 1000, 800);
+            about_Us.add(panel);
+            about_Us.setVisible(true);
+            this.setVisible(false);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         });
 
@@ -77,6 +97,7 @@ public class RegisterFrame extends JFrame {
             frm.setBounds(300, 300, 500, 500);
             frm.setVisible(true);
             this.setVisible(false);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
 //            MainFrame mainFrame = new MainFrame();
@@ -105,6 +126,7 @@ public class RegisterFrame extends JFrame {
             frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frm.setBounds(300, 300, 500, 500);
             this.setVisible(false);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         });
     }
 

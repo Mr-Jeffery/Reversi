@@ -65,6 +65,7 @@ public class CheatFrame extends JFrame {
             restartBtn.setSize(120, 50);
             restartBtn.setLocation((this.getWidth() - chessBoardPanel.getWidth()) / 2, (this.getHeight() + chessBoardPanel.getHeight()) / 2);
             add(restartBtn);
+            restartBtn.setBorderPainted(false);
             restartBtn.addActionListener(e -> {
               if(CheatFrame.controller.canContinue()) {
                     int userOption = JOptionPane.showConfirmDialog(null, "Are you sure?There is no winner yet!", "WARNING", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -83,6 +84,14 @@ public class CheatFrame extends JFrame {
                         MainFrame.NORAMLmode=1;
                         MainFrame.CHEATmode=0;
                         GameFrame gameFrame = new GameFrame(first,2,2,1);
+
+                        JPanel panel=new JPanel();
+                        JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
+                        panel.add(img2);
+                        img2.setBounds(0, 0, 720, 720);
+                        img2.setVisible(true);
+                        panel.setBounds(0, 0, 720, 720);
+                        gameFrame.add(panel);
 
                         Game g=new Game("othello"+MainFrame.gid,new Player("a","password"),new Player("b","password"));
                         MainFrame.gid++;
@@ -108,6 +117,14 @@ public class CheatFrame extends JFrame {
                     MainFrame.CHEATmode=0;
                     GameFrame gameFrame = new GameFrame(first,2,2,1);
 
+                    JPanel panel=new JPanel();
+                    JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
+                    panel.add(img2);
+                    img2.setBounds(0, 0, 720, 720);
+                    img2.setVisible(true);
+                    panel.setBounds(0, 0, 720, 720);
+                    gameFrame.add(panel);
+
                     Game g=new Game("othello"+MainFrame.gid,new Player("a","password"),new Player("b","password"));
                     MainFrame.gid++;
                     gameFrame.setGame(g);
@@ -121,6 +138,7 @@ public class CheatFrame extends JFrame {
             loadGameBtn.setSize(120, 50);
             loadGameBtn.setLocation(restartBtn.getX()+restartBtn.getWidth()+30, restartBtn.getY());
             add(loadGameBtn);
+            loadGameBtn.setBorderPainted(false);
             loadGameBtn.addActionListener(e -> {
 
                 JFileChooser fileChooser = new JFileChooser();
@@ -135,12 +153,14 @@ public class CheatFrame extends JFrame {
                     controller.readFileData(filePath);
                 }
                 System.out.println("clicked Load Btn");
+                this.setVisible(false);
             });
 
         JButton saveGameBtn = new JButton("Save");
         saveGameBtn.setSize(120, 50);
         saveGameBtn.setLocation(loadGameBtn.getX() + restartBtn.getWidth() + 30, restartBtn.getY());
         add(saveGameBtn);
+        saveGameBtn.setBorderPainted(false);
         saveGameBtn.addActionListener(e -> {
             JFileChooser chooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "jpg", "gif");
@@ -162,7 +182,6 @@ public class CheatFrame extends JFrame {
                     out.write(String.valueOf(this.g.toString()));
                     out.close();
                 } catch (Exception e1) {
-// TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
             }
@@ -172,17 +191,29 @@ public class CheatFrame extends JFrame {
         CheatBtn.setSize(90, 100);
         CheatBtn.setLocation(saveGameBtn.getX()+loadGameBtn.getWidth()+90, restartBtn.getY()-500);
         add(CheatBtn);
+//        CheatBtn.setBorderPainted(false);
         CheatBtn.addActionListener(e -> {
+            MainFrame.NORAMLmode=1;
+            MainFrame.CHEATmode=0;
+            MainFrame.AImode=0;
             GameFrame gameFrame= new GameFrame(chessBoardPanel.getData(),chessBoardPanel.getBlackScore(),chessBoardPanel.getWhiteScore(),controller.getCurrentPlayer());
-           gameFrame.setGame(this.g);
+            JPanel panel=new JPanel();
+            JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
+            panel.add(img2);
+            img2.setBounds(0, 0, 720, 720);
+            img2.setVisible(true);
+            panel.setBounds(0, 0, 720, 720);
+            gameFrame.add(panel);
+            gameFrame.setGame(this.g);
             this.setVisible(false);
             add(gameFrame);
         });
 
         JButton UndoBtn = new JButton("UNDO");
         UndoBtn.setSize(90, 100);
-        UndoBtn.setLocation(saveGameBtn.getX() + loadGameBtn.getWidth() + 100, restartBtn.getY() - 400);
+        UndoBtn.setLocation(saveGameBtn.getX() + loadGameBtn.getWidth() + 80, restartBtn.getY() - 360);
         add(UndoBtn);
+//        UndoBtn.setBorderPainted(false);
         UndoBtn.addActionListener(e -> {
             int length=this.g.getStepList().size();
             int [][]board_copy=new int[8][8];
@@ -206,12 +237,62 @@ public class CheatFrame extends JFrame {
 
         JButton CHEATBtn = new JButton("CHEAT");
         CHEATBtn.setSize(90, 100);
-        CHEATBtn.setLocation(saveGameBtn.getX()+loadGameBtn.getWidth()+90, restartBtn.getY()-300);
+        CHEATBtn.setLocation(saveGameBtn.getX()+loadGameBtn.getWidth()+90, restartBtn.getY()-250);
         add(CHEATBtn);
+//        CHEATBtn.setBorderPainted(false);
         CHEATBtn.addActionListener(e -> {
             controller.clearNextStep();
             controller.swapPlayer();
             System.out.println("CHEAT CHEAT      iiiiiiiî111ss1s1s1s1s");
+        });
+
+        JButton BackBtn = new JButton("<html>CHANGE<br>MODE</html>");
+        BackBtn.setSize(120, 50);
+        BackBtn.setLocation(saveGameBtn.getX() + loadGameBtn.getWidth() + 30, restartBtn.getY());
+        add(BackBtn);
+        BackBtn.setBorderPainted(false);
+        BackBtn.addActionListener(e -> {
+            int userOption1;
+            if (CheatFrame.controller.canContinue())
+            {
+                userOption1 = JOptionPane.showConfirmDialog(null, "Are you sure?There is no winner yet!", "WARNING", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if(userOption1==JOptionPane.OK_OPTION)
+                {
+                    MainFrame mainFrame = new MainFrame();
+                    JPanel panel = new JPanel();
+                    JLabel img2 = new JLabel(new ImageIcon("choose_Mode.JPG"));
+                    panel.add(img2);
+                    img2.setBounds(0, 0, 1000, 800);
+                    img2.setVisible(true);
+                    panel.setBounds(0, 0, 1000, 800);
+                    mainFrame.add(panel);
+                    mainFrame.setVisible(true);
+                    this.setVisible(false);
+                }
+            }
+        });
+
+        JButton ExitBtn = new JButton("Exit");
+        ExitBtn.setSize(90, 100);
+        ExitBtn.setLocation(10,250);
+        add(ExitBtn);
+        ExitBtn.setBorderPainted(false);
+        ExitBtn.addActionListener(e -> {
+            int userOption1;
+            userOption1 = JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "WARNING", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(userOption1==JOptionPane.OK_OPTION)
+            {
+                RegisterFrame registerFrame = new RegisterFrame();
+                JPanel panel=new JPanel();
+                JLabel img2 =new JLabel(new ImageIcon("Othello22.jpg"));
+                panel.add(img2);
+                img2.setBounds(0, 0, 1000, 800);
+                img2.setVisible(true);
+                panel.setBounds(0, 0, 1000, 800);
+                registerFrame.add(panel);
+                registerFrame.setVisible(true);
+                this.setVisible(false);
+            }
         });
 
         this.setVisible(true);

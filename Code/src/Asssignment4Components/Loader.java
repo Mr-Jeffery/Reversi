@@ -3,6 +3,7 @@ package Asssignment4Components;
 import view.GameFrame;
 import view.MainFrame;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,6 +49,13 @@ public class Loader{
                 }
                     Step step = new Step(chess,X,Y,board);
                     GameFrame gameFrame=new GameFrame(board,bScore,wScore,-chess);
+            JPanel panel=new JPanel();
+            JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
+            panel.add(img2);
+            img2.setBounds(0, 0, 720, 720);
+            img2.setVisible(true);
+            panel.setBounds(0, 0, 720, 720);
+            gameFrame.add(panel);
                     gameFrame.setGame(game);
                     game.addStep(step);
 

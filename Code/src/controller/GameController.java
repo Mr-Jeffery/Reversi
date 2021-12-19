@@ -29,7 +29,12 @@ public class GameController {
     public void setCurrentPlayer(int i) {
         if(i==1)this.currentPlayer = ChessPiece.BLACK;
         else this.currentPlayer = ChessPiece.WHITE;
+        if(MainFrame.AImode==0)
         statusPanel.setPlayerText(currentPlayer.name());
+        else
+        {
+            statusPanel.setAIText(currentPlayer.name());
+        }
     }
 
     public void swapPlayer() {
@@ -43,6 +48,14 @@ public class GameController {
             } else {
                 JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>WE CAN NOT CHANGE !</font><font color='#cc22ff'>HE DON'T HAVE A INVALID MOVE...</font></h2></html>");
             }
+        }
+        else if (!GameFrame.controller.canContinue()) {
+            if (FindWinner() == 1)
+                JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+            else if (FindWinner() == -1)
+                JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+            else
+                JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
         }
             statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
     }

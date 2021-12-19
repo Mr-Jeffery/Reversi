@@ -22,6 +22,7 @@ public class MainFrame extends JFrame {
     private URL url2;
     private AudioClip ac2;
 
+
     public MainFrame() {
 
         this.setTitle("Let's Play Othello!");
@@ -68,6 +69,15 @@ public class MainFrame extends JFrame {
             first[4][3]=-1;
             first[3][4]=-1;
             EasyAIFrame gameFrame = new EasyAIFrame(first,2,2,1,me);
+
+            JPanel panel=new JPanel();
+            JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
+            panel.add(img2);
+            img2.setBounds(0, 0, 720, 720);
+            img2.setVisible(true);
+            panel.setBounds(0, 0, 720, 720);
+            gameFrame.add(panel);
+
             this.setVisible(false);
             gameFrame.setVisible(true);
         });
@@ -100,6 +110,15 @@ public class MainFrame extends JFrame {
             first[4][3]=-1;
             first[3][4]=-1;
             DifAIFrame gameFrame = new DifAIFrame(first,2,2,1,me);
+
+            JPanel panel=new JPanel();
+            JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
+            panel.add(img2);
+            img2.setBounds(0, 0, 720, 720);
+            img2.setVisible(true);
+            panel.setBounds(0, 0, 720, 720);
+            gameFrame.add(panel);
+
             this.setVisible(false);
             gameFrame.setVisible(true);
         });
@@ -129,18 +148,21 @@ public class MainFrame extends JFrame {
             first[3][4]=-1;
             System.out.println("Btn reacted!!!!");
             GameFrame gameFrame = new GameFrame(first,2,2,1);
-
+//            GameFrame gameFrame = new GameFrame();
             JPanel panel=new JPanel();
-            JLabel img2 =new JLabel(new ImageIcon("othello.jpg"));
+            JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
             panel.add(img2);
-            img2.setBounds(0, 0, 1000, 800);
+            img2.setBounds(0, 0, 720, 720);
             img2.setVisible(true);
-            panel.setBounds(0, 0, 1000, 800);
+            panel.setBounds(0, 0, 720, 720);
             gameFrame.add(panel);
 
             gameFrame.setVisible(true);
             this.setVisible(false);
-            add(gameFrame);
+            try {
+                add(gameFrame);
+            }catch (IllegalArgumentException e1){
+            }
 
         });
 
