@@ -11,16 +11,11 @@ import javax.swing.*;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageObserver;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
-import static java.awt.Toolkit.getDefaultToolkit;
 
 public class ChessGridComponent extends BasicComponent {
     public boolean isStart = true;
@@ -191,11 +186,9 @@ public class ChessGridComponent extends BasicComponent {
                     }//change color
                     AI ai = new AI();
                     ai.setLayerTotal(2);
-                    int setX = ai.play(board_copy2, color)[0];//
-                    int setY = ai.play(board_copy2, color)[1];//
-                    System.out.println("aiX:" + setY + " aiY:" + setX);
-                    if (EasyAIFrame.controller.canClick2(setY, setX)) {
-                        EasyAIFrame.controller.Putting(-color, setY, setX);
+                    int[] set = ai.play(board_copy2, color);//
+                    if (EasyAIFrame.controller.canClick2(set[1], set[0])) {
+                        EasyAIFrame.controller.Putting(-color, set[1], set[0]);
                     } else System.out.println("AI WRONG!!");
                     EasyAIFrame.controller.countScore();
                     repaint();
@@ -222,10 +215,8 @@ public class ChessGridComponent extends BasicComponent {
                         }//change color
                         AI ai = new AI();
                         ai.setLayerTotal(2);
-                        int setX = ai.play(board_copy2, EasyAIFrame.controller.getCurrentPlayer())[0];//
-                        int setY = ai.play(board_copy2, EasyAIFrame.controller.getCurrentPlayer())[1];//
-                        System.out.println("aiX:" + setX + " aiY:" + setY);
-                        EasyAIFrame.controller.Putting(-EasyAIFrame.controller.getCurrentPlayer(), setY, setX);
+                        int [] set = ai.play(board_copy2, EasyAIFrame.controller.getCurrentPlayer());
+                        EasyAIFrame.controller.Putting(-EasyAIFrame.controller.getCurrentPlayer(), set[1], set[0]);
                         EasyAIFrame.controller.countScore();
                         repaint();
                     }
@@ -279,11 +270,9 @@ public class ChessGridComponent extends BasicComponent {
                     }//change color
                     AI ai = new AI();
                     ai.setLayerTotal(6);
-                    int setX = ai.play(board_copy2, color)[0];//
-                    int setY = ai.play(board_copy2, color)[1];//
-                    System.out.println("aiX:" + setY + " aiY:" + setX);
-                    if (DifAIFrame.controller.canClick2(setY, setX)) {
-                        DifAIFrame.controller.Putting(-color, setY, setX);
+                    int []set = ai.play(board_copy2, color);
+                    if (DifAIFrame.controller.canClick2(set[1], set[0])) {
+                        DifAIFrame.controller.Putting(-color, set[1], set[0]);
                     } else System.out.println("AI WRONG!!");
                     DifAIFrame.controller.countScore();
                     repaint();

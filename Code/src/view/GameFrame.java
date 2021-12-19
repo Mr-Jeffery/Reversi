@@ -66,6 +66,7 @@ public class GameFrame extends JFrame {
         restartBtn.setSize(120, 50);
         restartBtn.setLocation((this.getWidth() - chessBoardPanel.getWidth()) / 2, (this.getHeight() + chessBoardPanel.getHeight()) / 2);
         add(restartBtn);
+        restartBtn.setBorderPainted(false);
         restartBtn.addActionListener(e -> {
             System.out.println("click restart Btn");
 
@@ -85,6 +86,14 @@ public class GameFrame extends JFrame {
                     first[4][3] = -1;
                     first[3][4] = -1;
                     GameFrame gameFrame = new GameFrame(first, 2, 2, 1);
+
+                    JPanel panel=new JPanel();
+                    JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
+                    panel.add(img2);
+                    img2.setBounds(0, 0, 720, 720);
+                    img2.setVisible(true);
+                    panel.setBounds(0, 0, 720, 720);
+                    gameFrame.add(panel);
 
                     Game g = new Game("othello" + MainFrame.gid, new Player("a","password"), new Player("b","password"));
                     MainFrame.gid++;
@@ -106,6 +115,13 @@ public class GameFrame extends JFrame {
                 first[4][3] = -1;
                 first[3][4] = -1;
                 GameFrame gameFrame = new GameFrame(first, 2, 2, 1);
+                JPanel panel=new JPanel();
+                JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
+                panel.add(img2);
+                img2.setBounds(0, 0, 720, 720);
+                img2.setVisible(true);
+                panel.setBounds(0, 0, 720, 720);
+                gameFrame.add(panel);
 
                 Game g = new Game("othello" + MainFrame.gid, new Player("a","password"), new Player("b","password"));
                 MainFrame.gid++;
@@ -120,6 +136,7 @@ public class GameFrame extends JFrame {
         loadGameBtn.setSize(120, 50);
         loadGameBtn.setLocation(restartBtn.getX() + restartBtn.getWidth() + 30, restartBtn.getY());
         add(loadGameBtn);
+        loadGameBtn.setBorderPainted(false);
         loadGameBtn.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser(".//Code//src//Saved_games");
 
@@ -131,27 +148,23 @@ public class GameFrame extends JFrame {
 //              System.out.println(filePath);
                 Game game = Loader.load(filePath);
                 controller.readFileData(filePath);
-
-
             }
-
+            this.setVisible(false);
             System.out.println("clicked Load Btn");
-//                String filePath = JOptionPane.showInputDialog(this, "input the path here");
-//                controller.readFileData(filePath);
+
         });
 
         JButton saveGameBtn = new JButton("Save");
         saveGameBtn.setSize(120, 50);
         saveGameBtn.setLocation(loadGameBtn.getX() + restartBtn.getWidth() + 30, restartBtn.getY());
         add(saveGameBtn);
+        saveGameBtn.setBorderPainted(false);
         saveGameBtn.addActionListener(e -> {
+
             JFileChooser chooser = new JFileChooser(".//Code//src//Saved_games");
             FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "jpg", "gif");
-//设置文件类型
             chooser.setFileFilter(filter);
-//打开选择器面板
             int returnVal = chooser.showSaveDialog(new JPanel());
-//保存文件从这里入手，输出的是文件名
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 System.out.println("你打开的文件夹是: " +
                         chooser.getSelectedFile().getPath());
@@ -165,28 +178,82 @@ public class GameFrame extends JFrame {
                     out.write(String.valueOf(this.g.toString()));
                     out.close();
                 } catch (Exception e1) {
-// TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
             }
-
-//                System.out.println("clicked Save Btn");
-//                String filePath = JOptionPane.showInputDialog(this, "input the path here");
-//                controller.writeDataToFile(filePath);
         });
 
         JButton CheatBtn = new JButton("<html>I want to<br>CHEAT</html>");
         CheatBtn.setSize(90, 100);
-        CheatBtn.setLocation(saveGameBtn.getX() + loadGameBtn.getWidth() + 100, restartBtn.getY() - 400);
+        CheatBtn.setLocation(saveGameBtn.getX() + loadGameBtn.getWidth() + 80, restartBtn.getY() - 360);
         add(CheatBtn);
+        CheatBtn.setBorderPainted(false);
         CheatBtn.addActionListener(e -> {
             MainFrame.NORAMLmode=0;
             MainFrame.CHEATmode=1;
             CheatFrame gameFrame = new CheatFrame(chessBoardPanel.getData(), chessBoardPanel.getBlackScore(), chessBoardPanel.getWhiteScore(), controller.getCurrentPlayer());
+            JPanel panel=new JPanel();
+            JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
+            panel.add(img2);
+            img2.setBounds(0, 0, 720, 720);
+            img2.setVisible(true);
+            panel.setBounds(0, 0, 720, 720);
+            gameFrame.add(panel);
             gameFrame.setGame(this.g);
             this.setVisible(false);
             add(gameFrame);
         });
+
+
+        JButton BackBtn = new JButton("<html>CHANGE<br>MODE</html>");
+        BackBtn.setSize(120, 50);
+        BackBtn.setLocation(saveGameBtn.getX() + loadGameBtn.getWidth() + 30, restartBtn.getY());
+        add(BackBtn);
+        BackBtn.setBorderPainted(false);
+        BackBtn.addActionListener(e -> {
+            int userOption1;
+            if (GameFrame.controller.canContinue())
+            {
+                userOption1 = JOptionPane.showConfirmDialog(null, "Are you sure?There is no winner yet!", "WARNING", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if(userOption1==JOptionPane.OK_OPTION)
+                {
+                    MainFrame mainFrame = new MainFrame();
+                    JPanel panel = new JPanel();
+                    JLabel img2 = new JLabel(new ImageIcon("choose_Mode.JPG"));
+                    panel.add(img2);
+                    img2.setBounds(0, 0, 1000, 800);
+                    img2.setVisible(true);
+                    panel.setBounds(0, 0, 1000, 800);
+                    mainFrame.add(panel);
+                    mainFrame.setVisible(true);
+                    this.setVisible(false);
+                }
+            }
+        });
+
+        JButton ExitBtn = new JButton("Exit");
+        ExitBtn.setSize(90, 100);
+        ExitBtn.setLocation(10,250);
+        add(ExitBtn);
+        ExitBtn.setBorderPainted(false);
+        ExitBtn.addActionListener(e -> {
+            int userOption1;
+                userOption1 = JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "WARNING", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if(userOption1==JOptionPane.OK_OPTION)
+                {
+                    RegisterFrame registerFrame = new RegisterFrame();
+                    JPanel panel=new JPanel();
+                    JLabel img2 =new JLabel(new ImageIcon("Othello22.jpg"));
+                    panel.add(img2);
+                    img2.setBounds(0, 0, 1000, 800);
+                    img2.setVisible(true);
+                    panel.setBounds(0, 0, 1000, 800);
+                    registerFrame.add(panel);
+                    registerFrame.setVisible(true);
+                    this.setVisible(false);
+            }
+        });
+
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
