@@ -41,7 +41,7 @@ public class Saver {
                     chooser.getSelectedFile().getPath());
             String path = chooser.getSelectedFile().getPath();
             try {
-                File f = new File(path+".txt");
+                File f = new File(path);
                 System.out.println(f.getAbsolutePath());
                 f.createNewFile();
                 FileOutputStream out = new FileOutputStream(f);

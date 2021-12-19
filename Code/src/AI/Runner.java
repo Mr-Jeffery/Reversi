@@ -20,21 +20,16 @@ public class Runner
         int[] directionX = new int[]{0, 0, 1, 1, -1, -1, 1, -1};
         int[] directionY = new int[]{1, -1, 1, -1, -1, 1, 0, 0};
         boolean ans = false;
-
-        if(data[positionX][positionY]!=0)
-        {
+        if (data[positionX][positionY]!=0){
             return ans;
-        }
-        else
-        {
+        }else {
             for (int i = 0; i < 8; i++) {
                 if (canPut(chess, positionX, positionY, directionX[i], directionY[i], 0)) {
                     ans=true;
                 }
             }
+            return ans;
         }
-
-        return ans;
     }
 
 
