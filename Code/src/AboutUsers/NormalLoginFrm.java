@@ -3,9 +3,6 @@ package AboutUsers;
 import view.MainFrame;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,18 +14,16 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class LoginFrm extends JFrame {
-    ArrayList<String> IDList= new ArrayList<String>();
-    ArrayList<String> PWList= new ArrayList<String>();
-    JLabel lbl1 = new JLabel("用户名:");
-    JLabel lbl2 = new JLabel("密     码:");
+public class NormalLoginFrm extends JFrame {
+    JLabel lbl1 = new JLabel("Users Name:");
+    JLabel lbl2 = new JLabel("Password:");
     JTextField txt = new JTextField(40);
     JPasswordField pwd = new JPasswordField(40);
     JButton btn1 = new JButton("LOG IN");
     JPanel pnl = new JPanel();
     private int error = 0;
 
-    public LoginFrm(String title) throws HeadlessException {
+    public NormalLoginFrm(String title) throws HeadlessException {
         super(title);
         init();
     }
@@ -46,10 +41,8 @@ public class LoginFrm extends JFrame {
         this.getContentPane().add(pnl);
 
         btn1.addActionListener(e -> {
-            if(IDList.size()==0)
-            {
-                System.out.println("Please register first!!");
-            }
+            PlayerLoader playerLoader=new PlayerLoader();
+
             if (txt.getText().equals(new String(pwd.getPassword()))){
                 pnl.removeAll();
                 MainFrame mainFrame = new MainFrame();
@@ -78,9 +71,11 @@ public class LoginFrm extends JFrame {
     }
 
     public static void main(String[] args) {
-        LoginFrm frm = new LoginFrm("测试");
+        NormalLoginFrm frm = new NormalLoginFrm("测试");
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frm.setBounds(300, 300, 500, 500);
         frm.setVisible(true);
     }
 }
+
+

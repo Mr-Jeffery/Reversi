@@ -19,6 +19,11 @@ public class Player implements Serializable {
         return this.name;
     }
 
+    public String getPassword()
+    {
+        return this.password;
+    }
+
     @Override
     public String toString(){
         return this.name;

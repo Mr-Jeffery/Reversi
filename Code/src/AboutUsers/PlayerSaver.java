@@ -1,13 +1,15 @@
+package AboutUsers;
+
 import Asssignment4Components.Player;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+        import java.io.*;
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class PlayerSaver {
-    public static void main(String [] args) {
-        Player player1 = new Player("Alice","123");
-        Player player2 = new Player("Bob","123");
+    public PlayerSaver(String N1,String P1,String N2,String P2) {
+        Player player1 = new Player(N1,P1);
+        Player player2 = new Player(N2,P2);
         List<Player> playerList = new ArrayList<>();
         playerList.add(player1);
         playerList.add(player2);
