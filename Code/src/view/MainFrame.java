@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
         this.setLayout(null);//???
 
         Insets inset = this.getInsets();
-        this.setSize(1000 + inset.left + inset.right, 750 + inset.top + inset.bottom);
+        this.setSize(1000 , 580);
 
         this.setLocationRelativeTo(null);
 
@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
         Font font1= new Font("微软雅黑",Font.BOLD,16);
         AIBtn.setFont(font1);
         AIBtn.setSize(200, 100);
-        AIBtn.setLocation(75, 225);
+        AIBtn.setLocation(550, 250);
         add(AIBtn);
         AIBtn.setBorderPainted(false);
         AIBtn.addActionListener(e -> {
@@ -74,8 +74,8 @@ public class MainFrame extends JFrame {
 
         JButton difAIBtn = new JButton("HARD PvE");
         difAIBtn.setFont(font1);
-        difAIBtn.setSize(400, 100);
-        difAIBtn.setLocation(0, 385);
+        difAIBtn.setSize(200, 100);
+        difAIBtn.setLocation(240, 425);
         add(difAIBtn);
         difAIBtn.setBorderPainted(false);
         difAIBtn.addActionListener(e -> {
@@ -107,10 +107,12 @@ public class MainFrame extends JFrame {
         JButton NORMALBtn = new JButton("PvP");
         NORMALBtn.setFont(font1);
         NORMALBtn.setSize(200, 100);
-        NORMALBtn.setLocation(75, 570);
+        NORMALBtn.setLocation(330, 80);
         add(NORMALBtn);
         NORMALBtn.setBorderPainted(false);
         NORMALBtn.addActionListener(e -> {
+
+
             NORAMLmode=1;
             CHEATmode=0;
             AImode=0;

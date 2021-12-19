@@ -1,5 +1,7 @@
 package view;
 
+import AboutUsers.LoginFrm;
+import AboutUsers.RegisterFrm;
 import controller.GameController;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -27,7 +29,6 @@ public class RegisterFrame extends JFrame {
             url1= f1.toURL();
         } catch (
                 MalformedURLException e) {
-// TODO Auto-generated catch block
             e.printStackTrace();
         }
         ac1= Applet.newAudioClip(url1);
@@ -36,7 +37,7 @@ public class RegisterFrame extends JFrame {
         System.out.println("tried to have music");
 
         Insets inset = this.getInsets();
-        this.setSize(900 + inset.left + inset.right+100, 580 + inset.top + inset.bottom);
+        this.setSize(1000, 580);
 
         this.setLocationRelativeTo(null);
 
@@ -71,16 +72,23 @@ public class RegisterFrame extends JFrame {
         logIn.setBorderPainted(false);
         logIn.addActionListener(e -> {
 
-            MainFrame mainFrame = new MainFrame();
-            JPanel panel=new JPanel();
-            JLabel img2 =new JLabel(new ImageIcon("CHoose.jpg"));
-            panel.add(img2);
-            img2.setBounds(0,0, 1000, 800);
-            img2.setVisible(true);
-            panel.setBounds(0, 0, 1000, 800);
-            mainFrame.add(panel);
-            mainFrame.setVisible(true);
+            LoginFrm frm = new LoginFrm("LOG IN");
+            frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frm.setBounds(300, 300, 500, 500);
+            frm.setVisible(true);
             this.setVisible(false);
+
+
+//            MainFrame mainFrame = new MainFrame();
+//            JPanel panel=new JPanel();
+//            JLabel img2 =new JLabel(new ImageIcon("choose_Mode.JPG"));
+//            panel.add(img2);
+//            img2.setBounds(0,0, 1000, 800);
+//            img2.setVisible(true);
+//            panel.setBounds(0, 0, 1000, 800);
+//            mainFrame.add(panel);
+//            mainFrame.setVisible(true);
+//            this.setVisible(false);
         });
 
         JButton registerBtn = new JButton("REGISTER");
@@ -91,6 +99,12 @@ public class RegisterFrame extends JFrame {
         registerBtn.setBorderPainted(false);
         registerBtn.addActionListener(e -> {
 
+            RegisterFrm frm = new RegisterFrm("REGISTER");
+
+            frm.setVisible(true);
+            frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frm.setBounds(300, 300, 500, 500);
+            this.setVisible(false);
         });
     }
 

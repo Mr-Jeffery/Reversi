@@ -1,30 +1,23 @@
 package AboutUsers;
-
 import Asssignment4Components.Player;
 
-        import java.io.*;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerSaver {
-    public PlayerSaver(String N1,String P1,String N2,String P2) {
-        Player player1 = new Player(N1,P1);
-        Player player2 = new Player(N2,P2);
-        List<Player> playerList = new ArrayList<>();
-        playerList.add(player1);
-        playerList.add(player2);
-        for (Player p :playerList){
+    public PlayerSaver(String n1,String p1) {
+        Player p = new Player(n1,p1);
             try {
-                FileOutputStream fileOut = new FileOutputStream(String.format(".//%s.plr",p.getName()));
+                FileOutputStream fileOut = new FileOutputStream(String.format(".//%s.plr",p.getName()+String.valueOf(p.getPassword())));
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
                 out.writeObject(p);
                 out.close();
                 fileOut.close();
-                System.out.printf(String.format("Serialized data of %s is saved.\n",p.getName()));
+                System.out.printf(String.format("Serialized data of %s is saved.\n",p.getName()+String.valueOf(p.getPassword())));
             }catch(IOException i)
             {
                 i.printStackTrace();
             }
         }
     }
-}
