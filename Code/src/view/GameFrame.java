@@ -178,7 +178,7 @@ public class GameFrame extends JFrame {
                     this.controller.countScore();
                 }
             }
-            System.out.println("clicked Load Btn");
+//            System.out.println("clicked Load Btn");
 
         });
 
