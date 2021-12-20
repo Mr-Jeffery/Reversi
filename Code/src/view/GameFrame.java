@@ -2,16 +2,14 @@ package view;
 //String str1= JOptionPane.showInputDialog("enter this intenger");   输入衔接
 //int num1=Integer.parseInt(str1);
 
-import Asssignment4Components.Game;
-import Asssignment4Components.Loader;
-import Asssignment4Components.Player;
-import Asssignment4Components.Saver;
+import Asssignment4Components.*;
 import controller.GameController;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class GameFrame extends JFrame {
     public static GameController controller;
@@ -101,7 +99,7 @@ public class GameFrame extends JFrame {
                     Game g = new Game("othello" + MainFrame.gid, new Player("a","password"), new Player("b","password"));
                     MainFrame.gid++;
                     gameFrame.setGame(g);
-
+                    gameFrame.setVisible(true);
                     this.setVisible(false);
                     try{
                         add(gameFrame);
@@ -131,6 +129,7 @@ public class GameFrame extends JFrame {
                 panel.setBounds(0, 0, 720, 720);
                 gameFrame.add(panel);
 
+                gameFrame.setVisible(true);
                 Game g = new Game("othello" + MainFrame.gid, new Player("a","password"), new Player("b","password"));
                 MainFrame.gid++;
                 gameFrame.setGame(g);
@@ -158,11 +157,27 @@ public class GameFrame extends JFrame {
             int returnVal = fileChooser.showOpenDialog(fileChooser);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 String filePath = fileChooser.getSelectedFile().getAbsolutePath();
-//              System.out.println(filePath);
-                Game game = Loader.load(filePath);
+                Loader2 loader2 = new Loader2();
+                ArrayList<Integer>copy=loader2.load(filePath);
+                ArrayList<Step>copy_2=loader2.loaded(filePath);
+//                Game game = Loader.load(filePath);
+
+                Game g = new Game("othello"+MainFrame.gid,new Player("a","111"),new Player("b","ss"));
+                MainFrame.gid++;
+                this.setGame(g);
                 controller.readFileData(filePath);
+                for(int i=0;i<copy_2.size();i++)
+                {
+                    g.addStep(copy_2.get(i));
+                }
+                this.controller.clear();
+                for(int i=0;i<copy.size();i=i+3)
+                {
+                    this.controller.Putting(copy.get(i), copy.get(i+1),copy.get(i+2));
+                    System.out.println("chess  "+copy.get(i)+"  and xx"+copy.get(i+1)+"    and yy"+copy.get(i+2));
+                    this.controller.countScore();
+                }
             }
-            this.setVisible(false);
             System.out.println("clicked Load Btn");
 
         });

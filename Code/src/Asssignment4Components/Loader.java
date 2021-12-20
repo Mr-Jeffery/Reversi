@@ -128,52 +128,53 @@ public class Loader {
                             JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>");
                     }
                 }
-            } else {
-                String stepInput=stepListInput[stepListInput.length-1];
-                Scanner scanner = new Scanner(stepInput);
-                int chess = scanner.nextInt();
-                int X = scanner.nextInt();
-                int Y = scanner.nextInt();
-                int [][] board = new int[8][8];
-                int bScore=0;
-                int wScore=0;
-                for (int ix=0;ix<8;ix++) {
-                    for (int iy = 0; iy < 8; iy++) {
-                        board[ix][iy] = scanner.nextInt();
-                        if(board[ix][iy]==1)bScore++;
-                        else if(board[ix][iy]==-1)wScore++;
-                    }
-                }
-                Step step = new Step(chess,X,Y,board);
-                game.addStep(step);
-
-                GameFrame gameFrame=new GameFrame(board,bScore,wScore,-chess);
-                JPanel panel=new JPanel();
-                JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
-                panel.add(img2);
-                img2.setBounds(0, 0, 720, 720);
-                img2.setVisible(true);
-                panel.setBounds(0, 0, 720, 720);
-                gameFrame.add(panel);
-                gameFrame.setGame(game);
-                game.addStep(step);
-
-                gameFrame.setVisible(true);
-                if(!GameFrame.controller.canContinue(-chess)) {
-                    if (GameFrame.controller.canContinue())
-                        GameFrame.controller.swapPlayer();
-                    else {
-                        GameFrame.controller.countScore();
-                        if (GameFrame.controller.FindWinner() == 1)
-                            JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>");
-                        else if (GameFrame.controller.FindWinner() == -1)
-                            JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>");
-                        else
-                            JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>");
-                    }
-                }
-
             }
+//            } else {
+//                String stepInput=stepListInput[stepListInput.length-1];
+//                Scanner scanner = new Scanner(stepInput);
+//                int chess = scanner.nextInt();
+//                int X = scanner.nextInt();
+//                int Y = scanner.nextInt();
+//                int [][] board = new int[8][8];
+//                int bScore=0;
+//                int wScore=0;
+//                for (int ix=0;ix<8;ix++) {
+//                    for (int iy = 0; iy < 8; iy++) {
+//                        board[ix][iy] = scanner.nextInt();
+//                        if(board[ix][iy]==1)bScore++;
+//                        else if(board[ix][iy]==-1)wScore++;
+//                    }
+//                }
+//                Step step = new Step(chess,X,Y,board);
+//                game.addStep(step);
+//
+//                GameFrame gameFrame=new GameFrame(board,bScore,wScore,-chess);
+//                JPanel panel=new JPanel();
+//                JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
+//                panel.add(img2);
+//                img2.setBounds(0, 0, 720, 720);
+//                img2.setVisible(true);
+//                panel.setBounds(0, 0, 720, 720);
+//                gameFrame.add(panel);
+//                gameFrame.setGame(game);
+//                game.addStep(step);
+//
+//                gameFrame.setVisible(true);
+//                if(!GameFrame.controller.canContinue(-chess)) {
+//                    if (GameFrame.controller.canContinue())
+//                        GameFrame.controller.swapPlayer();
+//                    else {
+//                        GameFrame.controller.countScore();
+//                        if (GameFrame.controller.FindWinner() == 1)
+//                            JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>");
+//                        else if (GameFrame.controller.FindWinner() == -1)
+//                            JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>");
+//                        else
+//                            JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>");
+//                    }
+//                }
+//
+//            }
             return game;
         } catch (IOException e) {
             System.out.println("un");

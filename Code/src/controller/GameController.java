@@ -115,6 +115,10 @@ public class GameController {
         }
     }
 
+    public void clear()
+    {
+        gamePanel.clear();
+    }
     public void writeDataToFile(String fileName) {
     }
 

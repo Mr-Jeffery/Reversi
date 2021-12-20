@@ -43,6 +43,24 @@ public class ChessBoardPanel extends JPanel {
     public int getWhiteScore() {
         return this.whiteScore;
     }
+    public void clear()
+    {
+        blackScore = 2;
+        whiteScore = 2;
+        for (int i = 0; i < 8; i++)
+            for (int j = 0; j < 8; j++) {
+                    chessGrids[i][j].setChessPiece(null);
+                    data[i][j] = 0;
+                }
+        chessGrids[3][3].setChessPiece(ChessPiece.BLACK);
+        chessGrids[4][4].setChessPiece(ChessPiece.BLACK);
+        chessGrids[4][3].setChessPiece(ChessPiece.WHITE);
+        chessGrids[3][4].setChessPiece(ChessPiece.WHITE);
+        data[3][3]=1;
+        data[4][4]=1;
+        data[3][4]=-1;
+        data[4][3]=-1;
+    }
 
     public ChessBoardPanel(int width, int height, int[][] input) {
         this.setVisible(true);
@@ -131,7 +149,6 @@ public class ChessBoardPanel extends JPanel {
                 chessGrids[PositionX + moveX][PositionY + moveY].setChessPiece(ChessPiece.BLACK);
             else if (chess == -1)
                 chessGrids[PositionX + moveX][PositionY + moveY].setChessPiece(ChessPiece.WHITE);
-
             repaint();
             Put(chess, PositionX + moveX, PositionY + moveY, moveX, moveY);
         }
