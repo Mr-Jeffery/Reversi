@@ -6,6 +6,10 @@ import apple.laf.JRSUIUtils;
 import components.ChessGridComponent;
 import model.ChessPiece;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +26,8 @@ public class ChessBoardPanel extends JPanel {
     public int whiteScore;
     public int[][] nextStep = new int[8][8];//下一步可以下的位置
     public int[][] step = new int[8][8];
-
+    private URL url3;
+    private AudioClip ac3;
 
     private final int CHESS_COUNT = 8;
     private ChessGridComponent[][] chessGrids;
@@ -43,7 +48,7 @@ public class ChessBoardPanel extends JPanel {
         this.setVisible(true);
         this.setFocusable(true);
         this.setLayout(null);
-        this.setBackground(Color.BLACK);
+        this.setBackground(Color.CYAN);
 
 
         int length = Math.min(width, height);
@@ -111,7 +116,7 @@ public class ChessBoardPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.BLACK);//set white color!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        g.setColor(Color.orange);//set white color!!!!!!!!!!!!!!!!!!!!!!!!!!!
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
     }
 
@@ -153,8 +158,8 @@ public class ChessBoardPanel extends JPanel {
                 int PositionX_copy = PositionX;
                 int PositionY_copy = PositionY;
 //                Put(chess, PositionX, PositionY, directionX[i], directionY[i]);
-                while (PositionX_copy + directionX[i] < 8 && PositionX_copy + directionX[i] > 0
-                        && PositionY_copy + directionY[i] < 8 && PositionY_copy + directionY[i] > 0
+                while (PositionX_copy + directionX[i] < 8 && PositionX_copy + directionX[i] >= 0
+                        && PositionY_copy + directionY[i] < 8 && PositionY_copy + directionY[i] >= 0
                         && data[PositionX_copy + directionX[i]][PositionY_copy + directionY[i]] == -chess) {
                     num++;
                     PositionX_copy += directionX[i];
@@ -181,6 +186,15 @@ public class ChessBoardPanel extends JPanel {
                 public void run() {
                     System.out.println(1);
                     paintImmediately(cg.getX(), cg.getY(), cg.getWidth(), cg.getHeight());
+                    File f4 = new File("Put.wav");
+                    try {
+                        url3 = f4.toURL();
+                    } catch (
+                            MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                    ac3 = Applet.newAudioClip(url3);
+                    ac3.play();
                 }
             });
             thread.start();
@@ -262,8 +276,6 @@ public class ChessBoardPanel extends JPanel {
                 if (data[i][j] == 1) blackScore++;
                 else if (data[i][j] == -1) whiteScore++;
             }
-        System.out.println("blackscore" + blackScore);
-        System.out.println("whitescore" + whiteScore);
     }
 
     public boolean canContinue()//游戏可以继续
@@ -273,7 +285,10 @@ public class ChessBoardPanel extends JPanel {
             return canContinue(-1) || canContinue(1);
     }
 
-
+    public boolean canContinue(int a,int b){
+        if (blackScore + whiteScore == 64) return false;
+        else return true;
+    }
     public void checkNextStep(int chess) {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)

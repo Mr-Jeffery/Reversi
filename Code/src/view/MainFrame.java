@@ -1,5 +1,7 @@
 package view;
 
+import Asssignment4Components.Game;
+import Asssignment4Components.Player;
 import controller.GameController;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -145,6 +147,7 @@ public class MainFrame extends JFrame {
             first[4][3]=-1;
             first[3][4]=-1;
             System.out.println("Btn reacted!!!!");
+
             GameFrame gameFrame = new GameFrame(first,2,2,1);
             JPanel panel=new JPanel();
             JLabel img2 =new JLabel(new ImageIcon("CBP.png"));
@@ -153,6 +156,9 @@ public class MainFrame extends JFrame {
             img2.setVisible(true);
             panel.setBounds(0, 0, 720, 720);
             gameFrame.add(panel);
+            Game g = new Game("othello" + MainFrame.gid, new Player("a","password"), new Player("b","password"));
+            MainFrame.gid++;
+            gameFrame.setGame(g);
             this.setVisible(false);
             gameFrame.setVisible(true);
             try {

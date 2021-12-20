@@ -7,11 +7,11 @@ import javax.swing.*;
 public class Main {
 
         public static void main(String[] args) {
-
+            String path = System.getProperty("user.dir") +"/";
             SwingUtilities.invokeLater(() -> {
                 RegisterFrame registerFrame = new RegisterFrame();
                 JPanel panel=new JPanel();
-                JLabel img2 =new JLabel(new ImageIcon("Othello22.jpg"));
+                JLabel img2 =new JLabel(new ImageIcon(path+ "Othello22.jpg"));
                 panel.add(img2);
                 img2.setBounds(0, 0, 1000, 800);
                 img2.setVisible(true);

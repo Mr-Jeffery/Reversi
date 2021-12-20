@@ -14,6 +14,7 @@ public class LoginFrm extends JFrame {
     JTextField txt = new JTextField(40);
     JPasswordField pwd = new JPasswordField(40);
     JButton btn1 = new JButton("LOG IN");
+    JButton btn2 = new JButton("BACK");
     JPanel pnl = new JPanel();
     private int error = 0;
 
@@ -33,6 +34,7 @@ public class LoginFrm extends JFrame {
         pnl.add(lbl2);
         pnl.add(pwd);
         pnl.add(btn1);
+        pnl.add(btn2);
         this.getContentPane().add(pnl);
 
         btn1.addActionListener(e -> {
@@ -77,8 +79,20 @@ public class LoginFrm extends JFrame {
                 }
             }
         });
+        btn2.addActionListener(e -> {
+            RegisterFrame registerFrame = new RegisterFrame();
+            JPanel panel=new JPanel();
+            JLabel img2 =new JLabel(new ImageIcon( "Othello22.jpg"));
+            panel.add(img2);
+            img2.setBounds(0, 0, 1000, 800);
+            img2.setVisible(true);
+            panel.setBounds(0, 0, 1000, 800);
+            registerFrame.add(panel);
+            registerFrame.setVisible(true);
+            this.setVisible(false);
+        });
+        }
 
     }
-}
 
 

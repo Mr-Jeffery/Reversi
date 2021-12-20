@@ -213,13 +213,8 @@ public class GameFrame extends JFrame {
             panel.setBounds(0, 0, 720, 720);
             gameFrame.add(panel);
             gameFrame.setGame(this.g);
+            gameFrame.setVisible(true);
             this.setVisible(false);
-            try{
-                add(gameFrame);
-            }catch(Exception e1)
-            {
-
-            }
         });
 
 

@@ -41,21 +41,32 @@ public class GameController {
         int next;
         if(currentPlayer == ChessPiece.BLACK)next=-1;
         else next=1;
-        if(gamePanel.canContinue()) {
-            if (gamePanel.canContinue(next)) {
-                currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
-                statusPanel.setPlayerText(currentPlayer.name());
-            } else {
-                JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>WE CAN NOT CHANGE !</font><font color='#cc22ff'>HE DON'T HAVE A INVALID MOVE...</font></h2></html>");
+        if(MainFrame.CHEATmode==0)
+        {
+            if(gamePanel.canContinue()) {
+                if (gamePanel.canContinue(next)) {
+                    currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
+                    statusPanel.setPlayerText(currentPlayer.name());
+                } else {
+                    JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>WE CAN NOT CHANGE !</font><font color='#cc22ff'>HE DON'T HAVE A INVALID MOVE...</font></h2></html>");
+                }
+            }
+            else if (!canContinue()) {
+                if (FindWinner() == 1)
+                    JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                else if (FindWinner() == -1)
+                    JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                else
+                    JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
             }
         }
-        else if (!GameFrame.controller.canContinue()) {
-            if (FindWinner() == 1)
-                JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
-            else if (FindWinner() == -1)
-                JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
-            else
-                JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+        else
+        {
+            if(gamePanel.canContinue(1,1))
+            {
+                currentPlayer = (currentPlayer == ChessPiece.BLACK) ? ChessPiece.WHITE : ChessPiece.BLACK;
+                statusPanel.setPlayerText(currentPlayer.name());
+            }
         }
             statusPanel.setScoreText(gamePanel.getBlackScore(),gamePanel.getWhiteScore());
     }
@@ -133,6 +144,10 @@ public class GameController {
     {
         return gamePanel.canContinue(chess);
     }
+     public boolean canContinue(int a,int b)
+     {
+         return gamePanel.canContinue(a,b);
+     }
 
     public boolean canContinue()
     {

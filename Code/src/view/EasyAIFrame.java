@@ -68,15 +68,14 @@ public class EasyAIFrame extends JFrame {
         if(me==-1)
         {
             AI ai= new AI();
-            ai.setLayerTotal(2);
             int [][]copy=new int[8][8];
             for(int i=0;i<8;i++)
                 for(int j=0;j<8;j++)
                 {
                     copy[j][i]=-last[i][j];
                 }
-            int setX=ai.play(copy,-1)[0];//
-            int setY=ai.play(copy,-1)[1];//
+            int setX=ai.play(copy,-1,2)[0];//
+            int setY=ai.play(copy,-1,2)[1];//
             controller.swapPlayer();
             controller.setCurrentPlayer(-1);
             EasyAIFrame.controller.Putting(1,setY,setX);

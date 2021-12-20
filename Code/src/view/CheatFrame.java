@@ -150,7 +150,7 @@ public class CheatFrame extends JFrame {
             add(loadGameBtn);
             loadGameBtn.setBorderPainted(false);
             loadGameBtn.addActionListener(e -> {
-                JFileChooser fileChooser = new JFileChooser(".//Code//src//Saved_games");
+                JFileChooser fileChooser = new JFileChooser("/Users/ronghaixi/IdeaProjects/Reversi/Code/src/Saved_games");
 
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -215,13 +215,8 @@ public class CheatFrame extends JFrame {
             panel.setBounds(0, 0, 720, 720);
             gameFrame.add(panel);
             gameFrame.setGame(this.g);
+            gameFrame.setVisible(true);
             this.setVisible(false);
-            try{
-                add(gameFrame);
-            }catch(Exception e1)
-            {
-
-            }
         });
 
         JButton UndoBtn = new JButton("UNDO");

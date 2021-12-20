@@ -55,16 +55,6 @@ public class ChessGridComponent extends BasicComponent {
                 //找到接口了哈哈哈哈哈哈哈哈
                 if (GameFrame.controller.canClick(row, col)) {
 
-                    File f4 = new File("Put.wav");
-                    try {
-                        url3 = f4.toURL();
-                    } catch (
-                            MalformedURLException e) {
-                        e.printStackTrace();
-                    }
-                    ac3 = Applet.newAudioClip(url3);
-                    ac3.play();
-
                     System.out.println("canclick happened");//如果该点为空，则可以下棋，重新绘制repaint
                     GameFrame.controller.clearNextStep();
                     int color = GameFrame.controller.getCurrentPlayer();
@@ -98,11 +88,11 @@ public class ChessGridComponent extends BasicComponent {
                 if (!GameFrame.controller.canContinue()) {
                     isStart = false;
                     if (GameFrame.controller.FindWinner() == 1)
-                        JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                        JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>");
                     else if (GameFrame.controller.FindWinner() == -1)
-                        JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                        JOptionPane.showMessageDialog(null,"<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>");
                     else
-                        JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                        JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>");
                 }
             }
         } else if (MainFrame.CHEATmode == 1) {
@@ -135,14 +125,14 @@ public class ChessGridComponent extends BasicComponent {
                     CheatFrame.controller.swapPlayer();
                     repaint();
 
-                    if (!CheatFrame.controller.canContinue()) {
+                    if (!CheatFrame.controller.canContinue(1,1)) {
                         isStart = false;
                         if (CheatFrame.controller.FindWinner() == 1)
-                            JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                            JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>");
                         else if (CheatFrame.controller.FindWinner() == -1)
-                            JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                            JOptionPane.showMessageDialog(null,"<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>");
                         else
-                            JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                            JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>");
                     }
                 }
             }
@@ -183,8 +173,7 @@ public class ChessGridComponent extends BasicComponent {
                         }
                     }//change color
                     AI ai = new AI();
-                    ai.setLayerTotal(2);
-                    int[] coordinates = ai.play(board_copy2, color);
+                    int[] coordinates = ai.play(board_copy2, color,2);
                     int setX = coordinates[0];//
                     int setY = coordinates[1];//
                     System.out.println("aiX:" + setY + " aiY:" + setX);
@@ -215,9 +204,8 @@ public class ChessGridComponent extends BasicComponent {
                             }
                         }//change color
                         AI ai = new AI();
-                        ai.setLayerTotal(2);
-                        int setX = ai.play(board_copy2, EasyAIFrame.controller.getCurrentPlayer())[0];//
-                        int setY = ai.play(board_copy2, EasyAIFrame.controller.getCurrentPlayer())[1];//
+                        int setX = ai.play(board_copy2, EasyAIFrame.controller.getCurrentPlayer(),2)[0];//
+                        int setY = ai.play(board_copy2, EasyAIFrame.controller.getCurrentPlayer(),2)[1];//
                         System.out.println("aiX:" + setX + " aiY:" + setY);
                         EasyAIFrame.controller.Putting(-EasyAIFrame.controller.getCurrentPlayer(), setY, setX);
                         EasyAIFrame.controller.countScore();
@@ -228,11 +216,11 @@ public class ChessGridComponent extends BasicComponent {
                 if (!EasyAIFrame.controller.canContinue()) {
                     isStart = false;
                     if (EasyAIFrame.controller.FindWinner() == 1)
-                        JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                        JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>");
                     else if (EasyAIFrame.controller.FindWinner() == -1)
-                        JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                        JOptionPane.showMessageDialog(null,"<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>");
                     else
-                        JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                        JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>");
                 }
             }
         } else if (MainFrame.AImode == 2) {
@@ -272,9 +260,8 @@ public class ChessGridComponent extends BasicComponent {
                         }
                     }//change color
                     AI ai = new AI();
-                    ai.setLayerTotal(6);
-                    int setX = ai.play(board_copy2, color)[0];//
-                    int setY = ai.play(board_copy2, color)[1];//
+                    int setX = ai.play(board_copy2, color,6)[0];//
+                    int setY = ai.play(board_copy2, color,6)[1];//
                     System.out.println("aiX:" + setY + " aiY:" + setX);
                     if (DifAIFrame.controller.canClick2(setY, setX)) {
                         DifAIFrame.controller.Putting(-color, setY, setX);
@@ -304,8 +291,7 @@ public class ChessGridComponent extends BasicComponent {
                             }
                         }//change color
                         AI ai = new AI();
-                        ai.setLayerTotal(6);
-                        int[] answer = ai.play(board_copy2, DifAIFrame.controller.getCurrentPlayer());
+                        int[] answer = ai.play(board_copy2, DifAIFrame.controller.getCurrentPlayer(),6);
                         int setX = answer[0];//
                         int setY = answer[1];//
                         System.out.println("aiX:" + setX + " aiY:" + setY);
@@ -318,11 +304,11 @@ public class ChessGridComponent extends BasicComponent {
                 if (!DifAIFrame.controller.canContinue()) {
                     isStart = false;
                     if (DifAIFrame.controller.FindWinner() == 1)
-                        JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                        JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO BLACK!</font></h2></html>");
                     else if (DifAIFrame.controller.FindWinner() == -1)
-                        JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                        JOptionPane.showMessageDialog(null,"<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> CONGRATULATIONS TO WHITE!</font></h2></html>");
                     else
-                        JOptionPane.showConfirmDialog(null, new JLabel("<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>"), "ending~~~", JOptionPane.YES_NO_OPTION);
+                        JOptionPane.showMessageDialog(null, "<html><h2><font color='blue'>GAME ENDS!</font><font color='#cc22ff'> BUT THERE IS NO WINNER</font></h2></html>");
                 }
             }
         }
@@ -334,7 +320,7 @@ public class ChessGridComponent extends BasicComponent {
     }
 
     public void setChessPiece(ChessPiece chessPiece) {
-        this.chessPiece = chessPiece;
+        this.chessPiece = chessPiece;;
     }
 
 
@@ -352,7 +338,7 @@ public class ChessGridComponent extends BasicComponent {
         super.printComponents(g);
         g.setColor(gridColor);
 
-        g.fillRect(5, 5, this.getWidth() - 2, this.getHeight() - 2);
+        g.fillRect(3, 3, this.getWidth() - 2, this.getHeight() - 2);
 
         if (chessPiece != null) {
 //            System.out.println(chessPiece.getColor());
